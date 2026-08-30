@@ -1,0 +1,159 @@
+{
+  "2433": {
+    "club": "CSD Colo-Colo",
+    "cmf_entity": "Blanco y Negro S.A.",
+    "registry": "Emisor de Valores (Bolsa de Santiago)",
+    "rut": null,
+    "note": "Sociedad anónima abierta que administra Colo-Colo; cotiza en bolsa, fiscalizada por la CMF como emisor de valores, no como SADP."
+  },
+  "1037": {
+    "club": "Club Universidad de Chile",
+    "cmf_entity": "Azul Azul S.A.",
+    "registry": "Emisor de Valores (Bolsa de Santiago)",
+    "rut": null,
+    "note": "Sociedad anónima abierta que administra Universidad de Chile; cotiza en bolsa."
+  },
+  "6363": {
+    "club": "Audax Italiano",
+    "cmf_entity": "AUDAX ITALIANO LA FLORIDA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76670340-2"
+  },
+  "9103": {
+    "club": "CD Cobreloa",
+    "cmf_entity": "COBRELOA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76528540-2"
+  },
+  "17482": {
+    "club": "CD Cobresal",
+    "cmf_entity": "FONDO DE DEPORTE PROFESIONAL - CLUB DE DEPORTES COBRESAL",
+    "registry": "Fondo de deporte profesional",
+    "rut": "5006-7"
+  },
+  "7020": {
+    "club": "CD Everton",
+    "cmf_entity": "EVERTON DE VIÑA DEL MAR S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76682700-4"
+  },
+  "11470": {
+    "club": "CD O'Higgins",
+    "cmf_entity": "OHIGGINS S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76417120-9"
+  },
+  "6536": {
+    "club": "CD Palestino",
+    "cmf_entity": "CLUB DEPORTIVO PALESTINO SADP",
+    "registry": "SADP",
+    "rut": "99569020-9"
+  },
+  "3277": {
+    "club": "CD Universidad Católica",
+    "cmf_entity": "CRUZADOS S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76072469-6"
+  },
+  "14723": {
+    "club": "CD Ñublense",
+    "cmf_entity": "DEPORTIVO ÑUBLENSE S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76689160-8"
+  },
+  "18076": {
+    "club": "Club Deportes Iquique",
+    "cmf_entity": null,
+    "registry": null,
+    "rut": null,
+    "note": "No identificado en el listado SADP vigente de la CMF."
+  },
+  "11004": {
+    "club": "Coquimbo Unido",
+    "cmf_entity": "COQUIMBO UNIDO S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76551070-8"
+  },
+  "19027": {
+    "club": "Curicó Unido",
+    "cmf_entity": "FONDO DE DEPORTE PROFESIONAL - CORPORACION DEPORTIVA PROVINCIAL CURICO UNIDO",
+    "registry": "Fondo de deporte profesional",
+    "rut": "5011-3"
+  },
+  "17222": {
+    "club": "Deportes Antofagasta",
+    "cmf_entity": "CLUB DE DEPORTES ANTOFAGASTA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76680340-7"
+  },
+  "14604": {
+    "club": "Deportes Concepción",
+    "cmf_entity": null,
+    "registry": null,
+    "rut": null,
+    "note": "No identificado en el listado SADP vigente de la CMF."
+  },
+  "20694": {
+    "club": "Deportes Copiapó",
+    "cmf_entity": "CLUB DE DEPORTES COPIAPO S.A.D.P.",
+    "registry": "SADP",
+    "rut": "96829140-8"
+  },
+  "5747": {
+    "club": "Deportes La Serena",
+    "cmf_entity": "CLUB DE DEPORTES LA SERENA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76686120-2"
+  },
+  "26697": {
+    "club": "Deportes Limache",
+    "cmf_entity": "LIMACHINOS S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76282364-0",
+    "note": "Correspondencia por nombre no 100% confirmada; verificar manualmente."
+  },
+  "12949": {
+    "club": "Deportes Melipilla",
+    "cmf_entity": null,
+    "registry": null,
+    "rut": null,
+    "note": "No identificado en el listado SADP vigente de la CMF."
+  },
+  "6368": {
+    "club": "Huachipato FC",
+    "cmf_entity": "HUACHIPATO FC S.A.D.P.",
+    "registry": "SADP",
+    "rut": "77996891-K"
+  },
+  "13394": {
+    "club": "Magallanes",
+    "cmf_entity": "DEPORTES MAGALLANES S.A.D.P.",
+    "registry": "SADP",
+    "rut": "96913170-6"
+  },
+  "2723": {
+    "club": "Santiago Wanderers",
+    "cmf_entity": "CLUB DE DEPORTES SANTIAGO WANDERERS S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76008626-6"
+  },
+  "5622": {
+    "club": "Universidad de Concepción",
+    "cmf_entity": null,
+    "registry": null,
+    "rut": null,
+    "note": "No identificado en el listado SADP vigente de la CMF."
+  },
+  "4321": {
+    "club": "Unión Española",
+    "cmf_entity": "UNION ESPAÑOLA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "76363680-1"
+  },
+  "20514": {
+    "club": "Unión La Calera",
+    "cmf_entity": "DEPORTES UNION LA CALERA S.A.D.P.",
+    "registry": "SADP",
+    "rut": "70391700-3"
+  }
+}

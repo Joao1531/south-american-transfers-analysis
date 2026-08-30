@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Heavy raw scrape caches (514MB, re-generable via scripts 01-03, 06, 08)
+data/raw/club_transfers/
+data/raw/transfer_details/
+data/raw/player_history/
+data/raw/player_profiles/
+data/raw/sellon_research/

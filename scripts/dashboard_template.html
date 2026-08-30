@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chilean Transfer Market 2020–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root, .viz-root {
+    color-scheme: light;
+    --surface-1:  #fcfcfb;
+    --surface-2:  #f2f1ee;
+    --plane:      #f9f9f7;
+    --ink:        #0b0b0b;
+    --ink-2:      #52514e;
+    --muted:      #898781;
+    --grid:       #e1e0d9;
+    --baseline:   #c3c2b7;
+    --border:     rgba(11,11,11,0.10);
+    --accent:     #0353cc; /* Audax Italiano blue */
+    --accent-ink: #ffffff;
+
+    --slot-1: #0353cc; /* blue (Audax)  - transfer_fee */
+    --slot-2: #eb6834; /* orange  - loan_fee */
+    --slot-3: #1baf7a; /* aqua    - loan_free */
+    --slot-4: #eda100; /* yellow  - end_of_loan */
+    --slot-5: #e87ba4; /* magenta - free_transfer */
+    --slot-6: #008300; /* green   - undisclosed */
+    --slot-7: #4a3aa7; /* violet  - unknown */
+    --slot-8: #e34948; /* red     - other */
+
+    --dir-in:  #009c6e; /* Audax tricolor green - arrivals */
+    --dir-out: #d93d3e; /* Audax tricolor red   - departures */
+
+    --good-text: #006300;
+    --font-display: "Barlow Condensed", system-ui, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --surface-2: #232322;
+      --plane:     #0d0d0d;
+      --ink:       #ffffff;
+      --ink-2:     #c3c2b7;
+      --muted:     #898781;
+      --grid:      #2c2c2a;
+      --baseline:  #383835;
+      --border:    rgba(255,255,255,0.10);
+      --accent:    #4d86e8;
+      --accent-ink:#ffffff;
+
+      --slot-1: #4d86e8;
+      --slot-2: #d95926;
+      --slot-3: #199e70;
+      --slot-4: #c98500;
+      --slot-5: #d55181;
+      --slot-6: #008300;
+      --slot-7: #9085e9;
+      --slot-8: #e66767;
+
+      --dir-in:  #1fbf8e;
+      --dir-out: #e8615f;
+
+      --good-text: #0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #232322;
+    --plane:     #0d0d0d;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --muted:     #898781;
+    --grid:      #2c2c2a;
+    --baseline:  #383835;
+    --border:    rgba(255,255,255,0.10);
+    --accent:    #4d86e8;
+    --accent-ink:#ffffff;
+
+    --slot-1: #4d86e8;
+    --slot-2: #d95926;
+    --slot-3: #199e70;
+    --slot-4: #c98500;
+    --slot-5: #d55181;
+    --slot-6: #008300;
+    --slot-7: #9085e9;
+    --slot-8: #e66767;
+
+    --dir-in:  #1fbf8e;
+    --dir-out: #e8615f;
+
+    --good-text: #0ca30c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--plane);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 20px 24px 64px; }
+
+  header.top {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; padding: 8px 0 20px; border-bottom: 3px solid var(--accent);
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .brand-mark {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex: none; padding: 5px;
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .title-block { display: flex; align-items: center; gap: 14px; }
+  h1 {
+    font-family: var(--font-display); font-weight: 800; letter-spacing: 0.01em;
+    font-size: 34px; margin: 0; text-wrap: balance; text-transform: uppercase;
+    line-height: 1;
+  }
+  .title-sub { color: var(--ink-2); font-size: 13px; margin-top: 4px; }
+  .top-meta { text-align: right; color: var(--muted); font-size: 12px; max-width: 340px; }
+  .top-meta b { color: var(--ink-2); }
+
+  section.kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--surface-1); border: 1px solid var(--border); border-top: 2px solid var(--accent);
+    border-radius: 8px 8px 10px 10px;
+    padding: 14px 16px;
+  }
+  .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .kpi .value {
+    font-family: var(--font-display); font-weight: 700; font-size: 26px; margin-top: 4px;
+    font-variant-numeric: tabular-nums; color: var(--accent);
+  }
+  .kpi .sub { font-size: 11px; color: var(--ink-2); margin-top: 2px; }
+
+  .panel {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+  }
+
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    padding: 12px 14px; margin-bottom: 18px;
+  }
+  .filters .field { display: flex; flex-direction: column; gap: 3px; }
+  .filters label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .filters select, .filters input[type="search"] {
+    font-family: var(--font-body); font-size: 13px; color: var(--ink);
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 8px; min-width: 130px;
+  }
+  .filters input[type="search"] { min-width: 220px; }
+  .filters .spacer { flex: 1; }
+  .btn-reset {
+    font-family: var(--font-body); font-size: 12px; color: var(--accent);
+    background: transparent; border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 12px; cursor: pointer;
+  }
+  .btn-reset:hover { background: var(--surface-2); }
+  .checkbox-field { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); white-space: nowrap; padding-top: 3px; cursor: pointer; }
+  .checkbox-field input { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
+
+  .charts-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .charts-row.charts-row-2 { grid-template-columns: 1fr 1fr; }
+  .chart-card { padding: 14px 16px 10px; }
+  .chart-card h3 {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px; text-transform: uppercase;
+    letter-spacing: 0.03em; margin: 0 0 10px; color: var(--ink-2);
+  }
+  .legend { display: flex; gap: 14px; font-size: 11px; color: var(--ink-2); margin-top: 6px; flex-wrap: wrap; }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+  svg.chart text { font-family: var(--font-body); fill: var(--ink-2); }
+  svg.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+  svg.chart .baseline { stroke: var(--baseline); stroke-width: 1; }
+  svg.chart .axis-label { font-size: 10px; fill: var(--muted); }
+  svg.chart .bar-label { font-size: 11px; fill: var(--ink); font-variant-numeric: tabular-nums; }
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 50;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    max-width: 220px; display: none;
+  }
+  .tooltip b { display: block; margin-bottom: 2px; }
+
+  main.content { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+  .table-toolbar { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .table-toolbar .count { font-size: 12px; color: var(--ink-2); }
+  .table-toolbar .count:last-of-type { margin-left: auto; }
+  .table-view-tabs { display: flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+  .tv-tab { font: inherit; font-size: 12px; font-weight: 600; color: var(--ink-2); background: transparent; border: none; border-radius: 6px; padding: 5px 12px; cursor: pointer; }
+  .tv-tab:hover { color: var(--ink); }
+  .tv-tab.active { background: var(--accent); color: var(--accent-ink); }
+  .table-scroll { overflow-x: auto; }
+  table.tr-table { width: 100%; border-collapse: collapse; min-width: 1180px; }
+  table.tr-table thead th {
+    text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--muted); font-weight: 600; padding: 9px 10px; border-bottom: 1px solid var(--border);
+    white-space: nowrap; cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--surface-1);
+  }
+  table.tr-table thead th:hover { color: var(--ink); }
+  table.tr-table thead th.sorted::after { content: " ▾"; color: var(--accent); }
+  table.tr-table thead th.sorted.asc::after { content: " ▴"; }
+  table.tr-table tbody tr.row { border-bottom: 1px solid var(--grid); cursor: pointer; }
+  table.tr-table tbody tr.row:hover { background: var(--surface-2); }
+  table.tr-table td { padding: 8px 10px; font-size: 12.5px; vertical-align: middle; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; font-family: var(--font-mono); font-size: 12px; }
+  td.player { font-weight: 600; }
+  td.player a { color: inherit; text-decoration: none; }
+  td.player a:hover { color: var(--accent); text-decoration: underline; }
+  .club-cell { display: flex; align-items: center; gap: 7px; }
+  .club-cell .crest { width: 18px; height: 18px; object-fit: contain; flex: none; }
+  .club-cell .club-text { display: flex; flex-direction: column; line-height: 1.25; }
+  .club-cell .club { font-weight: 500; }
+  .club-cell .league { font-size: 10.5px; color: var(--muted); }
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10.5px;
+    font-weight: 600; white-space: nowrap; color: #fff;
+  }
+  .chev { color: var(--muted); font-size: 11px; width: 14px; display: inline-block; text-align: center; }
+  .dir-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
+
+  tr.detail-row td { background: var(--surface-2); padding: 0; }
+  .detail-inner { padding: 14px 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 24px; }
+  .detail-inner .dcol .dlabel { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.04em; }
+  .detail-inner .dcol .dval { font-size: 13px; margin-top: 2px; }
+  .chain-block { grid-column: 1 / -1; border-top: 1px dashed var(--border); padding-top: 10px; margin-top: 4px; }
+  .chain-block .dlabel { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 6px; }
+  .chain-item { font-size: 12.5px; padding: 4px 0; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .chain-item .date { font-family: var(--font-mono); color: var(--muted); font-size: 11px; min-width: 74px; }
+  .chain-item .fee { margin-left: auto; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-2); }
+  .sellon-block { background: color-mix(in srgb, var(--accent) 7%, transparent); border-radius: 8px; padding: 10px 12px; margin: 4px 0; border-top: none; }
+  .sellon-block.not-found { background: var(--surface-2); border: 1px dashed var(--border); }
+  .sellon-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .sellon-pct { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--accent); }
+  .sellon-detail { font-size: 12.5px; color: var(--ink-2); }
+  .sellon-cond { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .sellon-quote { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+  .sellon-quote a { color: var(--accent); font-style: normal; }
+  .clause-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 15px; height: 15px; border-radius: 50%; background: var(--accent); color: var(--accent-ink);
+    font-size: 9px; font-weight: 700; margin-left: 5px; vertical-align: middle; cursor: help;
+  }
+  .clause-badge.unknown { background: var(--muted); }
+
+  .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 14px; }
+  .pagination button {
+    font-family: var(--font-body); font-size: 12px; padding: 5px 10px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); cursor: pointer;
+  }
+  .pagination button:disabled { opacity: 0.4; cursor: default; }
+  .pagination button.current { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .pagination span.gap { color: var(--muted); font-size: 12px; }
+
+  footer.notes {
+    margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 11.5px; line-height: 1.7;
+  }
+  footer.notes h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); margin: 0 0 6px; }
+  footer.notes ul { margin: 0 0 14px; padding-left: 18px; }
+  footer.notes a { color: var(--accent); }
+
+  @media (max-width: 1100px) {
+    section.kpis { grid-template-columns: repeat(2, 1fr); }
+    .charts-row { grid-template-columns: 1fr; }
+    .detail-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="title-block">
+      <div class="brand-mark"><img id="brand-logo" alt="Audax Italiano"></div>
+      <div>
+        <h1>Primera División Transfer Market</h1>
+        <div class="title-sub">Every domestic and international transfer involving a Chilean top-flight club, 2020–2026 (through Aug 2026)</div>
+      </div>
+    </div>
+    <div class="top-meta">
+      <b>__GENERATED_COUNT__ unique transfers</b> · 25 clubs that played in the Primera División between 2020 and 2026<br>
+      Primary source: Transfermarkt · corporate cross-reference: CMF Chile
+    </div>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <div class="panel filters" id="filters">
+    <div class="field">
+      <label>Club</label>
+      <select id="f-club"><option value="">All</option></select>
+    </div>
+    <div class="field">
+      <label>Season</label>
+      <select id="f-season"><option value="">All</option></select>
+    </div>
+    <div class="field">
+      <label>Direction</label>
+      <select id="f-dir">
+        <option value="">All</option>
+        <option value="in">Arrivals to the Primera División</option>
+        <option value="out">Departures from the Primera División</option>
+        <option value="domestic">Domestic moves (Chile ↔ Chile)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Transfer type</label>
+      <select id="f-fee"><option value="">All</option></select>
+    </div>
+    <div class="field">
+      <label>Position</label>
+      <select id="f-pos"><option value="">All</option></select>
+    </div>
+    <div class="field">
+      <label>Nationality</label>
+      <select id="f-nat"><option value="">All</option></select>
+    </div>
+    <div class="field">
+      <label>Search player / club</label>
+      <input type="search" id="f-search" placeholder="e.g. Palacios, Boca Juniors…">
+    </div>
+    <div class="field">
+      <label>Clauses</label>
+      <label class="checkbox-field"><input type="checkbox" id="f-clause"> Only confirmed sell-on / buy-back clauses</label>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn-reset" id="btn-reset">Clear filters</button>
+  </div>
+
+  <div class="charts-row">
+    <div class="panel chart-card">
+      <h3>Arrivals vs. departures by season</h3>
+      <svg class="chart" id="chart-trend" viewBox="0 0 520 200" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--dir-in)"></span>Arrivals</span>
+        <span><span class="sw" style="background:var(--dir-out)"></span>Departures</span>
+      </div>
+    </div>
+    <div class="panel chart-card">
+      <h3>Biggest spenders (purchases)</h3>
+      <svg class="chart" id="chart-spend" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="panel chart-card">
+      <h3>Transfer type</h3>
+      <svg class="chart" id="chart-feetype" viewBox="0 0 340 200" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <div class="charts-row charts-row-2">
+    <div class="panel chart-card">
+      <h3>Biggest receivers (sales)</h3>
+      <svg class="chart" id="chart-income" viewBox="0 0 340 150" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="panel chart-card">
+      <h3>Where departures from Chile go (by league)</h3>
+      <svg class="chart" id="chart-destleague" viewBox="0 0 340 125" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <main class="content">
+    <div class="panel">
+      <div class="table-toolbar">
+        <div class="table-view-tabs" id="table-view-tabs">
+          <button class="tv-tab active" data-view="all">All</button>
+          <button class="tv-tab" data-view="in">Arrivals</button>
+          <button class="tv-tab" data-view="out">Departures</button>
+        </div>
+        <span class="count" id="table-count"></span>
+        <span class="count" id="table-page-info"></span>
+      </div>
+      <div class="table-scroll">
+        <table class="tr-table">
+          <thead>
+            <tr>
+              <th data-key="d">Date</th>
+              <th data-key="p">Player</th>
+              <th data-key="pos">Position</th>
+              <th data-key="nat">Nationality</th>
+              <th data-key="age">Age</th>
+              <th data-key="from">From</th>
+              <th data-key="to">To</th>
+              <th data-key="ft">Type</th>
+              <th data-key="fv">Fee</th>
+              <th data-key="mv">Market value</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </main>
+
+  <footer class="notes">
+    <h4>Methodology &amp; limitations</h4>
+    <ul>
+      <li>Universe: the 25 clubs that played in the Chilean Primera División in at least one season between 2020 and 2026 (includes clubs later relegated, e.g. Melipilla, Curicó Unido, Santiago Wanderers, Magallanes).</li>
+      <li>Each transfer is a single record; when both clubs involved are inside the universe above, the same deal was cross-matched from both clubs' pages to avoid double counting.</li>
+      <li>"Market value" is Transfermarkt's own market-value estimate at the time of the transfer, where available — it is not the fee actually paid (that's the "Fee" column).</li>
+      <li>"What happened to this player next" (visible when a row is expanded) shows the player's subsequent moves — including a later sale by the club that signed him, which matters for any sell-on percentage tied to the original deal.</li>
+      <li><b>Sell-on / buy-back / purchase-option clauses</b> (expand a row to see; flagged with <span class="clause-badge" style="margin-left:0">%</span> next to the fee when confirmed, or <span class="clause-badge unknown" style="margin-left:0">?</span> when researched but nothing was found): Transfermarkt does not publish this data at all, so it was gathered through targeted press research (Chile, Argentina, Brazil, Europe) for the 117 transfers that had an actual fee paid — the only ones where this kind of clause tends to get reported. Only percentages/terms explicitly stated by a source were recorded, never estimated; we confirmed a clause in 57 of the 117 cases (49%). Every confirmed clause carries a source link and a verifiable quote. Where two sources disagreed on the exact figure, that's flagged in the record's own notes.</li>
+      <li><b>Not included:</b> per-season match/goal/assist statistics — Transfermarkt moved those pages to JS-only components with no stable API, which made reliable scraping at the scale of ~1,340 players impractical.</li>
+      <li><b>CMF Chile:</b> most Chilean clubs are incorporated as S.A.D.P. (professional sports corporations) and report to Chile's Comisión para el Mercado Financiero; Colo-Colo and Universidad de Chile are run by publicly listed companies (Blanco y Negro S.A. and Azul Azul S.A.) regulated as securities issuers instead. These filings contain aggregate annual financial statements, not per-transfer data — useful as a club-level financial cross-check, not as a transfer database.</li>
+      <li>Fee and market-value figures are sourced from Transfermarkt in EUR and converted to USD at a flat rate of €1 = $1.08 for display. Amounts inside sell-on/buy-back quotes are kept exactly as originally reported (mostly already in USD in Chilean/Argentine press).</li>
+    </ul>
+  </footer>
+
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const DATA = __DATA_JSON__;
+const CLUBS = __CLUBS_JSON__;
+const CMF = __CMF_JSON__;
+const SEASONS = __SEASONS_JSON__;
+const POSITIONS = __POSITIONS_JSON__;
+const NATIONALITIES = __NAT_JSON__;
+const FEE_META = __FEEMETA_JSON__;
+const CRESTS = __CRESTS_JSON__;
+document.getElementById('brand-logo').src = __AUDAX_CREST_URI__;
+
+const SLOT = {1:'var(--slot-1)',2:'var(--slot-2)',3:'var(--slot-3)',4:'var(--slot-4)',5:'var(--slot-5)',6:'var(--slot-6)',7:'var(--slot-7)',8:'var(--slot-8)'};
+const EUR_TO_USD = 1.08;
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmtUSD(v){
+  if (v === null || v === undefined) return '—';
+  const usd = v * EUR_TO_USD;
+  const abs = Math.abs(usd);
+  if (abs >= 1e6) return '$' + (usd/1e6).toFixed(usd%1e6===0?0:2) + 'm';
+  if (abs >= 1e3) return '$' + Math.round(usd/1e3) + 'k';
+  return '$' + Math.round(usd);
+}
+function fmtDate(iso){
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-');
+  if (!m) return iso;
+  return `${MONTHS[Number(m)-1]} ${Number(d)}, ${y}`;
+}
+function feeLabel(ft){ return (FEE_META[ft] && FEE_META[ft].label) || ft || '—'; }
+function feeSlot(ft){ return (FEE_META[ft] && FEE_META[ft].slot) || 8; }
+const CLAUSE_TYPE_LABEL = {'sell-on':'Sell-on clause','buy-back':'Buy-back clause','option-to-buy':'Purchase option'};
+
+// ---------- populate filter selects ----------
+const clubSel = document.getElementById('f-club');
+CLUBS.forEach(([id,name]) => {
+  const o = document.createElement('option'); o.value = id; o.textContent = name; clubSel.appendChild(o);
+});
+const seasonSel = document.getElementById('f-season');
+SEASONS.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; seasonSel.appendChild(o); });
+const feeSel = document.getElementById('f-fee');
+Object.entries(FEE_META).sort((a,b)=>a[1].slot-b[1].slot).forEach(([k,v]) => {
+  const o = document.createElement('option'); o.value = k; o.textContent = v.label; feeSel.appendChild(o);
+});
+const posSel = document.getElementById('f-pos');
+POSITIONS.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; posSel.appendChild(o); });
+const natSel = document.getElementById('f-nat');
+NATIONALITIES.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = n; natSel.appendChild(o); });
+
+// ---------- state ----------
+let state = { club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
+
+// When a specific club is selected, "arrival"/"departure" is relative to THAT club
+// (a domestic transfer between two tracked clubs is both an arrival and a
+// departure at the league level, but exactly one of the two for one club).
+function isArrivalRow(r){ return state.club ? (r.t.id === state.club) : (r.ts && !r.fs); }
+function isDepartureRow(r){ return state.club ? (r.f.id === state.club) : (r.fs && !r.ts); }
+function tableViewRows(rows){
+  if (state.tableView === 'in') return rows.filter(isArrivalRow);
+  if (state.tableView === 'out') return rows.filter(isDepartureRow);
+  return rows;
+}
+const PAGE_SIZE = 50;
+const expanded = new Set();
+
+function applyFilters(){
+  const q = state.q.trim().toLowerCase();
+  return DATA.filter(r => {
+    if (state.club && r.f.id !== state.club && r.t.id !== state.club) return false;
+    if (state.season && String(r.s) !== state.season) return false;
+    if (state.dir === 'in' && !(r.ts && !r.fs)) return false;
+    if (state.dir === 'out' && !(r.fs && !r.ts)) return false;
+    if (state.dir === 'domestic' && !(r.fs && r.ts)) return false;
+    if (state.fee && r.ft !== state.fee) return false;
+    if (state.pos && r.pos !== state.pos) return false;
+    if (state.nat && r.nat !== state.nat) return false;
+    if (state.clauseOnly && !(r.sc && r.sc.found)) return false;
+    if (q) {
+      const hay = (r.p + ' ' + r.f.n + ' ' + r.t.n).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function sortRows(rows){
+  const {sortKey, sortDir} = state;
+  const mul = sortDir === 'asc' ? 1 : -1;
+  const keyFn = {
+    d: r => r.d || '',
+    p: r => r.p || '',
+    pos: r => r.pos || '',
+    nat: r => r.nat || '',
+    age: r => Number(r.age) || 0,
+    from: r => r.f.n || '',
+    to: r => r.t.n || '',
+    ft: r => feeLabel(r.ft),
+    fv: r => (r.fv === null ? -1 : r.fv),
+    mv: r => (r.mv === null ? -1 : r.mv),
+  }[sortKey] || (r => r.d);
+  return rows.slice().sort((a,b) => {
+    const va = keyFn(a), vb = keyFn(b);
+    if (va < vb) return -1 * mul;
+    if (va > vb) return 1 * mul;
+    return 0;
+  });
+}
+
+function render(){
+  const filtered = sortRows(applyFilters());
+  renderKPIs(filtered);
+  renderCharts(filtered);
+  renderTable(tableViewRows(filtered));
+}
+
+// ---------- KPIs ----------
+function renderKPIs(rows){
+  const arrivals = rows.filter(isArrivalRow).length;
+  const departures = rows.filter(isDepartureRow).length;
+  const spend = rows.filter(r => isArrivalRow(r) && r.fv).reduce((s,r)=>s+r.fv,0);
+  const income = rows.filter(r => isDepartureRow(r) && r.fv).reduce((s,r)=>s+r.fv,0);
+  const withFee = rows.filter(r => r.fv);
+  const top = withFee.length ? withFee.reduce((a,b)=> b.fv>a.fv?b:a) : null;
+  const avgFee = withFee.length ? withFee.reduce((s,r)=>s+r.fv,0) / withFee.length : null;
+  const withClause = rows.filter(r => r.sc && r.sc.found).length;
+  const kpis = [
+    {label:'Transfers (current filter)', value: rows.length.toLocaleString('en-US')},
+    {label:'Arrivals', value: arrivals.toLocaleString('en-US')},
+    {label:'Departures', value: departures.toLocaleString('en-US')},
+    {label:'Spent on purchases', value: fmtUSD(spend)},
+    {label:'Earned from sales', value: fmtUSD(income)},
+    {label:'Average fee', value: avgFee!==null ? fmtUSD(avgFee) : '—', sub: `across ${withFee.length.toLocaleString('en-US')} transfers with a known fee`},
+    {label:'Biggest transfer', value: top ? fmtUSD(top.fv) : '—', sub: top ? top.p : ''},
+    {label:'With a confirmed sell-on %', value: withClause.toLocaleString('en-US'), sub: 'via press research, not Transfermarkt'},
+  ];
+  const el = document.getElementById('kpis');
+  el.innerHTML = kpis.map(k => `
+    <div class="kpi">
+      <div class="label">${k.label}</div>
+      <div class="value">${k.value}</div>
+      ${k.sub ? `<div class="sub">${k.sub}</div>` : ''}
+    </div>`).join('');
+}
+
+// ---------- charts ----------
+const tooltip = document.getElementById('tooltip');
+function showTip(evt, html){
+  tooltip.innerHTML = html; tooltip.style.display = 'block';
+  const x = evt.clientX, y = evt.clientY;
+  tooltip.style.left = Math.min(x+14, window.innerWidth-240) + 'px';
+  tooltip.style.top = (y+14) + 'px';
+}
+function hideTip(){ tooltip.style.display = 'none'; }
+
+function renderCharts(rows){
+  renderTrendChart(rows);
+  renderSpendChart(rows);
+  renderFeeTypeChart(rows);
+  renderIncomeChart(rows);
+  renderDestLeagueChart(rows);
+}
+
+function svgEl(tag, attrs){
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function renderTrendChart(rows){
+  const svg = document.getElementById('chart-trend');
+  svg.innerHTML = '';
+  const W=520,H=200,padL=30,padR=14,padT=14,padB=24;
+  const byYear = {};
+  SEASONS.forEach(s => byYear[s] = {in:0,out:0});
+  rows.forEach(r => {
+    if (!byYear[r.s]) return;
+    if (r.ts && !r.fs) byYear[r.s].in++;
+    if (r.fs && !r.ts) byYear[r.s].out++;
+  });
+  const years = SEASONS;
+  const maxV = Math.max(1, ...years.map(y => Math.max(byYear[y].in, byYear[y].out)));
+  const x = i => padL + i*( (W-padL-padR) / Math.max(1,years.length-1) );
+  const y = v => H-padB - (v/maxV)*(H-padT-padB);
+
+  [0,0.5,1].forEach(f => {
+    const gy = H-padB-f*(H-padT-padB);
+    svg.appendChild(svgEl('line',{x1:padL,x2:W-padR,y1:gy,y2:gy,class:'gridline'}));
+    const t = svgEl('text',{x:4,y:gy+3,class:'axis-label'}); t.textContent = Math.round(f*maxV); svg.appendChild(t);
+  });
+  svg.appendChild(svgEl('line',{x1:padL,x2:W-padR,y1:H-padB,y2:H-padB,class:'baseline'}));
+
+  years.forEach((yr,i) => {
+    const t = svgEl('text',{x:x(i),y:H-6,class:'axis-label','text-anchor':'middle'}); t.textContent = yr; svg.appendChild(t);
+  });
+
+  function line(key, color){
+    const pts = years.map((yr,i) => [x(i), y(byYear[yr][key])]);
+    const d = pts.map((p,i) => (i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+    svg.appendChild(svgEl('path',{d, fill:'none', stroke:color, 'stroke-width':2, 'stroke-linecap':'round'}));
+    pts.forEach(([px,py],i) => {
+      const c = svgEl('circle',{cx:px,cy:py,r:4,fill:color,stroke:'var(--surface-1)','stroke-width':1.5, style:'cursor:pointer'});
+      c.addEventListener('mousemove', e => showTip(e, `<b>${years[i]}</b>${key==='in'?'Arrivals':'Departures'}: ${byYear[years[i]][key]}`));
+      c.addEventListener('mouseleave', hideTip);
+      svg.appendChild(c);
+    });
+  }
+  line('in','var(--dir-in)');
+  line('out','var(--dir-out)');
+}
+
+function renderSpendChart(rows){
+  const svg = document.getElementById('chart-spend');
+  svg.innerHTML = '';
+  const W=340,H=200,padL=8,padR=54,padT=6,padB=6;
+  const spendByClub = {};
+  rows.forEach(r => {
+    if (r.ts && r.fv && r.t.id) spendByClub[r.t.id] = (spendByClub[r.t.id]||0) + r.fv;
+  });
+  const clubName = id => (CLUBS.find(c=>c[0]===id)||[id,id])[1];
+  const top = Object.entries(spendByClub).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  if (!top.length){
+    const t = svgEl('text',{x:W/2,y:H/2,class:'axis-label','text-anchor':'middle'}); t.textContent='No fee data for this filter'; svg.appendChild(t); return;
+  }
+  const maxV = top[0][1];
+  const rowH = (H-padT-padB)/top.length;
+  top.forEach(([id,val],i) => {
+    const barW = (val/maxV) * (W-padL-padR-90);
+    const yc = padT + i*rowH + rowH*0.2;
+    const bh = rowH*0.6;
+    if (CRESTS[id]) {
+      const img = svgEl('image',{x:0,y:yc+bh/2-7,width:14,height:14,href:CRESTS[id]});
+      svg.appendChild(img);
+    }
+    const label = svgEl('text',{x:18,y:yc+bh/2+4,class:'axis-label'}); label.textContent = clubName(id); svg.appendChild(label);
+    const bar = svgEl('rect',{x:92,y:yc,width:Math.max(2,barW),height:bh,rx:3,fill:'var(--accent)',style:'cursor:pointer'});
+    bar.addEventListener('mousemove', e => showTip(e, `<b>${clubName(id)}</b>Spent: ${fmtUSD(val)}`));
+    bar.addEventListener('mouseleave', hideTip);
+    svg.appendChild(bar);
+    const vlabel = svgEl('text',{x:92+Math.max(2,barW)+6,y:yc+bh/2+4,class:'bar-label'}); vlabel.textContent = fmtUSD(val); svg.appendChild(vlabel);
+  });
+}
+
+function renderIncomeChart(rows){
+  const svg = document.getElementById('chart-income');
+  svg.innerHTML = '';
+  const W=340,H=150,padL=8,padR=54,padT=6,padB=6;
+  const incomeByClub = {};
+  rows.forEach(r => {
+    if (r.fs && r.fv && r.f.id) incomeByClub[r.f.id] = (incomeByClub[r.f.id]||0) + r.fv;
+  });
+  const clubName = id => (CLUBS.find(c=>c[0]===id)||[id,id])[1];
+  const top = Object.entries(incomeByClub).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  if (!top.length){
+    const t = svgEl('text',{x:W/2,y:H/2,class:'axis-label','text-anchor':'middle'}); t.textContent='No fee data for this filter'; svg.appendChild(t); return;
+  }
+  const maxV = top[0][1];
+  const rowH = (H-padT-padB)/top.length;
+  top.forEach(([id,val],i) => {
+    const barW = (val/maxV) * (W-padL-padR-90);
+    const yc = padT + i*rowH + rowH*0.2;
+    const bh = rowH*0.6;
+    if (CRESTS[id]) {
+      const img = svgEl('image',{x:0,y:yc+bh/2-7,width:14,height:14,href:CRESTS[id]});
+      svg.appendChild(img);
+    }
+    const label = svgEl('text',{x:18,y:yc+bh/2+4,class:'axis-label'}); label.textContent = clubName(id); svg.appendChild(label);
+    const bar = svgEl('rect',{x:92,y:yc,width:Math.max(2,barW),height:bh,rx:3,fill:'var(--dir-in)',style:'cursor:pointer'});
+    bar.addEventListener('mousemove', e => showTip(e, `<b>${clubName(id)}</b>Received: ${fmtUSD(val)}`));
+    bar.addEventListener('mouseleave', hideTip);
+    svg.appendChild(bar);
+    const vlabel = svgEl('text',{x:92+Math.max(2,barW)+6,y:yc+bh/2+4,class:'bar-label'}); vlabel.textContent = fmtUSD(val); svg.appendChild(vlabel);
+  });
+}
+
+function renderDestLeagueChart(rows){
+  const svg = document.getElementById('chart-destleague');
+  svg.innerHTML = '';
+  const W=340,H=125,padT=6,padB=6;
+  // Only original departures FROM a Chile PD club TO somewhere outside the
+  // tracked 25-club universe -- excludes domestic moves and excludes any
+  // "subsequent transfer" chain entries (those aren't part of `rows` at all).
+  const departures = rows.filter(r => r.fs && !r.ts);
+  const counts = {};
+  departures.forEach(r => {
+    const key = r.t.l || (r.t.n ? r.t.n : 'No club / unknown');
+    counts[key] = (counts[key]||0) + 1;
+  });
+  let entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if (entries.length > 8) {
+    const rest = entries.slice(8).reduce((s,[,v])=>s+v,0);
+    entries = entries.slice(0,8);
+    if (rest) entries.push(['Other', rest]);
+  }
+  if (!entries.length){
+    const t = svgEl('text',{x:W/2,y:H/2,class:'axis-label','text-anchor':'middle'}); t.textContent='No departures for this filter'; svg.appendChild(t); return;
+  }
+  const maxV = Math.max(...entries.map(e=>e[1]));
+  const barX = 128, labelPad = 36; // reserve room so the trailing count never clips
+  const barMaxW = W - barX - labelPad;
+  const rowH = (H-padT-padB)/entries.length;
+  entries.forEach(([league,val],i) => {
+    const barW = (val/maxV) * barMaxW;
+    const yc = padT + i*rowH + rowH*0.18;
+    const bh = rowH*0.64;
+    const label = svgEl('text',{x:0,y:yc+bh/2+4,class:'axis-label'}); label.textContent = league; svg.appendChild(label);
+    const bar = svgEl('rect',{x:barX,y:yc,width:Math.max(2,barW),height:bh,rx:3,fill:SLOT[(i%8)+1],style:'cursor:pointer'});
+    bar.addEventListener('mousemove', e => showTip(e, `<b>${league}</b>${val} departure${val===1?'':'s'}`));
+    bar.addEventListener('mouseleave', hideTip);
+    svg.appendChild(bar);
+    const vlabel = svgEl('text',{x:barX+Math.max(2,barW)+6,y:yc+bh/2+4,class:'bar-label'}); vlabel.textContent = val; svg.appendChild(vlabel);
+  });
+}
+
+function renderFeeTypeChart(rows){
+  const svg = document.getElementById('chart-feetype');
+  svg.innerHTML = '';
+  const W=340,H=200,padT=6,padB=6;
+  const counts = {};
+  rows.forEach(r => { counts[r.ft] = (counts[r.ft]||0)+1; });
+  const entries = Object.entries(counts).sort((a,b)=>feeSlot(a[0])-feeSlot(b[0]));
+  if (!entries.length) return;
+  const maxV = Math.max(...entries.map(e=>e[1]));
+  const barX = 118, labelPad = 36;
+  const barMaxW = W - barX - labelPad;
+  const rowH = (H-padT-padB)/entries.length;
+  entries.forEach(([ft,val],i) => {
+    const barW = (val/maxV) * barMaxW;
+    const yc = padT + i*rowH + rowH*0.18;
+    const bh = rowH*0.64;
+    const label = svgEl('text',{x:0,y:yc+bh/2+4,class:'axis-label'}); label.textContent = feeLabel(ft); svg.appendChild(label);
+    const bar = svgEl('rect',{x:barX,y:yc,width:Math.max(2,barW),height:bh,rx:3,fill:SLOT[feeSlot(ft)],style:'cursor:pointer'});
+    bar.addEventListener('mousemove', e => showTip(e, `<b>${feeLabel(ft)}</b>${val} transfers`));
+    bar.addEventListener('mouseleave', hideTip);
+    svg.appendChild(bar);
+    const vlabel = svgEl('text',{x:barX+Math.max(2,barW)+6,y:yc+bh/2+4,class:'bar-label'}); vlabel.textContent = val; svg.appendChild(vlabel);
+  });
+}
+
+// ---------- table ----------
+function clubCell(side){
+  const crest = side.id && CRESTS[side.id] ? `<img class="crest" src="${CRESTS[side.id]}" alt="">` : '';
+  return `<div class="club-cell">${crest}<div class="club-text"><span class="club">${side.n||'—'}</span>${side.l?`<span class="league">${side.l}${side.c && side.c!=='Chile' ? ' · '+side.c : ''}</span>`:''}</div></div>`;
+}
+
+function renderTable(rows){
+  document.getElementById('table-count').textContent = `${rows.length.toLocaleString('en-US')} transfers`;
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  if (state.page > totalPages) state.page = totalPages;
+  const start = (state.page-1)*PAGE_SIZE;
+  const pageRows = rows.slice(start, start+PAGE_SIZE);
+  document.getElementById('table-page-info').textContent = `Page ${state.page} of ${totalPages}`;
+
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = pageRows.map(r => {
+    const isOpen = expanded.has(r.id);
+    const dirDot = r.ts && !r.fs ? 'var(--dir-in)' : (r.fs && !r.ts ? 'var(--dir-out)' : 'var(--muted)');
+    const dirTitle = r.ts && !r.fs ? 'Arrival' : (r.fs && !r.ts ? 'Departure' : 'Domestic move');
+    let clauseBadge = '';
+    if (r.sc && r.sc.found) {
+      clauseBadge = `<span class="clause-badge" title="Documented sell-on/buy-back clause — see detail">%</span>`;
+    } else if (r.sc && !r.sc.found) {
+      clauseBadge = `<span class="clause-badge unknown" title="Researched in the press — no clause publicly reported">?</span>`;
+    }
+    let html = `
+      <tr class="row" data-id="${r.id}">
+        <td><span class="chev">${isOpen?'▾':'▸'}</span><span class="dir-dot" style="background:${dirDot}" title="${dirTitle}"></span>${fmtDate(r.d)}</td>
+        <td class="player"><a href="${r.pu}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${r.p}</a></td>
+        <td>${r.pos}</td>
+        <td>${r.nat||'—'}</td>
+        <td class="num">${r.age||'—'}</td>
+        <td>${clubCell(r.f)}</td>
+        <td>${clubCell(r.t)}</td>
+        <td><span class="pill" style="background:${SLOT[feeSlot(r.ft)]}">${feeLabel(r.ft)}</span></td>
+        <td class="num">${fmtUSD(r.fv)}${clauseBadge}</td>
+        <td class="num">${fmtUSD(r.mv)}</td>
+      </tr>`;
+    if (isOpen) html += detailRow(r);
+    return html;
+  }).join('');
+
+  tbody.querySelectorAll('tr.row').forEach(tr => {
+    tr.addEventListener('click', () => {
+      const id = tr.getAttribute('data-id');
+      if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
+      renderTable(tableViewRows(sortRows(applyFilters())));
+    });
+  });
+
+  renderPagination(totalPages);
+}
+
+function detailRow(r){
+  const chain = r.chain.length ? r.chain.map(c => `
+    <div class="chain-item">
+      <span class="date">${fmtDate(c.d)}</span>
+      <span>${c.f} → ${c.t}</span>
+      <span class="fee">${c.fee||''}${c.mv?` · MV ${c.mv}`:''}</span>
+    </div>`).join('') : '<div class="chain-item" style="color:var(--muted)">No subsequent transfers recorded to date.</div>';
+
+  let sellon = '';
+  if (r.sc && r.sc.found) {
+    sellon = `
+    <div class="chain-block sellon-block">
+      <div class="dlabel">Sell-on / buy-back clause (source: press)</div>
+      <div class="sellon-row">
+        <span class="sellon-pct">${r.sc.pct || (r.sc.type||'clause')}</span>
+        <span class="sellon-detail">${r.sc.type ? (CLAUSE_TYPE_LABEL[r.sc.type] || r.sc.type) : ''}${r.sc.ben ? ` — held by ${r.sc.ben}` : ''}</span>
+      </div>
+      ${r.sc.cond ? `<div class="sellon-cond">${r.sc.cond}</div>` : ''}
+      ${r.sc.q ? `<div class="sellon-quote">"${r.sc.q}"${r.sc.url ? ` — <a href="${r.sc.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">source</a>` : ''}</div>` : ''}
+      ${r.sc.note ? `<div class="sellon-cond" style="opacity:0.75">${r.sc.note}</div>` : ''}
+    </div>`;
+  } else if (r.sc && !r.sc.found) {
+    sellon = `
+    <div class="chain-block sellon-block not-found">
+      <div class="dlabel">Sell-on / buy-back clause (source: press)</div>
+      <div class="sellon-row">
+        <span class="sellon-detail"><span class="clause-badge unknown" style="margin-left:0">?</span> Researched in the Chilean/regional press — no sell-on, buy-back, or purchase-option clause was found reported for this deal.</span>
+      </div>
+      ${r.sc.note ? `<div class="sellon-cond" style="opacity:0.75">${r.sc.note}</div>` : ''}
+    </div>`;
+  }
+
+  const bioParts = [];
+  if (r.dob) bioParts.push(`Born ${fmtDate(r.dob)}`);
+  if (r.ht) bioParts.push(`${r.ht} cm`);
+  if (r.foot) bioParts.push(`${r.foot.charAt(0).toUpperCase()+r.foot.slice(1)}-footed`);
+  const natParts = [r.nat].filter(Boolean);
+  if (r.dn && r.nat2) natParts.push(r.nat2);
+  const bioLine = bioParts.length ? bioParts.join(' · ') : '—';
+  const natLine = natParts.length ? natParts.join(' + ') + (r.dn ? ' (dual national)' : '') : '—';
+
+  let contractVal = r.cd || '—';
+  if (r.ced && r.cmr !== null && r.cmr !== undefined) {
+    contractVal += ` <span style="opacity:0.7">— ends ${fmtDate(r.ced)}, ${r.cmr} mo. left at transfer</span>`;
+  }
+
+  return `<tr class="detail-row"><td colspan="10"><div class="detail-inner">
+    <div class="dcol"><div class="dlabel">Player bio</div><div class="dval">${bioLine}</div></div>
+    <div class="dcol"><div class="dlabel">Nationality</div><div class="dval">${natLine}</div></div>
+    <div class="dcol"><div class="dlabel">Agent</div><div class="dval">${r.ag||'—'}</div></div>
+    <div class="dcol"><div class="dlabel">Original fee text</div><div class="dval">${r.ftx||'—'}</div></div>
+    <div class="dcol"><div class="dlabel">Precise age at transfer</div><div class="dval">${r.agep||'—'}</div></div>
+    <div class="dcol"><div class="dlabel">Remaining contract</div><div class="dval">${contractVal}</div></div>
+    <div class="dcol"><div class="dlabel">Coach (outgoing → incoming)</div><div class="dval">${r.cf||'—'} → ${r.ct||'—'}</div></div>
+    ${sellon}
+    <div class="chain-block">
+      <div class="dlabel">What happened to this player next</div>
+      ${chain}
+    </div>
+  </div></td></tr>`;
+}
+
+function renderPagination(totalPages){
+  const el = document.getElementById('pagination');
+  if (totalPages <= 1){ el.innerHTML=''; return; }
+  const cur = state.page;
+  let pages = [];
+  for (let p=1;p<=totalPages;p++){
+    if (p===1||p===totalPages||Math.abs(p-cur)<=2) pages.push(p);
+    else if (pages[pages.length-1] !== '…') pages.push('…');
+  }
+  el.innerHTML = `
+    <button ${cur===1?'disabled':''} data-p="${cur-1}">‹</button>
+    ${pages.map(p => p==='…' ? `<span class="gap">…</span>` : `<button class="${p===cur?'current':''}" data-p="${p}">${p}</button>`).join('')}
+    <button ${cur===totalPages?'disabled':''} data-p="${cur+1}">›</button>
+  `;
+  el.querySelectorAll('button[data-p]').forEach(b => {
+    b.addEventListener('click', () => { state.page = Number(b.getAttribute('data-p')); render(); window.scrollTo({top: document.querySelector('main').offsetTop-20, behavior:'smooth'}); });
+  });
+}
+
+// ---------- events ----------
+document.getElementById('f-club').addEventListener('change', e => { state.club=e.target.value; state.page=1; state.tableView='all'; setTableViewTab('all'); render(); });
+document.getElementById('f-season').addEventListener('change', e => { state.season=e.target.value; state.page=1; render(); });
+document.getElementById('f-dir').addEventListener('change', e => { state.dir=e.target.value; state.page=1; render(); });
+document.getElementById('f-fee').addEventListener('change', e => { state.fee=e.target.value; state.page=1; render(); });
+document.getElementById('f-pos').addEventListener('change', e => { state.pos=e.target.value; state.page=1; render(); });
+document.getElementById('f-nat').addEventListener('change', e => { state.nat=e.target.value; state.page=1; render(); });
+document.getElementById('f-clause').addEventListener('change', e => { state.clauseOnly=e.target.checked; state.page=1; render(); });
+let searchTimer;
+document.getElementById('f-search').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => { state.q = e.target.value; state.page=1; render(); }, 180);
+});
+document.getElementById('btn-reset').addEventListener('click', () => {
+  state = { club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
+  document.querySelectorAll('.filters select').forEach(s => s.value='');
+  document.getElementById('f-search').value='';
+  document.getElementById('f-clause').checked=false;
+  setTableViewTab('all');
+  render();
+});
+function setTableViewTab(view){
+  document.querySelectorAll('.tv-tab').forEach(b => b.classList.toggle('active', b.getAttribute('data-view')===view));
+}
+document.querySelectorAll('.tv-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.tableView = btn.getAttribute('data-view');
+    state.page = 1;
+    setTableViewTab(state.tableView);
+    render();
+  });
+});
+document.querySelectorAll('table.tr-table thead th').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.getAttribute('data-key');
+    if (state.sortKey === key) state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+    else { state.sortKey = key; state.sortDir = 'desc'; }
+    document.querySelectorAll('table.tr-table thead th').forEach(t => t.classList.remove('sorted','asc'));
+    th.classList.add('sorted'); if (state.sortDir==='asc') th.classList.add('asc');
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

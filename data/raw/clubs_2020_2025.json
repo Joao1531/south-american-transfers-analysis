@@ -1,0 +1,572 @@
+{
+  "all_clubs": {
+    "2433": {
+      "slug": "csd-colo-colo",
+      "name": "CSD Colo-Colo"
+    },
+    "3277": {
+      "slug": "cd-universidad-catolica",
+      "name": "CD Universidad Católica"
+    },
+    "4321": {
+      "slug": "union-espanola",
+      "name": "Unión Española"
+    },
+    "6536": {
+      "slug": "cd-palestino",
+      "name": "CD Palestino"
+    },
+    "1037": {
+      "slug": "club-universidad-de-chile",
+      "name": "Club Universidad de Chile"
+    },
+    "20514": {
+      "slug": "union-la-calera",
+      "name": "Unión La Calera"
+    },
+    "5747": {
+      "slug": "deportes-la-serena",
+      "name": "Deportes La Serena"
+    },
+    "17222": {
+      "slug": "club-de-deportes-antofagasta",
+      "name": "Deportes Antofagasta"
+    },
+    "11470": {
+      "slug": "cd-ohiggins",
+      "name": "CD O'Higgins"
+    },
+    "7020": {
+      "slug": "cd-everton",
+      "name": "CD Everton"
+    },
+    "6363": {
+      "slug": "audax-italiano",
+      "name": "Audax Italiano"
+    },
+    "6368": {
+      "slug": "huachipato-fc",
+      "name": "Huachipato FC"
+    },
+    "19027": {
+      "slug": "cdp-curico-unido",
+      "name": "Curicó Unido"
+    },
+    "14723": {
+      "slug": "cd-nublense",
+      "name": "CD Ñublense"
+    },
+    "2723": {
+      "slug": "santiago-wanderers",
+      "name": "Santiago Wanderers"
+    },
+    "17482": {
+      "slug": "cd-cobresal",
+      "name": "CD Cobresal"
+    },
+    "12949": {
+      "slug": "deportes-melipilla",
+      "name": "Deportes Melipilla"
+    },
+    "11004": {
+      "slug": "coquimbo-unido",
+      "name": "Coquimbo Unido"
+    },
+    "13394": {
+      "slug": "magallanes-cf",
+      "name": "Magallanes"
+    },
+    "20694": {
+      "slug": "deportes-copiapo",
+      "name": "Deportes Copiapó"
+    },
+    "9103": {
+      "slug": "deportes-cobreloa",
+      "name": "CD Cobreloa"
+    },
+    "18076": {
+      "slug": "club-deportes-iquique",
+      "name": "Club Deportes Iquique"
+    },
+    "26697": {
+      "slug": "club-de-deportes-limache",
+      "name": "Deportes Limache"
+    },
+    "5622": {
+      "slug": "universidad-concepcion",
+      "name": "Universidad de Concepción"
+    },
+    "14604": {
+      "slug": "deportes-concepcion",
+      "name": "Deportes Concepción"
+    }
+  },
+  "by_season": {
+    "2020": {
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "4321": {
+        "slug": "union-espanola",
+        "name": "Unión Española"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "5747": {
+        "slug": "deportes-la-serena",
+        "name": "Deportes La Serena"
+      },
+      "17222": {
+        "slug": "club-de-deportes-antofagasta",
+        "name": "Deportes Antofagasta"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "19027": {
+        "slug": "cdp-curico-unido",
+        "name": "Curicó Unido"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "2723": {
+        "slug": "santiago-wanderers",
+        "name": "Santiago Wanderers"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "12949": {
+        "slug": "deportes-melipilla",
+        "name": "Deportes Melipilla"
+      }
+    },
+    "2021": {
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "17222": {
+        "slug": "club-de-deportes-antofagasta",
+        "name": "Deportes Antofagasta"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "4321": {
+        "slug": "union-espanola",
+        "name": "Unión Española"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "5747": {
+        "slug": "deportes-la-serena",
+        "name": "Deportes La Serena"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "19027": {
+        "slug": "cdp-curico-unido",
+        "name": "Curicó Unido"
+      }
+    },
+    "2022": {
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "4321": {
+        "slug": "union-espanola",
+        "name": "Unión Española"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "19027": {
+        "slug": "cdp-curico-unido",
+        "name": "Curicó Unido"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "13394": {
+        "slug": "magallanes-cf",
+        "name": "Magallanes"
+      },
+      "20694": {
+        "slug": "deportes-copiapo",
+        "name": "Deportes Copiapó"
+      }
+    },
+    "2023": {
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "4321": {
+        "slug": "union-espanola",
+        "name": "Unión Española"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "9103": {
+        "slug": "deportes-cobreloa",
+        "name": "CD Cobreloa"
+      },
+      "18076": {
+        "slug": "club-deportes-iquique",
+        "name": "Club Deportes Iquique"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "20694": {
+        "slug": "deportes-copiapo",
+        "name": "Deportes Copiapó"
+      }
+    },
+    "2024": {
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "4321": {
+        "slug": "union-espanola",
+        "name": "Unión Española"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "18076": {
+        "slug": "club-deportes-iquique",
+        "name": "Club Deportes Iquique"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "5747": {
+        "slug": "deportes-la-serena",
+        "name": "Deportes La Serena"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "26697": {
+        "slug": "club-de-deportes-limache",
+        "name": "Deportes Limache"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      }
+    },
+    "2025": {
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "26697": {
+        "slug": "club-de-deportes-limache",
+        "name": "Deportes Limache"
+      },
+      "5747": {
+        "slug": "deportes-la-serena",
+        "name": "Deportes La Serena"
+      },
+      "5622": {
+        "slug": "universidad-concepcion",
+        "name": "Universidad de Concepción"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "14604": {
+        "slug": "deportes-concepcion",
+        "name": "Deportes Concepción"
+      }
+    },
+    "2026": {
+      "1037": {
+        "slug": "club-universidad-de-chile",
+        "name": "Club Universidad de Chile"
+      },
+      "3277": {
+        "slug": "cd-universidad-catolica",
+        "name": "CD Universidad Católica"
+      },
+      "2433": {
+        "slug": "csd-colo-colo",
+        "name": "CSD Colo-Colo"
+      },
+      "11470": {
+        "slug": "cd-ohiggins",
+        "name": "CD O'Higgins"
+      },
+      "11004": {
+        "slug": "coquimbo-unido",
+        "name": "Coquimbo Unido"
+      },
+      "6363": {
+        "slug": "audax-italiano",
+        "name": "Audax Italiano"
+      },
+      "7020": {
+        "slug": "cd-everton",
+        "name": "CD Everton"
+      },
+      "6536": {
+        "slug": "cd-palestino",
+        "name": "CD Palestino"
+      },
+      "26697": {
+        "slug": "club-de-deportes-limache",
+        "name": "Deportes Limache"
+      },
+      "5747": {
+        "slug": "deportes-la-serena",
+        "name": "Deportes La Serena"
+      },
+      "5622": {
+        "slug": "universidad-concepcion",
+        "name": "Universidad de Concepción"
+      },
+      "14723": {
+        "slug": "cd-nublense",
+        "name": "CD Ñublense"
+      },
+      "20514": {
+        "slug": "union-la-calera",
+        "name": "Unión La Calera"
+      },
+      "6368": {
+        "slug": "huachipato-fc",
+        "name": "Huachipato FC"
+      },
+      "17482": {
+        "slug": "cd-cobresal",
+        "name": "CD Cobresal"
+      },
+      "14604": {
+        "slug": "deportes-concepcion",
+        "name": "Deportes Concepción"
+      }
+    }
+  }
+}

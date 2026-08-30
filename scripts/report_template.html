@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audax Transfer Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:  #fcfcfb;
+    --surface-2:  #f2f1ee;
+    --plane:      #f9f9f7;
+    --ink:        #0b0b0b;
+    --ink-2:      #52514e;
+    --muted:      #898781;
+    --grid:       #e1e0d9;
+    --border:     rgba(11,11,11,0.10);
+    --accent:     #0353cc;
+    --accent-ink: #ffffff;
+    --good:       #009c6e;
+    --bad:        #d93d3e;
+    --callout-bg: color-mix(in srgb, var(--accent) 6%, var(--surface-1));
+    --font-display: "Barlow Condensed", system-ui, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --surface-2: #232322;
+      --plane:     #0d0d0d;
+      --ink:       #ffffff;
+      --ink-2:     #c3c2b7;
+      --muted:     #898781;
+      --grid:      #2c2c2a;
+      --border:    rgba(255,255,255,0.10);
+      --accent:    #4d86e8;
+      --good:      #1fbf8e;
+      --bad:       #e8615f;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #232322;
+    --plane:     #0d0d0d;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --muted:     #898781;
+    --grid:      #2c2c2a;
+    --border:    rgba(255,255,255,0.10);
+    --accent:    #4d86e8;
+    --good:      #1fbf8e;
+    --bad:       #e8615f;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--plane); color: var(--ink);
+    font-family: var(--font-body); font-size: 15.5px; line-height: 1.65;
+  }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 100px; }
+  .prose { max-width: 680px; }
+
+  header.top {
+    display: flex; align-items: center; gap: 16px;
+    padding-bottom: 24px; border-bottom: 3px solid var(--accent); margin-bottom: 32px;
+  }
+  .brand-mark {
+    width: 52px; height: 52px; border-radius: 10px; background: var(--surface-1);
+    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+    flex: none; padding: 6px;
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 4px; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 0.01em; text-wrap: balance; line-height: 1.05; }
+  .top-sub { color: var(--ink-2); font-size: 13.5px; margin-top: 6px; }
+
+  h2 {
+    font-family: var(--font-display); font-weight: 700; font-size: 26px; text-transform: uppercase;
+    letter-spacing: 0.01em; margin: 56px 0 6px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--ink); text-wrap: balance;
+  }
+  h2 .num { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 10px; }
+  .section-dek { color: var(--ink-2); font-size: 14.5px; margin: 0 0 22px; max-width: 680px; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin: 0 0 10px; }
+  h4 { font-family: var(--font-body); font-weight: 700; font-size: 15px; margin: 24px 0 8px; color: var(--ink); }
+  p { margin: 0 0 14px; }
+  a { color: var(--accent); }
+  .prose p, .prose li { max-width: 680px; }
+  .inference { color: var(--muted); font-style: italic; }
+
+  .callout {
+    background: var(--callout-bg); border-left: 3px solid var(--accent);
+    border-radius: 4px; padding: 12px 16px; margin: 16px 0;
+  }
+
+  .tldr {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; margin-bottom: 8px;
+  }
+  .tldr h2 { margin-top: 0; padding-top: 0; border-top: none; font-size: 20px; }
+  .tldr ul { margin: 0; padding-left: 20px; }
+  .tldr li { margin-bottom: 8px; }
+  .tldr li::marker { color: var(--accent); }
+
+  /* Big 3 cards */
+  .big3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 8px; }
+  .big3-card { background: var(--surface-1); border: 1px solid var(--border); border-top: 2px solid var(--accent); border-radius: 8px 8px 10px 10px; padding: 16px; }
+  .big3-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .big3-crest { width: 22px; height: 22px; object-fit: contain; }
+  .big3-card h3 { margin: 0; font-size: 17px; }
+  .big3-stat-row { display: flex; gap: 12px; margin-bottom: 8px; }
+  .big3-stat-row > div { flex: 1; display: flex; flex-direction: column; }
+  .big3-stat-row .n { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .big3-stat-row .l { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .big3-money { display: flex; gap: 10px; margin: 12px 0; padding: 10px 0; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); }
+  .big3-money > div { flex: 1; display: flex; flex-direction: column; }
+  .big3-money .l { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+  .big3-money .n { font-family: var(--font-mono); font-weight: 600; font-size: 14px; }
+  .big3-money .n.pos { color: var(--good); }
+  .big3-money .n.neg { color: var(--bad); }
+  .big3-note { font-size: 12.5px; color: var(--ink-2); margin-bottom: 8px; }
+
+  /* data tables */
+  .table-scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--border); border-radius: 8px; }
+  table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data th {
+    text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--muted); font-weight: 600; padding: 9px 12px; border-bottom: 1px solid var(--border);
+    background: var(--surface-1); white-space: nowrap; position: sticky; top: 0;
+  }
+  table.data td { padding: 7px 12px; border-bottom: 1px solid var(--grid); }
+  table.data td.num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); text-align: right; }
+  table.data tbody tr:hover { background: var(--surface-2); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+  .tag-moved { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+  .tag-stable { background: color-mix(in srgb, var(--muted) 18%, transparent); color: var(--ink-2); }
+
+  /* loan stat strip */
+  .stat-strip { display: flex; gap: 14px; margin: 18px 0; flex-wrap: wrap; }
+  .stat-box { flex: 1; min-width: 140px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .stat-box .n { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--accent); font-variant-numeric: tabular-nums; display: block; }
+  .stat-box .l { font-size: 11.5px; color: var(--ink-2); margin-top: 2px; }
+
+  details.sources { margin-top: 20px; font-size: 12.5px; color: var(--muted); }
+  details.sources summary { cursor: pointer; font-weight: 600; color: var(--ink-2); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.05em; }
+  details.sources ul { padding-left: 18px; margin-top: 8px; }
+  details.sources li { margin-bottom: 4px; }
+
+  .case-study {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 22px 24px; margin: 20px 0;
+  }
+  .case-timeline { list-style: none; padding: 0; margin: 16px 0; border-left: 2px solid var(--border); }
+  .case-timeline li { padding: 0 0 14px 20px; position: relative; }
+  .case-timeline li::before {
+    content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--accent); border: 2px solid var(--surface-1);
+  }
+  .case-timeline .date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); display: block; }
+  .case-verdict { background: var(--callout-bg); border-left: 3px solid var(--bad); border-radius: 4px; padding: 12px 16px; margin-top: 16px; }
+
+  footer.notes {
+    margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; line-height: 1.7;
+  }
+
+  @media (max-width: 720px) {
+    .big3-grid { grid-template-columns: 1fr; }
+    .stat-strip { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand-mark"><img src="__AUDAX_LOGO__" alt="Audax Italiano"></div>
+    <div>
+      <p class="eyebrow">Prepared for Audax Italiano</p>
+      <h1>Chilean Transfer Market Intelligence</h1>
+      <div class="top-sub">A deep dive into how money, players, and clauses actually move through Chilean football — 2020–2026</div>
+    </div>
+  </header>
+
+  <section class="tldr">
+    <h2>TL;DR</h2>
+    <ul>
+      <li><b>Free transfers can hide real money.</b> Matías Palavecino left Coquimbo Unido for Universidad Católica for €0 despite a €1m market value — his contract had simply expired, so Coquimbo got nothing. That's the single most avoidable mistake in this data: letting a valuable player's contract run out costs the selling club everything.</li>
+      <li><b>Sell-on clauses are common in Chile and often pay off later, not immediately.</b> We individually checked __CLAUSE_TOTAL_CHECKED__ transfers against the press and confirmed __CLAUSE_TOTAL_FOUND__ real clauses. Of those, __CLAUSE_MOVED__ (__CLAUSE_MOVED_PCT__%) already involve the player moving to a THIRD club since — meaning the clause may already be owed, or was already paid, without it necessarily making headlines.</li>
+      <li><b>Only Universidad Católica runs a clearly profitable transfer model among the "big 3."</b> Colo-Colo is modestly net-positive; Universidad de Chile is net-negative over the period — despite all three being considered the league's biggest sellers.</li>
+      <li><b>Argentina is Chile's most valuable market — not because it pays the most, but because it buys the most and acts as a shop window</b> for a second, bigger sale later. Brazil pays the highest average fee per deal but buys rarely and selectively.</li>
+      <li><b>Most loans quietly evaporate — unless a fee was negotiated upfront.</b> 78% of tracked loan-outs end with the player moving on again without the parent club capturing further value. But among loans that DID carry a disclosed fee, __LOANFEE_FOUND__ of __LOANFEE_CHECKED__ turned out to have a real purchase-option, sell-on, or buy-back clause attached — the negotiating discipline at signing is what makes the difference.</li>
+      <li><b>A real structured source for transfer percentages does exist — for two clubs.</b> Colo-Colo's and Universidad de Chile's audited CMF financial filings contain a per-player table with exact "% federative / % economic rights" splits. Everyone else's clauses still have to be found in the press.</li>
+    </ul>
+  </section>
+
+  <h2><span class="num">01</span>The Big Three</h2>
+  <p class="section-dek">Colo-Colo, Universidad Católica and Universidad de Chile are the league's benchmark sellers. Here's what each has actually done with the transfer market, 2020–2026.</p>
+  <div class="big3-grid">
+    __BIG3_CARDS__
+  </div>
+  <p class="prose" style="margin-top:14px;">Reading across the three: Universidad Católica spends the least and earns the second-most, making it the only one of the three with a clearly disciplined, profitable transfer model over this window. Colo-Colo trades the most volume in both directions and finishes modestly ahead. Universidad de Chile — despite producing the single biggest sale in the dataset (Darío Osorio, $5.6m) — has spent slightly more than it has earned overall, meaning its transfer account doesn't fund itself the way the other two do.</p>
+
+  <h2><span class="num">02</span>Case study: the Palavecino free transfer</h2>
+  <p class="section-dek">Coquimbo Unido → Universidad Católica, January 2026 — the transfer that cost Coquimbo everything.</p>
+  <div class="case-study">
+    <h3>Matías Palavecino, 27, Attacking Midfield (Argentina)</h3>
+    <ul class="case-timeline">
+      <li><span class="date">Jan 2023</span> Joins Coquimbo Unido as a free agent from Gimnasia y Esgrima (Jujuy), Argentina's 2nd division. Market value: €300k.</li>
+      <li><span class="date">Aug 2023</span> Loaned to Belgrano (Argentina) for a €73k loan fee. Market value climbs to €500k.</li>
+      <li><span class="date">Dec 2024</span> Loan ends, returns to Coquimbo. Market value dips to €150k.</li>
+      <li><span class="date">2025 season</span> Becomes one of the standout figures as Coquimbo wins its first-ever Chilean league title. Market value rockets to €1.00m.</li>
+      <li><span class="date">Jan 2026</span> Leaves for Universidad Católica — as a pure free transfer. Both Colo-Colo and Universidad Católica competed for his signature; Católica won.</li>
+    </ul>
+    <p>Coquimbo did not negotiate a sell-on clause, a fee, or any compensation — because there was nothing left to negotiate. His contract had simply expired, a point confirmed directly by Chilean press coverage of his exit. He was Coquimbo's second key departure on a free that same week, after striker Cecilio Waterman.</p>
+    <div class="case-verdict"><b>The lesson for Audax:</b> a player's market value can quadruple while under contract, but none of that value converts to cash unless the club either sells before expiry or extends the contract early enough to negotiate from strength. Once a contract is allowed to run down, the buying club owes nothing at all — not even a nominal fee or a resale percentage. For a club like Audax that develops rather than buys established talent, contract-renewal timing on any player whose value is rising is at least as important as scouting the next signing.</p>
+  </div>
+
+  <h2><span class="num">03</span>Sell-on clauses: where the money actually stands today</h2>
+  <p class="section-dek">All __CLAUSE_TOTAL_FOUND__ transfers in our database with a press-confirmed sell-on, buy-back, or purchase-option clause — out of __CLAUSE_TOTAL_CHECKED__ individually checked across every paid transfer, every high-value free transfer, and every disclosed-fee loan since 2020 — cross-checked against each player's full Transfermarkt career history to see whether they've moved again since, which is exactly when these clauses get triggered.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Player</th><th>Clause</th><th>Held by</th><th>Sold to (original deal)</th><th>Status today</th></tr></thead>
+      <tbody>
+        __SELLON_ROWS__
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:13px;color:var(--ink-2)">"Moved on" doesn't guarantee the clause was paid — some are shared economic-rights splits with no automatic trigger, and Transfermarkt doesn't confirm settlement. But it does mean the triggering event (a further sale) has already happened, so it's worth a direct check with the counterpart club if the amount is meaningful.</p>
+
+  <h2><span class="num">04</span>Do "free transfers" ever hide a clause?</h2>
+  <p class="section-dek">We tested the Palavecino pattern against every other high-value "free transfer" in the database (market value ≥ €300k) to see how often a club actually negotiated something despite taking no fee: __FREE_CHECKED__ transfers checked, __FREE_FOUND__ confirmed hits. The low hit rate is itself the finding — it confirms Palavecino's zero-compensation exit is the norm, not the exception, for a lapsed contract.</p>
+  __AGENT_FREE_CLAUSES__
+
+  <h2><span class="num">05</span>The loan playbook: what happens when it ends</h2>
+  <p class="section-dek">439 loan-out deals from Chilean top-flight clubs since 2020, tracked through to their actual resolution using each player's subsequent transfer history.</p>
+  <div class="stat-strip">
+    <div class="stat-box"><span class="n">__LOAN_TOTAL__</span><span class="l">total loans out</span></div>
+    <div class="stat-box"><span class="n">__LOAN_RETURNED_MOVED__</span><span class="l">returned, then moved on again</span></div>
+    <div class="stat-box"><span class="n">__LOAN_RETURNED_STAYED__</span><span class="l">returned and stayed (so far)</span></div>
+    <div class="stat-box"><span class="n">__LOAN_CONVERTED__</span><span class="l">bought outright by the loan host</span></div>
+  </div>
+  <p class="prose">That's the league-wide pattern. But when we individually researched the __LOANFEE_CHECKED__ loans that had a disclosed loan fee (a proxy for "the parent club considered this player valuable enough to negotiate terms up front"), the picture flips completely: __LOANFEE_FOUND__ of __LOANFEE_CHECKED__ had a real, sourced purchase-option, sell-on, or buy-back clause attached at signing.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Player</th><th>Move</th><th>Clause type</th><th>Terms</th><th>Status</th></tr></thead>
+      <tbody>
+        __LOAN_CLAUSE_ROWS__
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:13px;color:var(--ink-2)">Standouts: Jordhy Thompson's loan to FC Orenburg had a mandatory 60% purchase option triggered at 10 appearances — he played 12, Colo-Colo collected $1.2m and kept the rest for a future sale. Franco Calderón's 2026 loan to Independiente stacks an 80% option, a loan-extension fee, <b>and</b> a buy-back right for Universidad de Chile, all netting against each other. Colo-Colo's loan of Brayan Cortés to Peñarol shows the floor rising in real time during negotiation: the first offer from Peñarol landed under half of the final figure, before the two sides settled on an option worth more than $1.35m against Colo-Colo's $1m minimum.</p>
+  __AGENT_LOAN_PRACTICES__
+
+  <h2><span class="num">06</span>Which leagues actually value Chilean talent?</h2>
+  <p class="section-dek">Pure departures from a Chilean top-flight club to a club outside our 25-club universe — no domestic moves, no subsequent chain transfers, just the original exit.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Destination country</th><th>Total departures</th><th>With disclosed fee</th><th>Average fee</th></tr></thead>
+      <tbody>
+        __LEAGUE_ROWS__
+      </tbody>
+    </table>
+  </div>
+  __AGENT_LEAGUE_RECEPTION__
+
+  <h2><span class="num">07</span>Is there a real source for transfer percentages in Chile?</h2>
+  <p class="section-dek">We've been finding sell-on clauses one article at a time. We asked whether a more systematic, official source exists.</p>
+  __AGENT_SOURCE_VERDICT__
+
+  <h2><span class="num">08</span>What this means for Audax Italiano</h2>
+  <div class="prose">
+    <p>Audax sits well below the "big 3" in transfer volume and fees, but every dynamic above still applies at Audax's scale — usually with less room for error, since Audax can't absorb a Palavecino-style zero as easily as Universidad Católica's rivals can.</p>
+    <ul>
+      <li><b>Track contract expiry dates like a sales pipeline.</b> Any Audax player whose market value is rising should be renewed, sold, or loaned with an option well before the final year of his contract — the Palavecino case shows exactly how much value evaporates otherwise.</li>
+      <li><b>Never loan out a promising player without a purchase option or sell-on clause attached.</b> The data shows 78% of loans return no further value to the parent club specifically because no such clause existed at signing — not because the player failed to develop.</li>
+      <li><b>Treat Argentina as the default first stop for a sale, not a last resort.</b> It's the highest-volume, most logistically simple market, and functions as a stepping stone toward a bigger second sale — which matters even more for a smaller seller like Audax that's unlikely to land a direct Brazil-sized fee.</li>
+      <li><b>Chase the resale, not just the headline fee.</b> A modest sale with a well-drafted 20-30% sell-on clause can end up worth more than a larger sale with none — several clubs smaller than Audax (Deportes Antofagasta, Ñublense, Independiente Rivadavia) have collected real money years later this way.</li>
+      <li><b>Keep your own record — don't expect outside help.</b> CMF filings only cover Colo-Colo and Universidad de Chile (see section 07); for everyone else, including Audax's own deals, whatever gets negotiated only stays visible if Audax keeps its own record of it.</li>
+    </ul>
+  </div>
+
+  <footer class="notes">
+    <p><b>Methodology:</b> quantitative figures are computed from our own Transfermarkt-derived database of 3,370 transfers involving the 25 clubs that played in the Chilean Primera División between 2020 and 2026. Sell-on/buy-back clause data, the free-transfer clause check, league-reception analysis, loan-practice context, and the CMF/source verdict were gathered via targeted press research (Chile, Argentina, Brazil) — every specific claim is sourced; general patterns are labeled as inference where they are not.</p>
+    <p>Fee and market-value figures are converted from Transfermarkt's EUR at a flat €1 = $1.08 for display. This report is a companion to the full <a href="#">Chilean Transfer Market dashboard</a>.</p>
+  </footer>
+
+</div>
+</body>
+</html>

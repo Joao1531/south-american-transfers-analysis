@@ -5,26 +5,34 @@ dashboard table/charts can show a logo for opponents too (Boca Juniors,
 River Plate, Belgrano, etc.) without bloating the file -- uses the
 "smallquad" (30x30, ~2KB) Transfermarkt crest variant.
 """
+import argparse
 import json
 import os
 import time
 import requests
+
+import league_config
 
 BASE = "https://img.a.transfermarkt.technology/wappen/smallquad"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
 }
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = league_config.ROOT
 OUT_DIR = os.path.join(ROOT, "data", "raw", "crests_sq")
-CANONICAL = os.path.join(ROOT, "data", "processed", "canonical_transfers.json")
 DELAY = 0.3
 SKIP_IDS = {"515"}  # Transfermarkt's "Without Club" pseudo-entity
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    canonical_path = os.path.join(config["processed_dir"], "canonical_transfers.json")
+
     os.makedirs(OUT_DIR, exist_ok=True)
-    canonical = json.load(open(CANONICAL, encoding="utf-8"))
+    canonical = json.load(open(canonical_path, encoding="utf-8"))
     club_ids = set()
     for r in canonical:
         for side in (r["from_club"], r["to_club"]):

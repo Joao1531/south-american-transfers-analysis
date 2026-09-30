@@ -11,13 +11,15 @@ the buying club's page) whenever both clubs are in our 25-club universe. This
 script groups by transfer_id so each transfer appears exactly once, with a
 clear from_club / to_club, then attaches enrichment.
 """
+import argparse
 import json
 import os
 import re
 from collections import defaultdict
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROC = os.path.join(ROOT, "data", "processed")
+import league_config
+
+ROOT = league_config.ROOT
 
 SQUAD_SUFFIX_RE = re.compile(
     r"\s+(U1[5-9]|U2[0-3]|Sub[- ]?1[5-9]|Sub[- ]?2[0-3]|II|B|Reserves?|Res\.|Youth|Juvenil[es]*|Cadetes?)\s*$",
@@ -47,19 +49,19 @@ def is_internal_squad_move(from_club, to_club):
     return fbase == tbase and (fname != fbase or tname != tbase)
 
 
-def load(name, default):
-    path = os.path.join(PROC, name)
+def load(proc, name, default):
+    path = os.path.join(proc, name)
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             return json.load(f)
     return default
 
 
-def club_side(rec):
+def club_side(rec, country):
     return {
         "club_id": rec["club_id"],
         "club_name": rec["club_name"],
-        "country": "Chile",
+        "country": country,
     }
 
 
@@ -145,12 +147,30 @@ def parse_contract(text, transfer_date):
 
 
 def main():
-    raw = load("transfers_raw.json", [])
-    details = load("transfer_details.json", {})
-    histories = load("player_transfer_history.json", {})
-    cmf_map = load("cmf_club_mapping.json", {})
-    sellon = load("sellon_research_merged.json", {})
-    profiles = load("player_profiles.json", {})
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    proc = config["processed_dir"]
+    country = config["country"]
+
+    if args.league == "chile":
+        season_key = "season_chile"
+        from_scope_key = "from_is_chile_pd_scope"
+        to_scope_key = "to_is_chile_pd_scope"
+        both_scope_key = "both_sides_in_chile_pd_scope"
+    else:
+        season_key = "season_league"
+        from_scope_key = "from_is_league_scope"
+        to_scope_key = "to_is_league_scope"
+        both_scope_key = "both_sides_in_league_scope"
+
+    raw = load(proc, "transfers_raw.json", [])
+    details = load(proc, "transfer_details.json", {})
+    histories = load(proc, "player_transfer_history.json", {})
+    cmf_map = load(proc, "cmf_club_mapping.json", {})
+    sellon = load(proc, "sellon_research_merged.json", {})
+    profiles = load(proc, "player_profiles.json", {})
 
     by_tid = defaultdict(list)
     for r in raw:
@@ -164,14 +184,14 @@ def main():
         base = in_rec or out_rec
 
         if out_rec:
-            from_club = club_side(out_rec)
+            from_club = club_side(out_rec, country)
         elif in_rec:
             from_club = counterpart_side(in_rec)
         else:
             from_club = {}
 
         if in_rec:
-            to_club = club_side(in_rec)
+            to_club = club_side(in_rec, country)
         elif out_rec:
             to_club = counterpart_side(out_rec)
         else:
@@ -193,6 +213,11 @@ def main():
             t_date = f"{base['season']}-01-01"
 
         contract_end_date, months_remaining = parse_contract(detail.get("remaining_contract_duration"), t_date)
+        # Transfermarkt's `season` (saison_id) follows the European July-June convention.
+        # South American leagues run by calendar year (Feb-Nov), so "season 2020"
+        # on Transfermarkt is mostly actual 2021 activity here. season_key is the
+        # correct calendar-year bucket, derived directly from the transfer date.
+        season_bucket = int(t_date[:4]) if t_date else None
         profile = profiles.get(player_id, {}) or {}
         nationalities = profile.get("nationalities") or []
 
@@ -205,12 +230,14 @@ def main():
             "nationality": base["nationality"],
             "age_at_transfer": base["age_at_transfer"],
             "season": (out_rec or in_rec)["season"],
+            "season_transfermarkt": (out_rec or in_rec)["season"],
+            season_key: season_bucket,
             "seasons_seen": sorted({r["season"] for r in recs}),
             "from_club": from_club,
             "to_club": to_club,
-            "both_sides_in_chile_pd_scope": both_in_scope,
-            "from_is_chile_pd_scope": from_is_scope,
-            "to_is_chile_pd_scope": to_is_scope,
+            both_scope_key: both_in_scope,
+            from_scope_key: from_is_scope,
+            to_scope_key: to_is_scope,
             "fee_text": base["fee_text"],
             "fee_type": base["fee_type"],
             "fee_value_eur": base["fee_value_eur"],
@@ -237,7 +264,8 @@ def main():
 
     canonical.sort(key=lambda r: (r["transfer_date"] or "", r["player_name"]))
 
-    out_path = os.path.join(PROC, "canonical_transfers.json")
+    out_path = os.path.join(proc, "canonical_transfers.json")
+    os.makedirs(proc, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(canonical, f, ensure_ascii=False)
 
@@ -247,13 +275,15 @@ def main():
     print(f"  excluded (youth/reserve -> first-team promotion, same club): {excluded_internal}")
     print(f"  with transfer-detail enrichment: {enrichment_details}")
     print(f"  with a known subsequent move:    {with_chain}")
-    print(f"  both sides in Chile-PD scope:    {sum(1 for r in canonical if r['both_sides_in_chile_pd_scope'])}")
+    print(f"  both sides in league scope:      {sum(1 for r in canonical if r[both_scope_key])}")
     print(f"  with a documented sell-on/buy-back clause: {sum(1 for r in canonical if r['sellon_clause'] and r['sellon_clause'].get('found'))}")
     print(f"  researched but not found:                  {sum(1 for r in canonical if r['sellon_clause'] and not r['sellon_clause'].get('found'))}")
     print(f"  with height:                     {sum(1 for r in canonical if r['height_cm'])}")
     print(f"  with agent:                      {sum(1 for r in canonical if r['agent'])}")
     print(f"  with dual/multi nationality:      {sum(1 for r in canonical if r['dual_nationality'])}")
     print(f"  with contract_end_date parsed:    {sum(1 for r in canonical if r['contract_end_date'])}")
+    from collections import Counter
+    print(f"  {season_key} distribution: {dict(sorted(Counter(r[season_key] for r in canonical if r[season_key]).items()))}")
 
 
 if __name__ == "__main__":

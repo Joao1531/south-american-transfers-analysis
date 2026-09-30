@@ -1,21 +1,22 @@
 """
-Combine dashboard/index.html and report/index.html into one tabbed artifact.
-Each original page is embedded verbatim as an iframe srcdoc, so neither page's
-CSS or JS needs to be touched or re-scoped -- full isolation, zero collision risk.
-Run this LAST, after 05_build_dashboard.py and 07_build_report.py.
+Combine the Audax report and one transfer dashboard per country into a single
+tabbed artifact. Each original page is embedded verbatim as an iframe srcdoc, so
+no page's CSS or JS needs to be touched or re-scoped -- full isolation, zero
+collision risk.
+Run this LAST, after 07_build_report.py and 05_build_dashboard.py --league X for
+every country (chile, uruguay, paraguay, peru).
 """
+import argparse
 import json
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DASHBOARD_HTML = os.path.join(ROOT, "dashboard", "index.html")
 REPORT_HTML = os.path.join(ROOT, "report", "index.html")
 OUT_DIR = os.path.join(ROOT, "combined")
-OUT_PATH = os.path.join(OUT_DIR, "index.html")
 
 
 SHELL = r"""<!doctype html>
-<html lang="en">
+<html lang="__LANG__">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,24 +104,23 @@ SHELL = r"""<!doctype html>
   <nav class="tabbar">
     <div class="tabbar-brand"><img src="__AUDAX_LOGO__" alt=""></div>
     <div class="tabbar-title">Audax Transfer Intelligence</div>
-    <button class="tab-btn active" data-tab="report">Intelligence Report</button>
-    <button class="tab-btn" data-tab="dashboard">Transfer Database</button>
+    <button class="tab-btn active" data-tab="report">__REPORT_LABEL__</button>
+    __COUNTRY_BUTTONS__
   </nav>
   <main class="frames">
-    <iframe class="tab-frame" id="frame-dashboard" title="Transfer Database"></iframe>
-    <iframe class="tab-frame active" id="frame-report" title="Intelligence Report"></iframe>
+    __COUNTRY_FRAMES__
+    <iframe class="tab-frame active" id="frame-report" title="__REPORT_LABEL__"></iframe>
   </main>
 
 <script>
-const DASHBOARD_HTML = __DASHBOARD_JSON__;
-const REPORT_HTML = __REPORT_JSON__;
+const PAGES = __PAGES_JSON__;
 
-const frames = { dashboard: document.getElementById('frame-dashboard'), report: document.getElementById('frame-report') };
-let loaded = { dashboard: false, report: false };
+const frames = Object.fromEntries(Object.keys(PAGES).map(k => [k, document.getElementById('frame-' + k)]));
+const loaded = Object.fromEntries(Object.keys(PAGES).map(k => [k, false]));
 
 function loadTab(name){
   if (loaded[name]) return;
-  frames[name].srcdoc = name === 'dashboard' ? DASHBOARD_HTML : REPORT_HTML;
+  frames[name].srcdoc = PAGES[name];
   loaded[name] = true;
 }
 loadTab('report');
@@ -140,31 +140,50 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 """
 
 
+def args_lang(es):
+    return "es" if es else "en"
+
+
 def main():
-    with open(DASHBOARD_HTML, encoding="utf-8") as f:
-        dashboard_html = f.read()
-    with open(REPORT_HTML, encoding="utf-8") as f:
-        report_html = f.read()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lang", default="en", choices=["en", "es"])
+    es = parser.parse_args().lang == "es"
+    suffix = "_es" if es else ""
+    tabs = [("chile", "Chile"), ("uruguay", "Uruguay"), ("paraguay", "Paraguay"), ("peru", "Perú" if es else "Peru")]
+    report_label = "Informe de Inteligencia Audax" if es else "Audax Intelligence Report"
+
+    pages = {}
+    with open(os.path.join(ROOT, "report", f"index{suffix}.html"), encoding="utf-8") as f:
+        pages["report"] = f.read()
+    for key, _ in tabs:
+        with open(os.path.join(ROOT, "dashboard", key, f"index{suffix}.html"), encoding="utf-8") as f:
+            pages[key] = f.read()
 
     import base64
     audax_crest = os.path.join(ROOT, "data", "raw", "crests", "6363.png")
     with open(audax_crest, "rb") as f:
         audax_uri = "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
 
-    def safe_json(html):
+    def safe_json_obj(obj):
         # Prevent the embedded HTML's own "</script>" from prematurely closing
         # the outer <script> tag -- the HTML tokenizer matches this literally,
         # regardless of JS string-quoting context.
-        return json.dumps(html).replace("</script", "<\\/script").replace("</SCRIPT", "<\\/SCRIPT")
+        return json.dumps(obj).replace("</script", "<\\/script").replace("</SCRIPT", "<\\/SCRIPT")
 
+    buttons = "\n    ".join(f'<button class="tab-btn" data-tab="{k}">{label}</button>' for k, label in tabs)
+    country_frames = "\n    ".join(
+        f'<iframe class="tab-frame" id="frame-{k}" title="{label}"></iframe>' for k, label in tabs)
     shell = SHELL.replace("__AUDAX_LOGO__", audax_uri)
-    shell = shell.replace("__DASHBOARD_JSON__", safe_json(dashboard_html))
-    shell = shell.replace("__REPORT_JSON__", safe_json(report_html))
+    shell = shell.replace("__LANG__", args_lang(es)).replace("__REPORT_LABEL__", report_label)
+    shell = shell.replace("__COUNTRY_BUTTONS__", buttons)
+    shell = shell.replace("__COUNTRY_FRAMES__", country_frames)
+    shell = shell.replace("__PAGES_JSON__", safe_json_obj(pages))
 
+    out_path = os.path.join(OUT_DIR, f"index{suffix}.html")
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write(shell)
-    print(f"Combined artifact written -> {OUT_PATH} ({os.path.getsize(OUT_PATH)/1024/1024:.2f} MB)")
+    print(f"Combined artifact written -> {out_path} ({os.path.getsize(out_path)/1024/1024:.2f} MB)")
 
 
 if __name__ == "__main__":

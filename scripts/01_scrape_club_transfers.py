@@ -5,6 +5,7 @@ club that played in the Chilean Primera Division between 2020 and 2025.
 Polite scraping: disk cache per page, ~1.3s delay between live requests,
 identifying User-Agent, single-threaded.
 """
+import argparse
 import json
 import os
 import re
@@ -13,20 +14,19 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+import league_config
+
 BASE = "https://www.transfermarkt.com"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",
 }
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = league_config.ROOT
 RAW_DIR = os.path.join(ROOT, "data", "raw", "club_transfers")
-OUT_PATH = os.path.join(ROOT, "data", "processed", "transfers_raw.json")
-CLUBS_PATH = os.path.join(ROOT, "data", "raw", "clubs_2020_2025.json")
 DELAY = 1.3
 
 os.makedirs(RAW_DIR, exist_ok=True)
-os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
 
 
 def fetch(url, cache_path):
@@ -209,7 +209,14 @@ def scrape_club_season(club_id, slug, season, club_name):
 
 
 def main():
-    clubs = json.load(open(CLUBS_PATH, encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    out_path = os.path.join(config["processed_dir"], "transfers_raw.json")
+    os.makedirs(config["processed_dir"], exist_ok=True)
+
+    clubs = json.load(open(config["clubs_path"], encoding="utf-8"))
     all_records = []
     pairs = []
     for season, season_clubs in clubs["by_season"].items():
@@ -223,12 +230,12 @@ def main():
         recs = scrape_club_season(cid, slug, season, name)
         all_records.extend(recs)
         if i % 10 == 0:
-            with open(OUT_PATH, "w", encoding="utf-8") as f:
+            with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(all_records, f, ensure_ascii=False, indent=2)
 
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(all_records, f, ensure_ascii=False, indent=2)
-    print(f"Done. {len(all_records)} transfer records -> {OUT_PATH}")
+    print(f"Done. {len(all_records)} transfer records -> {out_path}")
 
 
 if __name__ == "__main__":

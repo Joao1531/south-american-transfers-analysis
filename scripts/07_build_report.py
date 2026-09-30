@@ -4,16 +4,47 @@ Combines local data analysis (Big 3 profiles, sell-on tracker, loan stats,
 league stats) with narrative text from research agents (saved as plain text
 files in report/agent_sections/).
 """
+import argparse
 import base64
 import json
 import os
 import re
+
+import i18n_report_es
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(ROOT, "data", "processed")
 REPORT_DIR = os.path.join(ROOT, "report")
 AGENT_DIR = os.path.join(REPORT_DIR, "agent_sections")
 AUDAX_CREST = os.path.join(ROOT, "data", "raw", "crests", "6363.png")
+
+EN = {
+    "pending": "<p><em>Research pending — {name} not yet available.</em></p>",
+    "arrivals": "arrivals",
+    "departures": "departures",
+    "avg_age_arr": "avg. age, arrivals",
+    "avg_age_dep": "avg. age, departures",
+    "spent": "Spent",
+    "earned": "Earned",
+    "net": "Net",
+    "big3_note": ("{chilean_pct:.0f}% of departures are Chilean nationals; of those, {abroad_pct:.0f}% leave the country entirely "
+                  "(rest stay in Chilean football, mostly lower divisions). Top international destinations: {top}."),
+    "biggest_sale": "Biggest sale:",
+    "biggest_buy": "Biggest buy:",
+    "buy_from": "from",
+    "moved_on": "moved on → {name}",
+    "still_there": "still there",
+    "clause": "clause",
+    "no_clause": "no clause found",
+    "confirmed": "confirmed",
+    "clause_labels": {"option-to-buy": "Option to buy", "mandatory-purchase": "Mandatory purchase",
+                      "sell-on": "Sell-on", "buy-back": "Buy-back"},
+    "unknown_country": "Unknown",
+    "million": "m",
+}
+T = EN
+COUNTRY_ES = {}
+DECIMAL_COMMA = False
 
 BIG3 = {"2433": "Colo-Colo", "3277": "U. Católica", "1037": "U. de Chile"}
 
@@ -37,10 +68,16 @@ def fmt_usd(eur, decimals=2):
         return "—"
     usd = eur * 1.08
     if abs(usd) >= 1e6:
-        return f"${usd/1e6:.{decimals}f}m"
-    if abs(usd) >= 1e3:
-        return f"${usd/1e3:.0f}k"
-    return f"${usd:.0f}"
+        out = f"${usd/1e6:.{decimals}f}{T['million']}"
+    elif abs(usd) >= 1e3:
+        out = f"${usd/1e3:.0f}k"
+    else:
+        out = f"${usd:.0f}"
+    return out.replace(".", ",") if DECIMAL_COMMA else out
+
+
+def country(c):
+    return COUNTRY_ES.get(c, c)
 
 
 def read_agent_text(name):
@@ -48,7 +85,7 @@ def read_agent_text(name):
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             return f.read().strip()
-    return f"<p><em>Research pending — {name} not yet available.</em></p>"
+    return T["pending"].format(name=name)
 
 
 def build_big3_profiles(canonical):
@@ -114,7 +151,7 @@ def big3_cards_html(profile):
         chilean_pct = p["dep_chilean_nat"] / p["departures"] * 100 if p["departures"] else 0
         abroad_pct = p["dep_chilean_nat_abroad"] / p["dep_chilean_nat"] * 100 if p["dep_chilean_nat"] else 0
         top_countries = sorted(p["dep_countries"].items(), key=lambda x: -x[1])[:3]
-        top_countries_s = ", ".join(f"{c} ({n})" for c, n in top_countries) or "—"
+        top_countries_s = ", ".join(f"{country(c)} ({n})" for c, n in top_countries) or "—"
         sale = p["biggest_sale"]
         buy = p["biggest_buy"]
         cards.append(f"""
@@ -124,21 +161,21 @@ def big3_cards_html(profile):
             <h3>{name}</h3>
           </div>
           <div class="big3-stat-row">
-            <div><span class="n">{p['arrivals']}</span><span class="l">arrivals</span></div>
-            <div><span class="n">{p['departures']}</span><span class="l">departures</span></div>
+            <div><span class="n">{p['arrivals']}</span><span class="l">{T['arrivals']}</span></div>
+            <div><span class="n">{p['departures']}</span><span class="l">{T['departures']}</span></div>
           </div>
           <div class="big3-stat-row">
-            <div><span class="n">{avg_arr_age:.1f}</span><span class="l">avg. age, arrivals</span></div>
-            <div><span class="n">{avg_dep_age:.1f}</span><span class="l">avg. age, departures</span></div>
+            <div><span class="n">{avg_arr_age:.1f}</span><span class="l">{T['avg_age_arr']}</span></div>
+            <div><span class="n">{avg_dep_age:.1f}</span><span class="l">{T['avg_age_dep']}</span></div>
           </div>
           <div class="big3-money">
-            <div><span class="l">Spent</span><span class="n">{fmt_usd(p['spend'])}</span></div>
-            <div><span class="l">Earned</span><span class="n">{fmt_usd(p['income'])}</span></div>
-            <div><span class="l">Net</span><span class="n {net_class}">{'+' if net>=0 else ''}{fmt_usd(net)}</span></div>
+            <div><span class="l">{T['spent']}</span><span class="n">{fmt_usd(p['spend'])}</span></div>
+            <div><span class="l">{T['earned']}</span><span class="n">{fmt_usd(p['income'])}</span></div>
+            <div><span class="l">{T['net']}</span><span class="n {net_class}">{'+' if net>=0 else ''}{fmt_usd(net)}</span></div>
           </div>
-          <p class="big3-note">{chilean_pct:.0f}% of departures are Chilean nationals; of those, {abroad_pct:.0f}% leave the country entirely (rest stay in Chilean football, mostly lower divisions). Top international destinations: {top_countries_s}.</p>
-          <p class="big3-note"><b>Biggest sale:</b> {sale[0] if sale else '—'} → {sale[2] if sale else ''} ({fmt_usd(sale[1]) if sale else ''})<br>
-          <b>Biggest buy:</b> {buy[0] if buy else '—'} from {buy[2] if buy else ''} ({fmt_usd(buy[1]) if buy else ''})</p>
+          <p class="big3-note">{T['big3_note'].format(chilean_pct=chilean_pct, abroad_pct=abroad_pct, top=top_countries_s)}</p>
+          <p class="big3-note"><b>{T['biggest_sale']}</b> {sale[0] if sale else '—'} → {sale[2] if sale else ''} ({fmt_usd(sale[1]) if sale else ''})<br>
+          <b>{T['biggest_buy']}</b> {buy[0] if buy else '—'} {T['buy_from']} {buy[2] if buy else ''} ({fmt_usd(buy[1]) if buy else ''})</p>
         </div>""")
     return "\n".join(cards)
 
@@ -163,8 +200,8 @@ def sellon_tracker_html(canonical, history):
         cur_id, cur_name = current_club_id_name(history, r["player_id"])
         sold_to_id = r["to_club"].get("club_id")
         moved = not (cur_id and sold_to_id and cur_id == sold_to_id)
-        status = f'<span class="tag tag-moved">moved on → {cur_name}</span>' if moved else '<span class="tag tag-stable">still there</span>'
-        pct = sc.get("percentage") or (sc.get("clause_type") or "clause")
+        status = f'<span class="tag tag-moved">{T["moved_on"].format(name=cur_name)}</span>' if moved else f'<span class="tag tag-stable">{T["still_there"]}</span>'
+        pct = sc.get("percentage") or (sc.get("clause_type") or T["clause"])
         rows.append(f"""<tr>
           <td>{r['player_name']}</td>
           <td class="num">{pct}</td>
@@ -209,16 +246,15 @@ def loan_clause_tracker_html(canonical):
     rows_data = [r for r in canonical if r["fee_type"] == "loan_fee" and r["transfer_id"] in sellon
                  and "exit_reason" not in sellon[r["transfer_id"]]]
     rows_data.sort(key=lambda r: r["transfer_date"] or "", reverse=True)
-    CLAUSE_LABEL = {"option-to-buy": "Option to buy", "mandatory-purchase": "Mandatory purchase",
-                    "sell-on": "Sell-on", "buy-back": "Buy-back"}
+    CLAUSE_LABEL = T["clause_labels"]
     rows = []
     for r in rows_data:
         sc = sellon[r["transfer_id"]]
         if not sc.get("found"):
-            status = '<span class="tag tag-stable">no clause found</span>'
+            status = f'<span class="tag tag-stable">{T["no_clause"]}</span>'
             pct, clause = "—", "—"
         else:
-            status = '<span class="tag tag-moved">confirmed</span>'
+            status = f'<span class="tag tag-moved">{T["confirmed"]}</span>'
             pct = sc.get("percentage") or "—"
             clause = CLAUSE_LABEL.get(sc.get("clause_type"), sc.get("clause_type") or "—")
         rows.append(f"""<tr>
@@ -278,11 +314,21 @@ def league_table_html(rows):
     out = []
     for c, count, feen, avg in rows:
         avg_s = fmt_usd(avg) if avg else "—"
-        out.append(f"<tr><td>{c}</td><td class='num'>{count}</td><td class='num'>{feen}</td><td class='num'>{avg_s}</td></tr>")
+        out.append(f"<tr><td>{country(c)}</td><td class='num'>{count}</td><td class='num'>{feen}</td><td class='num'>{avg_s}</td></tr>")
     return "\n".join(out)
 
 
 def main():
+    global T, COUNTRY_ES, DECIMAL_COMMA, AGENT_DIR
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lang", default="en", choices=["en", "es"])
+    es = parser.parse_args().lang == "es"
+    if es:
+        T = i18n_report_es.PY
+        COUNTRY_ES = i18n_report_es.COUNTRY_ES
+        DECIMAL_COMMA = True
+        AGENT_DIR = os.path.join(REPORT_DIR, "agent_sections_es")
+
     canonical = load("canonical_transfers.json", [])
     history = load("player_transfer_history.json", {})
 
@@ -310,6 +356,8 @@ def main():
     template_path = os.path.join(ROOT, "scripts", "report_template.html")
     with open(template_path, encoding="utf-8") as f:
         html = f.read()
+    if es:
+        html = i18n_report_es.translate_template(html)
 
     for cid, uri in crest_uris.items():
         big3_html = big3_html.replace(f"__CREST_{cid}__", uri)
@@ -342,7 +390,7 @@ def main():
     html = html.replace("__AGENT_LOAN_PRACTICES__", read_agent_text("loan_practices.html"))
     html = html.replace("__AGENT_SOURCE_VERDICT__", read_agent_text("source_verdict.html"))
 
-    out_path = os.path.join(REPORT_DIR, "index.html")
+    out_path = os.path.join(REPORT_DIR, "index_es.html" if es else "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Report written -> {out_path} ({len(html)/1024:.0f} KB)")

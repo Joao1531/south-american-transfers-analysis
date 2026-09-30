@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chilean Transfer Market 2020–2026</title>
+<title>__PAGE_TITLE__</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -290,21 +290,25 @@
 
   <header class="top">
     <div class="title-block">
-      <div class="brand-mark"><img id="brand-logo" alt="Audax Italiano"></div>
+      <div class="brand-mark" id="brand-mark"><img id="brand-logo" alt="__BRAND_ALT__"></div>
       <div>
-        <h1>Primera División Transfer Market</h1>
-        <div class="title-sub">Every domestic and international transfer involving a Chilean top-flight club, 2020–2026 (through Aug 2026)</div>
+        <h1>__LEAGUE_H1__</h1>
+        <div class="title-sub">__SUBTITLE__</div>
       </div>
     </div>
     <div class="top-meta">
-      <b>__GENERATED_COUNT__ unique transfers</b> · 25 clubs that played in the Primera División between 2020 and 2026<br>
-      Primary source: Transfermarkt · corporate cross-reference: CMF Chile
+      <b>__GENERATED_COUNT__ unique transfers</b> · __TOPMETA_SCOPE__<br>
+      __TOPMETA_SOURCE_LINE__
     </div>
   </header>
 
   <section class="kpis" id="kpis"></section>
 
   <div class="panel filters" id="filters">
+    <div class="field" id="field-league">
+      <label>League</label>
+      <select id="f-league"><option value="">All leagues</option></select>
+    </div>
     <div class="field">
       <label>Club</label>
       <select id="f-club"><option value="">All</option></select>
@@ -317,9 +321,9 @@
       <label>Direction</label>
       <select id="f-dir">
         <option value="">All</option>
-        <option value="in">Arrivals to the Primera División</option>
-        <option value="out">Departures from the Primera División</option>
-        <option value="domestic">Domestic moves (Chile ↔ Chile)</option>
+        <option value="in" id="opt-dir-in"></option>
+        <option value="out" id="opt-dir-out"></option>
+        <option value="domestic" id="opt-dir-domestic"></option>
       </select>
     </div>
     <div class="field">
@@ -338,10 +342,7 @@
       <label>Search player / club</label>
       <input type="search" id="f-search" placeholder="e.g. Palacios, Boca Juniors…">
     </div>
-    <div class="field">
-      <label>Clauses</label>
-      <label class="checkbox-field"><input type="checkbox" id="f-clause"> Only confirmed sell-on / buy-back clauses</label>
-    </div>
+    __SELLON_FILTER_FIELD__
     <div class="spacer"></div>
     <button class="btn-reset" id="btn-reset">Clear filters</button>
   </div>
@@ -371,7 +372,7 @@
       <svg class="chart" id="chart-income" viewBox="0 0 340 150" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
     <div class="panel chart-card">
-      <h3>Where departures from Chile go (by league)</h3>
+      <h3 id="destleague-heading"></h3>
       <svg class="chart" id="chart-destleague" viewBox="0 0 340 125" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
   </div>
@@ -413,14 +414,14 @@
   <footer class="notes">
     <h4>Methodology &amp; limitations</h4>
     <ul>
-      <li>Universe: the 25 clubs that played in the Chilean Primera División in at least one season between 2020 and 2026 (includes clubs later relegated, e.g. Melipilla, Curicó Unido, Santiago Wanderers, Magallanes).</li>
+      __UNIVERSE_LI__
       <li>Each transfer is a single record; when both clubs involved are inside the universe above, the same deal was cross-matched from both clubs' pages to avoid double counting.</li>
       <li>"Market value" is Transfermarkt's own market-value estimate at the time of the transfer, where available — it is not the fee actually paid (that's the "Fee" column).</li>
       <li>"What happened to this player next" (visible when a row is expanded) shows the player's subsequent moves — including a later sale by the club that signed him, which matters for any sell-on percentage tied to the original deal.</li>
-      <li><b>Sell-on / buy-back / purchase-option clauses</b> (expand a row to see; flagged with <span class="clause-badge" style="margin-left:0">%</span> next to the fee when confirmed, or <span class="clause-badge unknown" style="margin-left:0">?</span> when researched but nothing was found): Transfermarkt does not publish this data at all, so it was gathered through targeted press research (Chile, Argentina, Brazil, Europe) for the 117 transfers that had an actual fee paid — the only ones where this kind of clause tends to get reported. Only percentages/terms explicitly stated by a source were recorded, never estimated; we confirmed a clause in 57 of the 117 cases (49%). Every confirmed clause carries a source link and a verifiable quote. Where two sources disagreed on the exact figure, that's flagged in the record's own notes.</li>
+      __SELLON_LI__
       <li><b>Not included:</b> per-season match/goal/assist statistics — Transfermarkt moved those pages to JS-only components with no stable API, which made reliable scraping at the scale of ~1,340 players impractical.</li>
-      <li><b>CMF Chile:</b> most Chilean clubs are incorporated as S.A.D.P. (professional sports corporations) and report to Chile's Comisión para el Mercado Financiero; Colo-Colo and Universidad de Chile are run by publicly listed companies (Blanco y Negro S.A. and Azul Azul S.A.) regulated as securities issuers instead. These filings contain aggregate annual financial statements, not per-transfer data — useful as a club-level financial cross-check, not as a transfer database.</li>
-      <li>Fee and market-value figures are sourced from Transfermarkt in EUR and converted to USD at a flat rate of €1 = $1.08 for display. Amounts inside sell-on/buy-back quotes are kept exactly as originally reported (mostly already in USD in Chilean/Argentine press).</li>
+      __CMF_LI__
+      <li>Fee and market-value figures are sourced from Transfermarkt in EUR and converted to USD at a flat rate of €1 = $1.08 for display.__SELLON_FEE_NOTE__</li>
     </ul>
   </footer>
 
@@ -436,7 +437,13 @@ const POSITIONS = __POSITIONS_JSON__;
 const NATIONALITIES = __NAT_JSON__;
 const FEE_META = __FEEMETA_JSON__;
 const CRESTS = __CRESTS_JSON__;
-document.getElementById('brand-logo').src = __AUDAX_CREST_URI__;
+const LEAGUES = __LEAGUES_JSON__;
+const LG = Object.fromEntries(LEAGUES.map(l => [l.code, l]));
+const MULTI = LEAGUES.length > 1;
+const HAS_SELLON = __HAS_SELLON__;
+const BRAND_CREST_URI = __BRAND_CREST_URI__;
+if (BRAND_CREST_URI) { document.getElementById('brand-logo').src = BRAND_CREST_URI; }
+else { document.getElementById('brand-mark').style.display = 'none'; }
 
 const SLOT = {1:'var(--slot-1)',2:'var(--slot-2)',3:'var(--slot-3)',4:'var(--slot-4)',5:'var(--slot-5)',6:'var(--slot-6)',7:'var(--slot-7)',8:'var(--slot-8)'};
 const EUR_TO_USD = 1.08;
@@ -462,9 +469,26 @@ const CLAUSE_TYPE_LABEL = {'sell-on':'Sell-on clause','buy-back':'Buy-back claus
 
 // ---------- populate filter selects ----------
 const clubSel = document.getElementById('f-club');
-CLUBS.forEach(([id,name]) => {
-  const o = document.createElement('option'); o.value = id; o.textContent = name; clubSel.appendChild(o);
+const leagueSel = document.getElementById('f-league');
+if (!MULTI) document.getElementById('field-league').style.display = 'none';
+LEAGUES.forEach(l => { const o = document.createElement('option'); o.value = l.code; o.textContent = l.name; leagueSel.appendChild(o); });
+const clubsByLeague = {};
+DATA.forEach(r => {
+  [r.fl, r.tl].forEach(code => {
+    if (!code) return;
+    const set = clubsByLeague[code] || (clubsByLeague[code] = new Set());
+    if (r.f.id) set.add(r.f.id);
+    if (r.t.id) set.add(r.t.id);
+  });
 });
+function populateClubs(){
+  clubSel.innerHTML = '<option value="">All</option>';
+  const allowed = state.league ? clubsByLeague[state.league] : null;
+  CLUBS.forEach(([id,name]) => {
+    if (allowed && !allowed.has(id)) return;
+    const o = document.createElement('option'); o.value = id; o.textContent = name; clubSel.appendChild(o);
+  });
+}
 const seasonSel = document.getElementById('f-season');
 SEASONS.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; seasonSel.appendChild(o); });
 const feeSel = document.getElementById('f-fee');
@@ -477,13 +501,35 @@ const natSel = document.getElementById('f-nat');
 NATIONALITIES.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = n; natSel.appendChild(o); });
 
 // ---------- state ----------
-let state = { club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
+let state = { league:'', club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
 
 // When a specific club is selected, "arrival"/"departure" is relative to THAT club
 // (a domestic transfer between two tracked clubs is both an arrival and a
 // departure at the league level, but exactly one of the two for one club).
-function isArrivalRow(r){ return state.club ? (r.t.id === state.club) : (r.ts && !r.fs); }
-function isDepartureRow(r){ return state.club ? (r.f.id === state.club) : (r.fs && !r.ts); }
+// "In scope" = the club belongs to the selected league (or to any tracked league when none is selected).
+function fsOf(r){ return state.league ? r.fl === state.league : !!r.fl; }
+function tsOf(r){ return state.league ? r.tl === state.league : !!r.tl; }
+function isArrivalRow(r){ return state.club ? (r.t.id === state.club) : (tsOf(r) && !fsOf(r)); }
+function isDepartureRow(r){ return state.club ? (r.f.id === state.club) : (fsOf(r) && !tsOf(r)); }
+function scopeLabel(){
+  if (state.league) return MULTI ? `the ${LG[state.league].adj} ${LG[state.league].label}` : `the ${LG[state.league].label}`;
+  return MULTI ? `the ${LEAGUES.length} tracked leagues` : `the ${LEAGUES[0].label}`;
+}
+function scopeCountry(){
+  if (state.league) return LG[state.league].name;
+  return MULTI ? 'the tracked leagues' : LEAGUES[0].name;
+}
+function homeCountry(){
+  if (state.league) return LG[state.league].country;
+  return MULTI ? null : LEAGUES[0].country;
+}
+function updateScopeLabels(){
+  document.getElementById('opt-dir-in').textContent = `Arrivals to ${scopeLabel()}`;
+  document.getElementById('opt-dir-out').textContent = `Departures from ${scopeLabel()}`;
+  document.getElementById('opt-dir-domestic').textContent = (MULTI && !state.league)
+    ? 'Moves between tracked clubs' : `Domestic moves (${scopeCountry()} ↔ ${scopeCountry()})`;
+  document.getElementById('destleague-heading').textContent = `Where departures from ${scopeCountry()} go (by league)`;
+}
 function tableViewRows(rows){
   if (state.tableView === 'in') return rows.filter(isArrivalRow);
   if (state.tableView === 'out') return rows.filter(isDepartureRow);
@@ -495,11 +541,12 @@ const expanded = new Set();
 function applyFilters(){
   const q = state.q.trim().toLowerCase();
   return DATA.filter(r => {
+    if (state.league && r.fl !== state.league && r.tl !== state.league) return false;
     if (state.club && r.f.id !== state.club && r.t.id !== state.club) return false;
     if (state.season && String(r.s) !== state.season) return false;
-    if (state.dir === 'in' && !(r.ts && !r.fs)) return false;
-    if (state.dir === 'out' && !(r.fs && !r.ts)) return false;
-    if (state.dir === 'domestic' && !(r.fs && r.ts)) return false;
+    if (state.dir === 'in' && !(tsOf(r) && !fsOf(r))) return false;
+    if (state.dir === 'out' && !(fsOf(r) && !tsOf(r))) return false;
+    if (state.dir === 'domestic' && !(fsOf(r) && tsOf(r))) return false;
     if (state.fee && r.ft !== state.fee) return false;
     if (state.pos && r.pos !== state.pos) return false;
     if (state.nat && r.nat !== state.nat) return false;
@@ -536,6 +583,7 @@ function sortRows(rows){
 }
 
 function render(){
+  updateScopeLabels();
   const filtered = sortRows(applyFilters());
   renderKPIs(filtered);
   renderCharts(filtered);
@@ -560,8 +608,10 @@ function renderKPIs(rows){
     {label:'Earned from sales', value: fmtUSD(income)},
     {label:'Average fee', value: avgFee!==null ? fmtUSD(avgFee) : '—', sub: `across ${withFee.length.toLocaleString('en-US')} transfers with a known fee`},
     {label:'Biggest transfer', value: top ? fmtUSD(top.fv) : '—', sub: top ? top.p : ''},
-    {label:'With a confirmed sell-on %', value: withClause.toLocaleString('en-US'), sub: 'via press research, not Transfermarkt'},
   ];
+  if (HAS_SELLON) {
+    kpis.push({label:'With a confirmed sell-on %', value: withClause.toLocaleString('en-US'), sub: 'via press research, not Transfermarkt'});
+  }
   const el = document.getElementById('kpis');
   el.innerHTML = kpis.map(k => `
     <div class="kpi">
@@ -603,8 +653,8 @@ function renderTrendChart(rows){
   SEASONS.forEach(s => byYear[s] = {in:0,out:0});
   rows.forEach(r => {
     if (!byYear[r.s]) return;
-    if (r.ts && !r.fs) byYear[r.s].in++;
-    if (r.fs && !r.ts) byYear[r.s].out++;
+    if (tsOf(r) && !fsOf(r)) byYear[r.s].in++;
+    if (fsOf(r) && !tsOf(r)) byYear[r.s].out++;
   });
   const years = SEASONS;
   const maxV = Math.max(1, ...years.map(y => Math.max(byYear[y].in, byYear[y].out)));
@@ -643,7 +693,7 @@ function renderSpendChart(rows){
   const W=340,H=200,padL=8,padR=54,padT=6,padB=6;
   const spendByClub = {};
   rows.forEach(r => {
-    if (r.ts && r.fv && r.t.id) spendByClub[r.t.id] = (spendByClub[r.t.id]||0) + r.fv;
+    if (tsOf(r) && r.fv && r.t.id) spendByClub[r.t.id] = (spendByClub[r.t.id]||0) + r.fv;
   });
   const clubName = id => (CLUBS.find(c=>c[0]===id)||[id,id])[1];
   const top = Object.entries(spendByClub).sort((a,b)=>b[1]-a[1]).slice(0,8);
@@ -675,7 +725,7 @@ function renderIncomeChart(rows){
   const W=340,H=150,padL=8,padR=54,padT=6,padB=6;
   const incomeByClub = {};
   rows.forEach(r => {
-    if (r.fs && r.fv && r.f.id) incomeByClub[r.f.id] = (incomeByClub[r.f.id]||0) + r.fv;
+    if (fsOf(r) && r.fv && r.f.id) incomeByClub[r.f.id] = (incomeByClub[r.f.id]||0) + r.fv;
   });
   const clubName = id => (CLUBS.find(c=>c[0]===id)||[id,id])[1];
   const top = Object.entries(incomeByClub).sort((a,b)=>b[1]-a[1]).slice(0,8);
@@ -705,10 +755,10 @@ function renderDestLeagueChart(rows){
   const svg = document.getElementById('chart-destleague');
   svg.innerHTML = '';
   const W=340,H=125,padT=6,padB=6;
-  // Only original departures FROM a Chile PD club TO somewhere outside the
-  // tracked 25-club universe -- excludes domestic moves and excludes any
+  // Only original departures FROM a tracked club TO somewhere outside the
+  // tracked-club universe -- excludes domestic moves and excludes any
   // "subsequent transfer" chain entries (those aren't part of `rows` at all).
-  const departures = rows.filter(r => r.fs && !r.ts);
+  const departures = rows.filter(r => fsOf(r) && !tsOf(r));
   const counts = {};
   departures.forEach(r => {
     const key = r.t.l || (r.t.n ? r.t.n : 'No club / unknown');
@@ -768,7 +818,7 @@ function renderFeeTypeChart(rows){
 // ---------- table ----------
 function clubCell(side){
   const crest = side.id && CRESTS[side.id] ? `<img class="crest" src="${CRESTS[side.id]}" alt="">` : '';
-  return `<div class="club-cell">${crest}<div class="club-text"><span class="club">${side.n||'—'}</span>${side.l?`<span class="league">${side.l}${side.c && side.c!=='Chile' ? ' · '+side.c : ''}</span>`:''}</div></div>`;
+  return `<div class="club-cell">${crest}<div class="club-text"><span class="club">${side.n||'—'}</span>${side.l?`<span class="league">${side.l}${side.c && side.c!==homeCountry() ? ' · '+side.c : ''}</span>`:''}</div></div>`;
 }
 
 function renderTable(rows){
@@ -782,8 +832,8 @@ function renderTable(rows){
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = pageRows.map(r => {
     const isOpen = expanded.has(r.id);
-    const dirDot = r.ts && !r.fs ? 'var(--dir-in)' : (r.fs && !r.ts ? 'var(--dir-out)' : 'var(--muted)');
-    const dirTitle = r.ts && !r.fs ? 'Arrival' : (r.fs && !r.ts ? 'Departure' : 'Domestic move');
+    const dirDot = tsOf(r) && !fsOf(r) ? 'var(--dir-in)' : (fsOf(r) && !tsOf(r) ? 'var(--dir-out)' : 'var(--muted)');
+    const dirTitle = tsOf(r) && !fsOf(r) ? 'Arrival' : (fsOf(r) && !tsOf(r) ? 'Departure' : (MULTI && !state.league ? 'Move between tracked clubs' : 'Domestic move'));
     let clauseBadge = '';
     if (r.sc && r.sc.found) {
       clauseBadge = `<span class="clause-badge" title="Documented sell-on/buy-back clause — see detail">%</span>`;
@@ -900,23 +950,27 @@ function renderPagination(totalPages){
 }
 
 // ---------- events ----------
+document.getElementById('f-league').addEventListener('change', e => { state.league=e.target.value; state.club=''; state.page=1; state.tableView='all'; setTableViewTab('all'); populateClubs(); render(); });
 document.getElementById('f-club').addEventListener('change', e => { state.club=e.target.value; state.page=1; state.tableView='all'; setTableViewTab('all'); render(); });
 document.getElementById('f-season').addEventListener('change', e => { state.season=e.target.value; state.page=1; render(); });
 document.getElementById('f-dir').addEventListener('change', e => { state.dir=e.target.value; state.page=1; render(); });
 document.getElementById('f-fee').addEventListener('change', e => { state.fee=e.target.value; state.page=1; render(); });
 document.getElementById('f-pos').addEventListener('change', e => { state.pos=e.target.value; state.page=1; render(); });
 document.getElementById('f-nat').addEventListener('change', e => { state.nat=e.target.value; state.page=1; render(); });
-document.getElementById('f-clause').addEventListener('change', e => { state.clauseOnly=e.target.checked; state.page=1; render(); });
+if (document.getElementById('f-clause')) {
+  document.getElementById('f-clause').addEventListener('change', e => { state.clauseOnly=e.target.checked; state.page=1; render(); });
+}
 let searchTimer;
 document.getElementById('f-search').addEventListener('input', e => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(() => { state.q = e.target.value; state.page=1; render(); }, 180);
 });
 document.getElementById('btn-reset').addEventListener('click', () => {
-  state = { club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
+  state = { league:'', club:'', season:'', dir:'', fee:'', pos:'', nat:'', q:'', clauseOnly:false, sortKey:'d', sortDir:'desc', page:1, tableView:'all' };
+  populateClubs();
   document.querySelectorAll('.filters select').forEach(s => s.value='');
   document.getElementById('f-search').value='';
-  document.getElementById('f-clause').checked=false;
+  if (document.getElementById('f-clause')) document.getElementById('f-clause').checked=false;
   setTableViewTab('all');
   render();
 });
@@ -942,6 +996,7 @@ document.querySelectorAll('table.tr-table thead th').forEach(th => {
   });
 });
 
+populateClubs();
 render();
 </script>
 </body>

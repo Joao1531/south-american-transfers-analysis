@@ -1,0 +1,378 @@
+{
+  "by_season": {
+    "2020": {
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "14491": {
+        "slug": "club-sol-de-america",
+        "name": "Club Sol de América"
+      },
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "7656": {
+        "slug": "sportivo-luqueno",
+        "name": "Sportivo Luqueño"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "14662": {
+        "slug": "club-12-de-octubre-de-itaugua",
+        "name": "Club 12 de Octubre de Itauguá"
+      },
+      "2124": {
+        "slug": "river-plate-asuncion",
+        "name": "River Plate Asunción"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "63181": {
+        "slug": "guairena-fc",
+        "name": "Guaireña FC"
+      }
+    },
+    "2021": {
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "14491": {
+        "slug": "club-sol-de-america",
+        "name": "Club Sol de América"
+      },
+      "63181": {
+        "slug": "guairena-fc",
+        "name": "Guaireña FC"
+      },
+      "14662": {
+        "slug": "club-12-de-octubre-de-itaugua",
+        "name": "Club 12 de Octubre de Itauguá"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "95571": {
+        "slug": "sportivo-ameliano",
+        "name": "Sportivo Ameliano"
+      },
+      "95573": {
+        "slug": "club-general-caballero-jlm-",
+        "name": "Club General Caballero (JLM)"
+      },
+      "29175": {
+        "slug": "resistencia-sc",
+        "name": "Resistencia Sport Club"
+      },
+      "6880": {
+        "slug": "tacuary-football-club",
+        "name": "Tacuary Football Club"
+      }
+    },
+    "2022": {
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "63181": {
+        "slug": "guairena-fc",
+        "name": "Guaireña FC"
+      },
+      "7656": {
+        "slug": "sportivo-luqueno",
+        "name": "Sportivo Luqueño"
+      },
+      "6880": {
+        "slug": "tacuary-football-club",
+        "name": "Tacuary Football Club"
+      },
+      "95571": {
+        "slug": "sportivo-ameliano",
+        "name": "Sportivo Ameliano"
+      },
+      "29175": {
+        "slug": "resistencia-sc",
+        "name": "Resistencia Sport Club"
+      },
+      "95573": {
+        "slug": "club-general-caballero-jlm-",
+        "name": "Club General Caballero (JLM)"
+      },
+      "17427": {
+        "slug": "club-sportivo-trinidense",
+        "name": "Club Sportivo Trinidense"
+      }
+    },
+    "2023": {
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "6880": {
+        "slug": "tacuary-football-club",
+        "name": "Tacuary Football Club"
+      },
+      "95571": {
+        "slug": "sportivo-ameliano",
+        "name": "Sportivo Ameliano"
+      },
+      "14491": {
+        "slug": "club-sol-de-america",
+        "name": "Club Sol de América"
+      },
+      "7656": {
+        "slug": "sportivo-luqueno",
+        "name": "Sportivo Luqueño"
+      },
+      "17427": {
+        "slug": "club-sportivo-trinidense",
+        "name": "Club Sportivo Trinidense"
+      },
+      "95573": {
+        "slug": "club-general-caballero-jlm-",
+        "name": "Club General Caballero (JLM)"
+      },
+      "17484": {
+        "slug": "club-sportivo-2-de-mayo",
+        "name": "Club Sportivo 2 de Mayo"
+      }
+    },
+    "2024": {
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "7656": {
+        "slug": "sportivo-luqueno",
+        "name": "Sportivo Luqueño"
+      },
+      "95571": {
+        "slug": "sportivo-ameliano",
+        "name": "Sportivo Ameliano"
+      },
+      "17427": {
+        "slug": "club-sportivo-trinidense",
+        "name": "Club Sportivo Trinidense"
+      },
+      "908": {
+        "slug": "atletico-tembetary",
+        "name": "Atlético Tembetary"
+      },
+      "95573": {
+        "slug": "club-general-caballero-jlm-",
+        "name": "Club General Caballero (JLM)"
+      },
+      "17484": {
+        "slug": "club-sportivo-2-de-mayo",
+        "name": "Club Sportivo 2 de Mayo"
+      },
+      "14545": {
+        "slug": "club-deportivo-recoleta",
+        "name": "Recoleta FC"
+      }
+    },
+    "2025": {
+      "629": {
+        "slug": "olimpia-asuncion",
+        "name": "Club Olimpia"
+      },
+      "1214": {
+        "slug": "club-cerro-porteno",
+        "name": "Club Cerro Porteño"
+      },
+      "9875": {
+        "slug": "club-libertad-asuncion",
+        "name": "Club Libertad Asunción"
+      },
+      "11855": {
+        "slug": "club-guarani",
+        "name": "Club Guaraní"
+      },
+      "7098": {
+        "slug": "club-nacional-asuncion",
+        "name": "Club Nacional Asunción"
+      },
+      "7656": {
+        "slug": "sportivo-luqueno",
+        "name": "Sportivo Luqueño"
+      },
+      "17427": {
+        "slug": "club-sportivo-trinidense",
+        "name": "Club Sportivo Trinidense"
+      },
+      "14545": {
+        "slug": "club-deportivo-recoleta",
+        "name": "Recoleta FC"
+      },
+      "17484": {
+        "slug": "club-sportivo-2-de-mayo",
+        "name": "Club Sportivo 2 de Mayo"
+      },
+      "95571": {
+        "slug": "sportivo-ameliano",
+        "name": "Sportivo Ameliano"
+      },
+      "23170": {
+        "slug": "club-rubio-nu-asuncion-",
+        "name": "Club Rubio Ñú (Asunción)"
+      },
+      "19124": {
+        "slug": "club-sportivo-san-lorenzo",
+        "name": "Club Sportivo San Lorenzo"
+      }
+    }
+  },
+  "all_clubs": {
+    "9875": {
+      "slug": "club-libertad-asuncion",
+      "name": "Club Libertad Asunción"
+    },
+    "629": {
+      "slug": "olimpia-asuncion",
+      "name": "Club Olimpia"
+    },
+    "14491": {
+      "slug": "club-sol-de-america",
+      "name": "Club Sol de América"
+    },
+    "1214": {
+      "slug": "club-cerro-porteno",
+      "name": "Club Cerro Porteño"
+    },
+    "7656": {
+      "slug": "sportivo-luqueno",
+      "name": "Sportivo Luqueño"
+    },
+    "11855": {
+      "slug": "club-guarani",
+      "name": "Club Guaraní"
+    },
+    "14662": {
+      "slug": "club-12-de-octubre-de-itaugua",
+      "name": "Club 12 de Octubre de Itauguá"
+    },
+    "2124": {
+      "slug": "river-plate-asuncion",
+      "name": "River Plate Asunción"
+    },
+    "7098": {
+      "slug": "club-nacional-asuncion",
+      "name": "Club Nacional Asunción"
+    },
+    "63181": {
+      "slug": "guairena-fc",
+      "name": "Guaireña FC"
+    },
+    "95571": {
+      "slug": "sportivo-ameliano",
+      "name": "Sportivo Ameliano"
+    },
+    "95573": {
+      "slug": "club-general-caballero-jlm-",
+      "name": "Club General Caballero (JLM)"
+    },
+    "29175": {
+      "slug": "resistencia-sc",
+      "name": "Resistencia Sport Club"
+    },
+    "6880": {
+      "slug": "tacuary-football-club",
+      "name": "Tacuary Football Club"
+    },
+    "17427": {
+      "slug": "club-sportivo-trinidense",
+      "name": "Club Sportivo Trinidense"
+    },
+    "17484": {
+      "slug": "club-sportivo-2-de-mayo",
+      "name": "Club Sportivo 2 de Mayo"
+    },
+    "908": {
+      "slug": "atletico-tembetary",
+      "name": "Atlético Tembetary"
+    },
+    "14545": {
+      "slug": "club-deportivo-recoleta",
+      "name": "Recoleta FC"
+    },
+    "23170": {
+      "slug": "club-rubio-nu-asuncion-",
+      "name": "Club Rubio Ñú (Asunción)"
+    },
+    "19124": {
+      "slug": "club-sportivo-san-lorenzo",
+      "name": "Club Sportivo San Lorenzo"
+    }
+  }
+}

@@ -1,0 +1,574 @@
+{
+  "by_season": {
+    "2020": {
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "41054": {
+        "slug": "deportivo-binacional",
+        "name": "Deportivo Binacional"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "17974": {
+        "slug": "deportivo-municipal",
+        "name": "Deportivo Municipal"
+      },
+      "6889": {
+        "slug": "universidad-cesar-vallejo",
+        "name": "Universidad César Vallejo"
+      },
+      "21178": {
+        "slug": "ayacucho-fc",
+        "name": "Ayacucho FC"
+      },
+      "35589": {
+        "slug": "alianza-universidad",
+        "name": "Alianza Universidad"
+      },
+      "28999": {
+        "slug": "cusco-fc",
+        "name": "Cusco FC"
+      },
+      "11247": {
+        "slug": "academia-deportiva-cantolao",
+        "name": "Academia Deportiva Cantolao"
+      },
+      "19520": {
+        "slug": "carlos-a-mannucci",
+        "name": "Carlos A. Mannucci"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "11622": {
+        "slug": "universidad-san-martin-de-porres",
+        "name": "Universidad San Martín de Porres"
+      }
+    },
+    "2021": {
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "19520": {
+        "slug": "carlos-a-mannucci",
+        "name": "Carlos A. Mannucci"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "27861": {
+        "slug": "club-atletico-grau",
+        "name": "Club Atlético Grau"
+      },
+      "21178": {
+        "slug": "ayacucho-fc",
+        "name": "Ayacucho FC"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "17974": {
+        "slug": "deportivo-municipal",
+        "name": "Deportivo Municipal"
+      },
+      "6889": {
+        "slug": "universidad-cesar-vallejo",
+        "name": "Universidad César Vallejo"
+      },
+      "78642": {
+        "slug": "fc-carlos-stein",
+        "name": "FC Carlos Stein"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "11247": {
+        "slug": "academia-deportiva-cantolao",
+        "name": "Academia Deportiva Cantolao"
+      },
+      "11622": {
+        "slug": "universidad-san-martin-de-porres",
+        "name": "Universidad San Martín de Porres"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "41054": {
+        "slug": "deportivo-binacional",
+        "name": "Deportivo Binacional"
+      },
+      "35588": {
+        "slug": "asociacion-deportiva-tarma",
+        "name": "Asociación Deportiva Tarma"
+      }
+    },
+    "2022": {
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "6889": {
+        "slug": "universidad-cesar-vallejo",
+        "name": "Universidad César Vallejo"
+      },
+      "28999": {
+        "slug": "cusco-fc",
+        "name": "Cusco FC"
+      },
+      "19520": {
+        "slug": "carlos-a-mannucci",
+        "name": "Carlos A. Mannucci"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "31337": {
+        "slug": "cd-union-comercio",
+        "name": "CD Unión Comercio"
+      },
+      "76945": {
+        "slug": "deportivo-garcilaso",
+        "name": "Deportivo Garcilaso"
+      },
+      "27861": {
+        "slug": "club-atletico-grau",
+        "name": "Club Atlético Grau"
+      },
+      "41054": {
+        "slug": "deportivo-binacional",
+        "name": "Deportivo Binacional"
+      },
+      "17974": {
+        "slug": "deportivo-municipal",
+        "name": "Deportivo Municipal"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "35588": {
+        "slug": "asociacion-deportiva-tarma",
+        "name": "Asociación Deportiva Tarma"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "11247": {
+        "slug": "academia-deportiva-cantolao",
+        "name": "Academia Deportiva Cantolao"
+      }
+    },
+    "2023": {
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "6889": {
+        "slug": "universidad-cesar-vallejo",
+        "name": "Universidad César Vallejo"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "31337": {
+        "slug": "cd-union-comercio",
+        "name": "CD Unión Comercio"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "76945": {
+        "slug": "deportivo-garcilaso",
+        "name": "Deportivo Garcilaso"
+      },
+      "54478": {
+        "slug": "cultural-santa-rosa",
+        "name": "CD Los Chankas"
+      },
+      "28999": {
+        "slug": "cusco-fc",
+        "name": "Cusco FC"
+      },
+      "19520": {
+        "slug": "carlos-a-mannucci",
+        "name": "Carlos A. Mannucci"
+      },
+      "27861": {
+        "slug": "club-atletico-grau",
+        "name": "Club Atlético Grau"
+      },
+      "47107": {
+        "slug": "comerciantes-unidos",
+        "name": "Comerciantes Unidos"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "35588": {
+        "slug": "asociacion-deportiva-tarma",
+        "name": "Asociación Deportiva Tarma"
+      }
+    },
+    "2024": {
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "35589": {
+        "slug": "alianza-universidad",
+        "name": "Alianza Universidad"
+      },
+      "47107": {
+        "slug": "comerciantes-unidos",
+        "name": "Comerciantes Unidos"
+      },
+      "27861": {
+        "slug": "club-atletico-grau",
+        "name": "Club Atlético Grau"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "54478": {
+        "slug": "cultural-santa-rosa",
+        "name": "CD Los Chankas"
+      },
+      "76945": {
+        "slug": "deportivo-garcilaso",
+        "name": "Deportivo Garcilaso"
+      },
+      "35588": {
+        "slug": "asociacion-deportiva-tarma",
+        "name": "Asociación Deportiva Tarma"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "21178": {
+        "slug": "ayacucho-fc",
+        "name": "Ayacucho FC"
+      },
+      "99517": {
+        "slug": "club-juan-pablo-ii",
+        "name": "Club Juan Pablo II College"
+      },
+      "28999": {
+        "slug": "cusco-fc",
+        "name": "Cusco FC"
+      },
+      "41054": {
+        "slug": "deportivo-binacional",
+        "name": "Deportivo Binacional"
+      }
+    },
+    "2025": {
+      "6593": {
+        "slug": "universitario-de-deportes",
+        "name": "Universitario de Deportes"
+      },
+      "184": {
+        "slug": "club-alianza-lima",
+        "name": "Club Alianza Lima"
+      },
+      "1450": {
+        "slug": "club-sporting-cristal",
+        "name": "Club Sporting Cristal"
+      },
+      "2734": {
+        "slug": "fbc-melgar",
+        "name": "FBC Melgar"
+      },
+      "28999": {
+        "slug": "cusco-fc",
+        "name": "Cusco FC"
+      },
+      "2729": {
+        "slug": "club-cienciano",
+        "name": "Club Cienciano"
+      },
+      "47107": {
+        "slug": "comerciantes-unidos",
+        "name": "Comerciantes Unidos"
+      },
+      "2730": {
+        "slug": "sport-boys-association",
+        "name": "Sport Boys Association"
+      },
+      "76945": {
+        "slug": "deportivo-garcilaso",
+        "name": "Deportivo Garcilaso"
+      },
+      "17479": {
+        "slug": "alianza-atletico-sullana",
+        "name": "Alianza Atlético Sullana"
+      },
+      "21655": {
+        "slug": "sport-huancayo",
+        "name": "Sport Huancayo"
+      },
+      "99517": {
+        "slug": "club-juan-pablo-ii",
+        "name": "Club Juan Pablo II College"
+      },
+      "35588": {
+        "slug": "asociacion-deportiva-tarma",
+        "name": "Asociación Deportiva Tarma"
+      },
+      "27861": {
+        "slug": "club-atletico-grau",
+        "name": "Club Atlético Grau"
+      },
+      "54478": {
+        "slug": "cultural-santa-rosa",
+        "name": "CD Los Chankas"
+      },
+      "120792": {
+        "slug": "fc-cajamarca",
+        "name": "FC Cajamarca"
+      },
+      "21170": {
+        "slug": "utc-cajamarca",
+        "name": "Universidad Técnica de Cajamarca"
+      },
+      "114625": {
+        "slug": "ucv-moquegua",
+        "name": "Deportivo Moquegua"
+      }
+    }
+  },
+  "all_clubs": {
+    "184": {
+      "slug": "club-alianza-lima",
+      "name": "Club Alianza Lima"
+    },
+    "41054": {
+      "slug": "deportivo-binacional",
+      "name": "Deportivo Binacional"
+    },
+    "2734": {
+      "slug": "fbc-melgar",
+      "name": "FBC Melgar"
+    },
+    "6593": {
+      "slug": "universitario-de-deportes",
+      "name": "Universitario de Deportes"
+    },
+    "1450": {
+      "slug": "club-sporting-cristal",
+      "name": "Club Sporting Cristal"
+    },
+    "2730": {
+      "slug": "sport-boys-association",
+      "name": "Sport Boys Association"
+    },
+    "21655": {
+      "slug": "sport-huancayo",
+      "name": "Sport Huancayo"
+    },
+    "2729": {
+      "slug": "club-cienciano",
+      "name": "Club Cienciano"
+    },
+    "17974": {
+      "slug": "deportivo-municipal",
+      "name": "Deportivo Municipal"
+    },
+    "6889": {
+      "slug": "universidad-cesar-vallejo",
+      "name": "Universidad César Vallejo"
+    },
+    "21178": {
+      "slug": "ayacucho-fc",
+      "name": "Ayacucho FC"
+    },
+    "35589": {
+      "slug": "alianza-universidad",
+      "name": "Alianza Universidad"
+    },
+    "28999": {
+      "slug": "cusco-fc",
+      "name": "Cusco FC"
+    },
+    "11247": {
+      "slug": "academia-deportiva-cantolao",
+      "name": "Academia Deportiva Cantolao"
+    },
+    "19520": {
+      "slug": "carlos-a-mannucci",
+      "name": "Carlos A. Mannucci"
+    },
+    "21170": {
+      "slug": "utc-cajamarca",
+      "name": "Universidad Técnica de Cajamarca"
+    },
+    "17479": {
+      "slug": "alianza-atletico-sullana",
+      "name": "Alianza Atlético Sullana"
+    },
+    "11622": {
+      "slug": "universidad-san-martin-de-porres",
+      "name": "Universidad San Martín de Porres"
+    },
+    "27861": {
+      "slug": "club-atletico-grau",
+      "name": "Club Atlético Grau"
+    },
+    "78642": {
+      "slug": "fc-carlos-stein",
+      "name": "FC Carlos Stein"
+    },
+    "35588": {
+      "slug": "asociacion-deportiva-tarma",
+      "name": "Asociación Deportiva Tarma"
+    },
+    "31337": {
+      "slug": "cd-union-comercio",
+      "name": "CD Unión Comercio"
+    },
+    "76945": {
+      "slug": "deportivo-garcilaso",
+      "name": "Deportivo Garcilaso"
+    },
+    "54478": {
+      "slug": "cultural-santa-rosa",
+      "name": "CD Los Chankas"
+    },
+    "47107": {
+      "slug": "comerciantes-unidos",
+      "name": "Comerciantes Unidos"
+    },
+    "99517": {
+      "slug": "club-juan-pablo-ii",
+      "name": "Club Juan Pablo II College"
+    },
+    "120792": {
+      "slug": "fc-cajamarca",
+      "name": "FC Cajamarca"
+    },
+    "114625": {
+      "slug": "ucv-moquegua",
+      "name": "Deportivo Moquegua"
+    }
+  }
+}

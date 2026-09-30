@@ -8,6 +8,7 @@ Polite scraping: disk cache per page, ~1.3s delay between live requests,
 identifying User-Agent, single-threaded. Reuses the same conventions as
 01_scrape_club_transfers.py.
 """
+import argparse
 import json
 import os
 import re
@@ -15,15 +16,15 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+import league_config
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",
 }
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = league_config.ROOT
 RAW_DIR = os.path.join(ROOT, "data", "raw", "player_profiles")
-CANON_PATH = os.path.join(ROOT, "data", "processed", "canonical_transfers.json")
-OUT_PATH = os.path.join(ROOT, "data", "processed", "player_profiles.json")
 DELAY = 1.3
 
 os.makedirs(RAW_DIR, exist_ok=True)
@@ -97,15 +98,22 @@ def parse_profile(html):
 
 
 def main():
-    canon = json.load(open(CANON_PATH, encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    canon_path = os.path.join(config["processed_dir"], "canonical_transfers.json")
+    out_path = os.path.join(config["processed_dir"], "player_profiles.json")
+
+    canon = json.load(open(canon_path, encoding="utf-8"))
     players = {}
     for r in canon:
         players[r["player_id"]] = r["player_url"]
     print(f"{len(players)} unique players to fetch")
 
     profiles = {}
-    if os.path.exists(OUT_PATH):
-        profiles = json.load(open(OUT_PATH, encoding="utf-8"))
+    if os.path.exists(out_path):
+        profiles = json.load(open(out_path, encoding="utf-8"))
 
     todo = [(pid, url) for pid, url in players.items() if pid not in profiles]
     print(f"{len(todo)} remaining (resuming from {len(profiles)} already done)")
@@ -121,13 +129,13 @@ def main():
                               "agent": None, "nationalities": [], "error": str(e)}
         if n % 50 == 0 or n == len(todo):
             print(f"  [{n}/{len(todo)}] done, saving checkpoint...")
-            json.dump(profiles, open(OUT_PATH, "w", encoding="utf-8"), ensure_ascii=False)
+            json.dump(profiles, open(out_path, "w", encoding="utf-8"), ensure_ascii=False)
 
-    json.dump(profiles, open(OUT_PATH, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(profiles, open(out_path, "w", encoding="utf-8"), ensure_ascii=False)
     with_height = sum(1 for p in profiles.values() if p.get("height_cm"))
     with_agent = sum(1 for p in profiles.values() if p.get("agent"))
     dual_nat = sum(1 for p in profiles.values() if len(p.get("nationalities") or []) > 1)
-    print(f"Player profiles written -> {OUT_PATH}")
+    print(f"Player profiles written -> {out_path}")
     print(f"  total players: {len(profiles)}")
     print(f"  with height: {with_height}")
     print(f"  with agent: {with_agent}")

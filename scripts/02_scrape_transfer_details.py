@@ -6,6 +6,7 @@ remaining contract duration, coaches/managers involved.
 URL pattern: /jumplist/transfers/spieler/{player_id}/transfer_id/{transfer_id}
 Static HTML (no JS rendering needed).
 """
+import argparse
 import json
 import os
 import re
@@ -14,16 +15,16 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+import league_config
+
 BASE = "https://www.transfermarkt.com"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",
 }
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = league_config.ROOT
 RAW_DIR = os.path.join(ROOT, "data", "raw", "transfer_details")
-OUT_PATH = os.path.join(ROOT, "data", "processed", "transfer_details.json")
-TRANSFERS_PATH = os.path.join(ROOT, "data", "processed", "transfers_raw.json")
 DELAY = 1.1
 
 os.makedirs(RAW_DIR, exist_ok=True)
@@ -123,7 +124,14 @@ def parse_detail_page(html):
 
 
 def main():
-    transfers = json.load(open(TRANSFERS_PATH, encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    transfers_path = os.path.join(config["processed_dir"], "transfers_raw.json")
+    out_path = os.path.join(config["processed_dir"], "transfer_details.json")
+
+    transfers = json.load(open(transfers_path, encoding="utf-8"))
     seen = {}
     for r in transfers:
         tid = r.get("transfer_id")
@@ -134,8 +142,8 @@ def main():
     items = list(seen.items())
     print(f"Fetching {len(items)} unique transfer-detail pages...")
     results = {}
-    if os.path.exists(OUT_PATH):
-        results = json.load(open(OUT_PATH, encoding="utf-8"))
+    if os.path.exists(out_path):
+        results = json.load(open(out_path, encoding="utf-8"))
 
     for i, (tid, pid) in enumerate(items, 1):
         if tid in results:
@@ -150,12 +158,12 @@ def main():
             results[tid] = {"error": str(e)}
         if i % 50 == 0:
             print(f"[{i}/{len(items)}]")
-            with open(OUT_PATH, "w", encoding="utf-8") as f:
+            with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(results, f, ensure_ascii=False, indent=2)
 
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
-    print(f"Done. {len(results)} transfer details -> {OUT_PATH}")
+    print(f"Done. {len(results)} transfer details -> {out_path}")
 
 
 if __name__ == "__main__":

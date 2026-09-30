@@ -1,0 +1,506 @@
+{
+  "by_season": {
+    "2020": {
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "10632": {
+        "slug": "ca-rentistas",
+        "name": "CA Rentistas"
+      },
+      "18075": {
+        "slug": "cd-maldonado",
+        "name": "Club Deportivo Maldonado"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "37535": {
+        "slug": "montevideo-city-torque",
+        "name": "Montevideo City Torque"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      },
+      "2419": {
+        "slug": "atletico-river-plate-montevideo",
+        "name": "CA River Plate Montevideo"
+      },
+      "3829": {
+        "slug": "ca-fenix",
+        "name": "CA Fénix"
+      },
+      "1806": {
+        "slug": "ia-sud-america-montevideo",
+        "name": "IA Sud América"
+      },
+      "17595": {
+        "slug": "ca-progreso",
+        "name": "CA Progreso"
+      },
+      "6044": {
+        "slug": "club-plaza-colonia",
+        "name": "Club Plaza Colonia"
+      },
+      "18077": {
+        "slug": "cs-cerrito",
+        "name": "CS Cerrito"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "3858": {
+        "slug": "deportivo-villa-espanola",
+        "name": "Deportivo Villa Española"
+      }
+    },
+    "2021": {
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "37535": {
+        "slug": "montevideo-city-torque",
+        "name": "Montevideo City Torque"
+      },
+      "2419": {
+        "slug": "atletico-river-plate-montevideo",
+        "name": "CA River Plate Montevideo"
+      },
+      "10632": {
+        "slug": "ca-rentistas",
+        "name": "CA Rentistas"
+      },
+      "18075": {
+        "slug": "cd-maldonado",
+        "name": "Club Deportivo Maldonado"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "2619": {
+        "slug": "defensor-sc",
+        "name": "Defensor Sporting Club"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      },
+      "1306": {
+        "slug": "danubio-fc",
+        "name": "Danubio FC"
+      },
+      "3829": {
+        "slug": "ca-fenix",
+        "name": "CA Fénix"
+      },
+      "6044": {
+        "slug": "club-plaza-colonia",
+        "name": "Club Plaza Colonia"
+      },
+      "42149": {
+        "slug": "albion-fc",
+        "name": "Albion FC"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "18077": {
+        "slug": "cs-cerrito",
+        "name": "CS Cerrito"
+      }
+    },
+    "2022": {
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "37535": {
+        "slug": "montevideo-city-torque",
+        "name": "Montevideo City Torque"
+      },
+      "2619": {
+        "slug": "defensor-sc",
+        "name": "Defensor Sporting Club"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "18075": {
+        "slug": "cd-maldonado",
+        "name": "Club Deportivo Maldonado"
+      },
+      "14758": {
+        "slug": "racing-club-de-montevideo",
+        "name": "Racing Club de Montevideo"
+      },
+      "6044": {
+        "slug": "club-plaza-colonia",
+        "name": "Club Plaza Colonia"
+      },
+      "14806": {
+        "slug": "ca-cerro",
+        "name": "CA Cerro"
+      },
+      "2419": {
+        "slug": "atletico-river-plate-montevideo",
+        "name": "CA River Plate Montevideo"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "1306": {
+        "slug": "danubio-fc",
+        "name": "Danubio FC"
+      },
+      "3829": {
+        "slug": "ca-fenix",
+        "name": "CA Fénix"
+      },
+      "20762": {
+        "slug": "la-luz-tacuru-futbol-club",
+        "name": "La Luz FC"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      }
+    },
+    "2023": {
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "2619": {
+        "slug": "defensor-sc",
+        "name": "Defensor Sporting Club"
+      },
+      "18075": {
+        "slug": "cd-maldonado",
+        "name": "Club Deportivo Maldonado"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "14758": {
+        "slug": "racing-club-de-montevideo",
+        "name": "Racing Club de Montevideo"
+      },
+      "3829": {
+        "slug": "ca-fenix",
+        "name": "CA Fénix"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      },
+      "1306": {
+        "slug": "danubio-fc",
+        "name": "Danubio FC"
+      },
+      "2419": {
+        "slug": "atletico-river-plate-montevideo",
+        "name": "CA River Plate Montevideo"
+      },
+      "14806": {
+        "slug": "ca-cerro",
+        "name": "CA Cerro"
+      },
+      "14598": {
+        "slug": "rampla-juniors-fc",
+        "name": "Rampla Juniors FC"
+      },
+      "17595": {
+        "slug": "ca-progreso",
+        "name": "CA Progreso"
+      },
+      "7477": {
+        "slug": "miramar-misiones",
+        "name": "Miramar Misiones"
+      }
+    },
+    "2024": {
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "2619": {
+        "slug": "defensor-sc",
+        "name": "Defensor Sporting Club"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "14806": {
+        "slug": "ca-cerro",
+        "name": "CA Cerro"
+      },
+      "2419": {
+        "slug": "atletico-river-plate-montevideo",
+        "name": "CA River Plate Montevideo"
+      },
+      "6044": {
+        "slug": "club-plaza-colonia",
+        "name": "Club Plaza Colonia"
+      },
+      "17428": {
+        "slug": "juventud-de-las-piedras",
+        "name": "CA Juventud"
+      },
+      "37535": {
+        "slug": "montevideo-city-torque",
+        "name": "Montevideo City Torque"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "14758": {
+        "slug": "racing-club-de-montevideo",
+        "name": "Racing Club de Montevideo"
+      },
+      "7477": {
+        "slug": "miramar-misiones",
+        "name": "Miramar Misiones"
+      },
+      "17595": {
+        "slug": "ca-progreso",
+        "name": "CA Progreso"
+      },
+      "1306": {
+        "slug": "danubio-fc",
+        "name": "Danubio FC"
+      }
+    },
+    "2025": {
+      "861": {
+        "slug": "ca-penarol",
+        "name": "CA Peñarol"
+      },
+      "866": {
+        "slug": "club-nacional",
+        "name": "Club Nacional"
+      },
+      "37535": {
+        "slug": "montevideo-city-torque",
+        "name": "Montevideo City Torque"
+      },
+      "2619": {
+        "slug": "defensor-sc",
+        "name": "Defensor Sporting Club"
+      },
+      "17428": {
+        "slug": "juventud-de-las-piedras",
+        "name": "CA Juventud"
+      },
+      "18074": {
+        "slug": "ca-boston-river",
+        "name": "CA Boston River"
+      },
+      "10663": {
+        "slug": "liverpool-fc-montevideo",
+        "name": "Liverpool FC Montevideo"
+      },
+      "42149": {
+        "slug": "albion-fc",
+        "name": "Albion FC"
+      },
+      "14758": {
+        "slug": "racing-club-de-montevideo",
+        "name": "Racing Club de Montevideo"
+      },
+      "10960": {
+        "slug": "central-espanol",
+        "name": "Central Español FC"
+      },
+      "18075": {
+        "slug": "cd-maldonado",
+        "name": "Club Deportivo Maldonado"
+      },
+      "2403": {
+        "slug": "montevideo-wanderers",
+        "name": "Montevideo Wanderers"
+      },
+      "17595": {
+        "slug": "ca-progreso",
+        "name": "CA Progreso"
+      },
+      "1306": {
+        "slug": "danubio-fc",
+        "name": "Danubio FC"
+      },
+      "20189": {
+        "slug": "cerro-largo-fc",
+        "name": "Cerro Largo FC"
+      },
+      "14806": {
+        "slug": "ca-cerro",
+        "name": "CA Cerro"
+      }
+    }
+  },
+  "all_clubs": {
+    "861": {
+      "slug": "ca-penarol",
+      "name": "CA Peñarol"
+    },
+    "866": {
+      "slug": "club-nacional",
+      "name": "Club Nacional"
+    },
+    "2403": {
+      "slug": "montevideo-wanderers",
+      "name": "Montevideo Wanderers"
+    },
+    "10632": {
+      "slug": "ca-rentistas",
+      "name": "CA Rentistas"
+    },
+    "18075": {
+      "slug": "cd-maldonado",
+      "name": "Club Deportivo Maldonado"
+    },
+    "10663": {
+      "slug": "liverpool-fc-montevideo",
+      "name": "Liverpool FC Montevideo"
+    },
+    "37535": {
+      "slug": "montevideo-city-torque",
+      "name": "Montevideo City Torque"
+    },
+    "20189": {
+      "slug": "cerro-largo-fc",
+      "name": "Cerro Largo FC"
+    },
+    "2419": {
+      "slug": "atletico-river-plate-montevideo",
+      "name": "CA River Plate Montevideo"
+    },
+    "3829": {
+      "slug": "ca-fenix",
+      "name": "CA Fénix"
+    },
+    "1806": {
+      "slug": "ia-sud-america-montevideo",
+      "name": "IA Sud América"
+    },
+    "17595": {
+      "slug": "ca-progreso",
+      "name": "CA Progreso"
+    },
+    "6044": {
+      "slug": "club-plaza-colonia",
+      "name": "Club Plaza Colonia"
+    },
+    "18077": {
+      "slug": "cs-cerrito",
+      "name": "CS Cerrito"
+    },
+    "18074": {
+      "slug": "ca-boston-river",
+      "name": "CA Boston River"
+    },
+    "3858": {
+      "slug": "deportivo-villa-espanola",
+      "name": "Deportivo Villa Española"
+    },
+    "2619": {
+      "slug": "defensor-sc",
+      "name": "Defensor Sporting Club"
+    },
+    "1306": {
+      "slug": "danubio-fc",
+      "name": "Danubio FC"
+    },
+    "42149": {
+      "slug": "albion-fc",
+      "name": "Albion FC"
+    },
+    "14758": {
+      "slug": "racing-club-de-montevideo",
+      "name": "Racing Club de Montevideo"
+    },
+    "14806": {
+      "slug": "ca-cerro",
+      "name": "CA Cerro"
+    },
+    "20762": {
+      "slug": "la-luz-tacuru-futbol-club",
+      "name": "La Luz FC"
+    },
+    "14598": {
+      "slug": "rampla-juniors-fc",
+      "name": "Rampla Juniors FC"
+    },
+    "7477": {
+      "slug": "miramar-misiones",
+      "name": "Miramar Misiones"
+    },
+    "17428": {
+      "slug": "juventud-de-las-piedras",
+      "name": "CA Juventud"
+    },
+    "10960": {
+      "slug": "central-espanol",
+      "name": "Central Español FC"
+    }
+  }
+}

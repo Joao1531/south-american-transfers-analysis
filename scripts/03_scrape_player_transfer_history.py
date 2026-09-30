@@ -6,11 +6,14 @@ matters for resale-value / sell-on context.
 
 Endpoint: /ceapi/transferHistory/list/{player_id}  (JSON, no HTML parsing)
 """
+import argparse
 import json
 import os
 import time
 import sys
 import requests
+
+import league_config
 
 BASE = "https://www.transfermarkt.com"
 HEADERS = {
@@ -19,10 +22,8 @@ HEADERS = {
     "Accept": "application/json",
     "Accept-Language": "en-US,en;q=0.9",
 }
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = league_config.ROOT
 RAW_DIR = os.path.join(ROOT, "data", "raw", "player_history")
-OUT_PATH = os.path.join(ROOT, "data", "processed", "player_transfer_history.json")
-TRANSFERS_PATH = os.path.join(ROOT, "data", "processed", "transfers_raw.json")
 DELAY = 1.1
 
 os.makedirs(RAW_DIR, exist_ok=True)
@@ -44,12 +45,19 @@ def fetch(player_id):
 
 
 def main():
-    transfers = json.load(open(TRANSFERS_PATH, encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    league_config.add_league_arg(parser)
+    args = parser.parse_args()
+    config = league_config.get(args.league)
+    transfers_path = os.path.join(config["processed_dir"], "transfers_raw.json")
+    out_path = os.path.join(config["processed_dir"], "player_transfer_history.json")
+
+    transfers = json.load(open(transfers_path, encoding="utf-8"))
     player_ids = sorted({r["player_id"] for r in transfers if r.get("player_id")})
 
     results = {}
-    if os.path.exists(OUT_PATH):
-        results = json.load(open(OUT_PATH, encoding="utf-8"))
+    if os.path.exists(out_path):
+        results = json.load(open(out_path, encoding="utf-8"))
 
     print(f"Fetching full transfer history for {len(player_ids)} unique players...")
     for i, pid in enumerate(player_ids, 1):
@@ -63,12 +71,12 @@ def main():
             results[pid] = {"error": str(e)}
         if i % 100 == 0:
             print(f"[{i}/{len(player_ids)}]")
-            with open(OUT_PATH, "w", encoding="utf-8") as f:
+            with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(results, f, ensure_ascii=False)
 
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False)
-    print(f"Done. {len(results)} players -> {OUT_PATH}")
+    print(f"Done. {len(results)} players -> {out_path}")
 
 
 if __name__ == "__main__":

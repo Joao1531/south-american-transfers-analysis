@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audax Transfer Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:  #fcfcfb;
+    --surface-2:  #f2f1ee;
+    --plane:      #f9f9f7;
+    --ink:        #0b0b0b;
+    --ink-2:      #52514e;
+    --muted:      #898781;
+    --grid:       #e1e0d9;
+    --border:     rgba(11,11,11,0.10);
+    --accent:     #0353cc;
+    --accent-ink: #ffffff;
+    --good:       #009c6e;
+    --bad:        #d93d3e;
+    --slot-1: #0353cc;
+    --slot-2: #eb6834;
+    --slot-3: #1baf7a;
+    --slot-4: #eda100;
+    --slot-5: #e87ba4;
+    --slot-6: #008300;
+    --slot-7: #4a3aa7;
+    --slot-8: #e34948;
+    --callout-bg: color-mix(in srgb, var(--accent) 6%, var(--surface-1));
+    --font-display: "Barlow Condensed", system-ui, sans-serif;
+    --font-body: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --surface-2: #232322;
+      --plane:     #0d0d0d;
+      --ink:       #ffffff;
+      --ink-2:     #c3c2b7;
+      --muted:     #898781;
+      --grid:      #2c2c2a;
+      --border:    rgba(255,255,255,0.10);
+      --accent:    #4d86e8;
+      --good:      #1fbf8e;
+      --bad:       #e8615f;
+      --slot-1: #4d86e8;
+      --slot-2: #d95926;
+      --slot-3: #199e70;
+      --slot-4: #c98500;
+      --slot-5: #d55181;
+      --slot-6: #008300;
+      --slot-7: #9085e9;
+      --slot-8: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #232322;
+    --plane:     #0d0d0d;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --muted:     #898781;
+    --grid:      #2c2c2a;
+    --border:    rgba(255,255,255,0.10);
+    --accent:    #4d86e8;
+    --good:      #1fbf8e;
+    --bad:       #e8615f;
+    --slot-1: #4d86e8;
+    --slot-2: #d95926;
+    --slot-3: #199e70;
+    --slot-4: #c98500;
+    --slot-5: #d55181;
+    --slot-6: #008300;
+    --slot-7: #9085e9;
+    --slot-8: #e66767;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--plane); color: var(--ink);
+    font-family: var(--font-body); font-size: 15.5px; line-height: 1.65;
+  }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 100px; }
+  .prose { max-width: 680px; }
+
+  header.top {
+    display: flex; align-items: center; gap: 16px;
+    padding-bottom: 24px; border-bottom: 3px solid var(--accent); margin-bottom: 32px;
+  }
+  .brand-mark {
+    width: 52px; height: 52px; border-radius: 10px; background: var(--surface-1);
+    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+    flex: none; padding: 6px;
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 4px; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 0.01em; text-wrap: balance; line-height: 1.05; }
+  .top-sub { color: var(--ink-2); font-size: 13.5px; margin-top: 6px; }
+
+  h2 {
+    font-family: var(--font-display); font-weight: 700; font-size: 26px; text-transform: uppercase;
+    letter-spacing: 0.01em; margin: 56px 0 6px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--ink); text-wrap: balance;
+  }
+  h2 .num { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 10px; }
+  .section-dek { color: var(--ink-2); font-size: 14.5px; margin: 0 0 22px; max-width: 680px; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin: 0 0 10px; }
+  h4 { font-family: var(--font-body); font-weight: 700; font-size: 15px; margin: 24px 0 8px; color: var(--ink); }
+  p { margin: 0 0 14px; }
+  a { color: var(--accent); }
+  .prose p, .prose li { max-width: 680px; }
+  .inference { color: var(--muted); font-style: italic; }
+
+  .callout {
+    background: var(--callout-bg); border-left: 3px solid var(--accent);
+    border-radius: 4px; padding: 12px 16px; margin: 16px 0;
+  }
+
+  .tldr {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; margin-bottom: 8px;
+  }
+  .tldr h2 { margin-top: 0; padding-top: 0; border-top: none; font-size: 20px; }
+  .tldr ul { margin: 0; padding-left: 20px; }
+  .tldr li { margin-bottom: 8px; }
+  .tldr li::marker { color: var(--accent); }
+
+  /* Big 3 cards */
+  .big3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 8px; }
+  .big3-card { background: var(--surface-1); border: 1px solid var(--border); border-top: 2px solid var(--accent); border-radius: 8px 8px 10px 10px; padding: 16px; }
+  .big3-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .big3-crest { width: 22px; height: 22px; object-fit: contain; }
+  .big3-card h3 { margin: 0; font-size: 17px; }
+  .big3-stat-row { display: flex; gap: 12px; margin-bottom: 8px; }
+  .big3-stat-row > div { flex: 1; display: flex; flex-direction: column; }
+  .big3-stat-row .n { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .big3-stat-row .l { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .big3-money { display: flex; gap: 10px; margin: 12px 0; padding: 10px 0; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); }
+  .big3-money > div { flex: 1; display: flex; flex-direction: column; }
+  .big3-money .l { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+  .big3-money .n { font-family: var(--font-mono); font-weight: 600; font-size: 14px; }
+  .big3-money .n.pos { color: var(--good); }
+  .big3-money .n.neg { color: var(--bad); }
+  .big3-note { font-size: 12.5px; color: var(--ink-2); margin-bottom: 8px; }
+
+  /* data tables */
+  .table-scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--border); border-radius: 8px; }
+  table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data th {
+    text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--muted); font-weight: 600; padding: 9px 12px; border-bottom: 1px solid var(--border);
+    background: var(--surface-1); white-space: nowrap; position: sticky; top: 0;
+  }
+  table.data td { padding: 7px 12px; border-bottom: 1px solid var(--grid); }
+  table.data td.num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); text-align: right; }
+  table.data tbody tr:hover { background: var(--surface-2); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+  .tag-moved { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+  .tag-stable { background: color-mix(in srgb, var(--muted) 18%, transparent); color: var(--ink-2); }
+
+  /* loan stat strip */
+  .stat-strip { display: flex; gap: 14px; margin: 18px 0; flex-wrap: wrap; }
+  .stat-box { flex: 1; min-width: 140px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .stat-box .n { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--accent); font-variant-numeric: tabular-nums; display: block; }
+  .stat-box .l { font-size: 11.5px; color: var(--ink-2); margin-top: 2px; }
+
+  details.sources { margin-top: 20px; font-size: 12.5px; color: var(--muted); }
+  details.sources summary { cursor: pointer; font-weight: 600; color: var(--ink-2); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.05em; }
+  details.sources ul { padding-left: 18px; margin-top: 8px; }
+  details.sources li { margin-bottom: 4px; }
+
+  .case-study {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 22px 24px; margin: 20px 0;
+  }
+  .case-timeline { list-style: none; padding: 0; margin: 16px 0; border-left: 2px solid var(--border); }
+  .case-timeline li { padding: 0 0 14px 20px; position: relative; }
+  .case-timeline li::before {
+    content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--accent); border: 2px solid var(--surface-1);
+  }
+  .case-timeline .date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); display: block; }
+  .case-verdict { background: var(--callout-bg); border-left: 3px solid var(--bad); border-radius: 4px; padding: 12px 16px; margin-top: 16px; }
+
+  footer.notes {
+    margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; line-height: 1.7;
+  }
+
+  @media (max-width: 720px) {
+    .big3-grid { grid-template-columns: 1fr; }
+    .stat-strip { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand-mark"><img src="data:image/png;base64,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" alt="Audax Italiano"></div>
+    <div>
+      <p class="eyebrow">Preparado para Audax Italiano</p>
+      <h1>Inteligencia del Mercado de Traspasos Chileno</h1>
+      <div class="top-sub">Un análisis a fondo de cómo se mueven realmente el dinero, los jugadores y las cláusulas en el fútbol chileno — 2020–2026</div>
+    </div>
+  </header>
+
+  <section class="tldr">
+    <h2>En resumen</h2>
+    <ul>
+      <li><b>Los traspasos libres pueden esconder dinero real.</b> Matías Palavecino dejó Coquimbo Unido por Universidad Católica por €0 pese a un valor de mercado de €1M — su contrato simplemente había vencido, así que Coquimbo no recibió nada. Es el error más evitable de estos datos: dejar que venza el contrato de un jugador valioso le cuesta todo al club vendedor.</li>
+      <li><b>Las cláusulas de reventa son comunes en Chile y a menudo rinden después, no de inmediato.</b> Revisamos individualmente 458 traspasos contra la prensa y confirmamos 87 cláusulas reales. De ellas, 54 (62%) ya involucran al jugador pasando a un TERCER club desde entonces — es decir, la cláusula puede ya deberse, o ya haberse pagado, sin que necesariamente sea noticia.</li>
+      <li><b>Solo Universidad Católica maneja un modelo de traspasos claramente rentable entre los "tres grandes".</b> Colo-Colo es levemente positivo en neto; Universidad de Chile es negativo en el período — pese a que los tres se consideran los mayores vendedores de la liga.</li>
+      <li><b>Argentina es el mercado más valioso de Chile — no porque pague más, sino porque compra más y actúa como vitrina</b> para una segunda venta mayor más adelante. Brasil paga el monto promedio más alto por operación, pero compra poco y de forma selectiva.</li>
+      <li><b>La mayoría de las cesiones se esfuman en silencio — salvo que se haya negociado un monto de entrada.</b> El 78% de las cesiones rastreadas terminan con el jugador moviéndose otra vez sin que el club de origen capture más valor. Pero entre las cesiones que SÍ tenían un monto revelado, 15 de 16 resultaron tener una cláusula real de opción de compra, reventa o recompra — la disciplina de negociación al firmar es lo que marca la diferencia.</li>
+      <li><b>Sí existe una fuente estructurada real para los porcentajes de traspaso — para dos clubes.</b> Los estados financieros auditados de Colo-Colo y Universidad de Chile ante la CMF contienen una tabla por jugador con las divisiones exactas de "% derechos federativos / % derechos económicos". Las cláusulas de todos los demás todavía hay que encontrarlas en la prensa.</li>
+    </ul>
+  </section>
+
+  <h2><span class="num">01</span>Los Tres Grandes</h2>
+  <p class="section-dek">Colo-Colo, Universidad Católica y Universidad de Chile son los vendedores de referencia de la liga. Esto es lo que cada uno ha hecho realmente en el mercado de traspasos, 2020–2026.</p>
+  <div class="big3-grid">
+    
+        <div class="big3-card">
+          <div class="big3-card-head">
+            <img class="big3-crest" src="data:image/png;base64,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" alt="">
+            <h3>Colo-Colo</h3>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">124</span><span class="l">llegadas</span></div>
+            <div><span class="n">147</span><span class="l">salidas</span></div>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">25.4</span><span class="l">edad prom., llegadas</span></div>
+            <div><span class="n">25.7</span><span class="l">edad prom., salidas</span></div>
+          </div>
+          <div class="big3-money">
+            <div><span class="l">Gastado</span><span class="n">$18,74M</span></div>
+            <div><span class="l">Ingresado</span><span class="n">$24,14M</span></div>
+            <div><span class="l">Neto</span><span class="n pos">+$5,40M</span></div>
+          </div>
+          <p class="big3-note">81% de las salidas son jugadores chilenos; de ellos, 19% deja el país por completo (el resto se queda en el fútbol chileno, sobre todo en divisiones inferiores). Principales destinos internacionales: Argentina (16), Brasil (5), México (3).</p>
+          <p class="big3-note"><b>Mayor venta:</b> Carlos Palacios → CA Boca Juniors ($4,92M)<br>
+          <b>Mayor compra:</b> Carlos Palacios desde Clube de Regatas Vasco da Gama ($3,74M)</p>
+        </div>
+
+        <div class="big3-card">
+          <div class="big3-card-head">
+            <img class="big3-crest" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAtGVYSWZJSSoACAAAAAYAEgEDAAEAAAABAAAAGgEFAAEAAABWAAAAGwEFAAEAAABeAAAAKAEDAAEAAAACAAAAEwIDAAEAAAABAAAAaYcEAAEAAABmAAAAAAAAAEgAAAABAAAASAAAAAEAAAAGAACQBwAEAAAAMDIxMAGRBwAEAAAAAQIDAACgBwAEAAAAMDEwMAGgAwABAAAA//8AAAKgBAABAAAAHgAAAAOgBAABAAAAHgAAAAAAAADieyVZAAAACXBIWXMAAAsTAAALEwEAmpwYAAADmElEQVRIibVWTW8bVRQ97z07jtskhSIVVEWqQCxQirppV1CkSEgsWLABA0skJPgZsfewLIiyQWKBYBaVWoQqtVJbKtEIjETkJG2aOB/D2ON6xl8z9sx4xvNeNR+u3E3jSeyz8Phd3/uO7rvnzDPBYVhZoSgU+JkvpQvLb7/2xStzMzbngja7LgiAl+dSSFHG1Y6TvbWufW/+9Mn2sAbHQS73Gwuep76+sbxWdYQQwg8+rhVVcXOtLmLw1V1D4CPpUlQU1bwI9LAEaWlDBM/OL0XFsN02drYErv3qctv2BjXV41e/c3GwB9P1VVy/rYZFcc2xiFHIR5sYv2tV022i2WBwrRQFTxPHSlO9koJpEqXjNYAftOdqXoDUocQgwVESQkjnn5JSO3X+zTc85ovVfQNpnoL/1odiFosoru9VAbhCCEoI4cfvGIAU5yl6b58JgeziWVDfR3ruBDLZDHjXgtq2d8NcKdQcJkI8xPzi2e3LgyreL/2BS2dSuJjp4QPtb7z7KsXswsJjJAAdJ0mSoud+3dxRyQlgNotBJgv/5DywcBqK3kVJtcphbnA+E0MutsfHP7+3JpuhfaQHB+JGUeHB4sGjOsflHy+GOSuCTu6ol2J7/FdXtaZpPlMcEMY1o6/jXyWyUj6KTYa4ENujfFNVDUcPvgakIuaothwddqEWLshY2sIYdnrOUj1Ft54AeB2ECBILuNay/gfAx7VSUlWHLLrRLw8XjEbEmunujOZMsGM886dm9LfDQkYFYxFPtWVtj6p/oh1f2bgbsmxW2mUn7pZRQtp9YLXc2EtqpdS4ifc2tVBJxVJT1po2CAQLhl7TOwO1VK+ExBu5sRSdbMZDS23J1XrLNhhjhDGGJx23hb9UJYmVEokhzg02nr1eVB5lZtLnTmZmUGkYDz9759wSEoImyI3fGXB001WCbn0A7Z4bzjf+bSrEAcLNTcvd6Q8AyxVo97zyUfaiSZKlmFjrumXL5bBcH5VmdDnk85Hqp0J8Jd58SzH2rP4AZs/GumIeBLHN85HqJ26nUUvt13uy1jLgeYOB1nTkpFZKPuPYUnXHkquNbl9t2VapYR8ktdJREM/xq/Tn396vf/rN/aGwEoMmzI+7uup5Hq8wSuSjWCnxjAMMr76X5jMyY7QdxCQpbCCw9fSIl/N3AxIuN6zdnjPojl4gUyW+Fyv7z8edh5z79mhsqsSQcuE/DOFbdyin3mgsCZ4CXJ8Bh5gZ6coAAAAASUVORK5CYII=" alt="">
+            <h3>U. Católica</h3>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">97</span><span class="l">llegadas</span></div>
+            <div><span class="n">113</span><span class="l">salidas</span></div>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">26.1</span><span class="l">edad prom., llegadas</span></div>
+            <div><span class="n">26.0</span><span class="l">edad prom., salidas</span></div>
+          </div>
+          <div class="big3-money">
+            <div><span class="l">Gastado</span><span class="n">$5,27M</span></div>
+            <div><span class="l">Ingresado</span><span class="n">$18,08M</span></div>
+            <div><span class="l">Neto</span><span class="n pos">+$12,81M</span></div>
+          </div>
+          <p class="big3-note">79% de las salidas son jugadores chilenos; de ellos, 21% deja el país por completo (el resto se queda en el fútbol chileno, sobre todo en divisiones inferiores). Principales destinos internacionales: Argentina (13), Brasil (3), México (2).</p>
+          <p class="big3-note"><b>Mayor venta:</b> Marcelino Núñez → Norwich City ($4,21M)<br>
+          <b>Mayor compra:</b> Fernando Zampedri desde CA Rosario Central ($1,72M)</p>
+        </div>
+
+        <div class="big3-card">
+          <div class="big3-card-head">
+            <img class="big3-crest" src="data:image/png;base64,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" alt="">
+            <h3>U. de Chile</h3>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">116</span><span class="l">llegadas</span></div>
+            <div><span class="n">133</span><span class="l">salidas</span></div>
+          </div>
+          <div class="big3-stat-row">
+            <div><span class="n">25.8</span><span class="l">edad prom., llegadas</span></div>
+            <div><span class="n">25.8</span><span class="l">edad prom., salidas</span></div>
+          </div>
+          <div class="big3-money">
+            <div><span class="l">Gastado</span><span class="n">$10,37M</span></div>
+            <div><span class="l">Ingresado</span><span class="n">$9,67M</span></div>
+            <div><span class="l">Neto</span><span class="n neg">$-696k</span></div>
+          </div>
+          <p class="big3-note">70% de las salidas son jugadores chilenos; de ellos, 17% deja el país por completo (el resto se queda en el fútbol chileno, sobre todo en divisiones inferiores). Principales destinos internacionales: Argentina (14), Uruguay (5), Estados Unidos (3).</p>
+          <p class="big3-note"><b>Mayor venta:</b> Darío Osorio → FC Midtjylland ($5,62M)<br>
+          <b>Mayor compra:</b> Javier Altamirano desde Club Estudiantes de La Plata ($1,38M)</p>
+        </div>
+  </div>
+  <p class="prose" style="margin-top:14px;">Mirando a los tres en conjunto: Universidad Católica gasta lo menos y gana lo segundo más, lo que la convierte en la única de las tres con un modelo de traspasos claramente disciplinado y rentable en esta ventana. Colo-Colo mueve el mayor volumen en ambas direcciones y termina levemente adelante. Universidad de Chile — pese a haber producido la mayor venta del conjunto de datos (Darío Osorio, $5,6M) — ha gastado algo más de lo que ha ganado en total, lo que significa que su cuenta de traspasos no se financia sola como las de las otras dos.</p>
+
+  <h2><span class="num">02</span>Caso de estudio: el traspaso libre de Palavecino</h2>
+  <p class="section-dek">Coquimbo Unido → Universidad Católica, enero de 2026 — el traspaso que le costó todo a Coquimbo.</p>
+  <div class="case-study">
+    <h3>Matías Palavecino, 27, Mediocampista Ofensivo (Argentina)</h3>
+    <ul class="case-timeline">
+      <li><span class="date">Ene 2023</span> Llega a Coquimbo Unido como agente libre desde Gimnasia y Esgrima (Jujuy), segunda división de Argentina. Valor de mercado: €300k.</li>
+      <li><span class="date">Ago 2023</span> Cedido a Belgrano (Argentina) por una tarifa de cesión de €73k. El valor de mercado sube a €500k.</li>
+      <li><span class="date">Dic 2024</span> Termina la cesión y vuelve a Coquimbo. El valor de mercado baja a €150k.</li>
+      <li><span class="date">Temporada 2025</span> Se convierte en una de las figuras destacadas mientras Coquimbo gana su primer título de liga chilena. El valor de mercado se dispara a €1,00M.</li>
+      <li><span class="date">Ene 2026</span> Se va a Universidad Católica — como traspaso libre puro. Tanto Colo-Colo como Universidad Católica competían por su firma; ganó Católica.</li>
+    </ul>
+    <p>Coquimbo no negoció una cláusula de reventa, un monto ni ninguna compensación — porque no quedaba nada que negociar. Su contrato simplemente había vencido, punto confirmado directamente por la cobertura de la prensa chilena sobre su salida. Fue la segunda salida clave de Coquimbo sin costo esa misma semana, después del delantero Cecilio Waterman.</p>
+    <div class="case-verdict"><b>La lección para Audax:</b> el valor de mercado de un jugador puede cuadruplicarse mientras está bajo contrato, pero nada de ese valor se convierte en efectivo a menos que el club venda antes del vencimiento o extienda el contrato con suficiente anticipación para negociar desde una posición de fuerza. Una vez que se deja agotar un contrato, el club comprador no debe absolutamente nada — ni siquiera una tarifa nominal o un porcentaje de reventa. Para un club como Audax, que forma en vez de comprar talento ya establecido, el momento de la renovación de contrato de cualquier jugador cuyo valor sube es al menos tan importante como ojear al próximo fichaje.</p>
+  </div>
+
+  <h2><span class="num">03</span>Cláusulas de reventa: dónde está realmente el dinero hoy</h2>
+  <p class="section-dek">Los 87 traspasos de nuestra base con una cláusula de reventa, recompra u opción de compra confirmada por la prensa — de 458 revisados individualmente entre todos los traspasos con monto pagado, todos los traspasos libres de alto valor y todas las cesiones con monto revelado desde 2020 — contrastados con la carrera completa de cada jugador en Transfermarkt para ver si se han movido otra vez, que es exactamente cuando estas cláusulas se activan.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Jugador</th><th>Cláusula</th><th>En poder de</th><th>Vendido a (operación original)</th><th>Estado hoy</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Franco Calderón</td>
+          <td class="num">80%</td>
+          <td>CA Independiente</td>
+          <td>CA Independiente</td>
+          <td><span class="tag tag-moved">se movió → U. de Chile</span></td>
+        </tr>
+<tr>
+          <td>Esteban Matus</td>
+          <td class="num">30%</td>
+          <td>Audax Italiano</td>
+          <td>Club Olimpia</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Santiago Silva</td>
+          <td class="num">50%</td>
+          <td>Club Nacional</td>
+          <td>Club Nacional</td>
+          <td><span class="tag tag-moved">se movió → Huachipato</span></td>
+        </tr>
+<tr>
+          <td>Mauricio Vera</td>
+          <td class="num">just over 60%</td>
+          <td>Club Nacional</td>
+          <td>Club Nacional</td>
+          <td><span class="tag tag-moved">se movió → Bhayangkara FC</span></td>
+        </tr>
+<tr>
+          <td>Álvaro Madrid</td>
+          <td class="num">option-to-buy</td>
+          <td>CSD Colo-Colo</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → CD Everton</span></td>
+        </tr>
+<tr>
+          <td>Lucas Cepeda</td>
+          <td class="num">30%</td>
+          <td>CSD Colo-Colo</td>
+          <td>Elche CF</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Emmanuel Ojeda</td>
+          <td class="num">100% for $700,000</td>
+          <td>CA Huracán</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Vicente Pizarro</td>
+          <td class="num">30%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CA Rosario Central</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Alan Saldivia</td>
+          <td class="num">50% sold, with an additional 20% option</td>
+          <td>CSD Colo-Colo</td>
+          <td>Clube de Regatas Vasco da Gama</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Javier Méndez</td>
+          <td class="num">option-to-buy</td>
+          <td>CA Peñarol</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Alexander Oroz</td>
+          <td class="num">sell-on</td>
+          <td>CSD Colo-Colo</td>
+          <td>Deportes La Serena</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Luciano Pons</td>
+          <td class="num">option-to-buy</td>
+          <td>Atlético Bucaramanga</td>
+          <td>Atlético Bucaramanga</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Javier Altamirano</td>
+          <td class="num">50%</td>
+          <td>Huachipato FC</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Brayan Cortés</td>
+          <td class="num">option-to-buy</td>
+          <td>CA Peñarol</td>
+          <td>CA Peñarol</td>
+          <td><span class="tag tag-moved">se movió → Colo-Colo</span></td>
+        </tr>
+<tr>
+          <td>Thomas Gillier</td>
+          <td class="num">training-compensation</td>
+          <td>CD Universidad Católica</td>
+          <td>Bologna FC 1909</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Iván Román</td>
+          <td class="num">50%</td>
+          <td>CD Palestino</td>
+          <td>Clube Atlético Mineiro</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Marcelo Morales</td>
+          <td class="num">30%</td>
+          <td>Club Universidad de Chile</td>
+          <td>Red Bull New York</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Maximiliano Falcón</td>
+          <td class="num">15%</td>
+          <td>CSD Colo-Colo</td>
+          <td>Inter Miami CF</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Emmanuel Ojeda</td>
+          <td class="num">100%</td>
+          <td>CA Huracán</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Víctor Méndez</td>
+          <td class="num">50%</td>
+          <td>PFC CSKA Moscow</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Salomón Rodríguez</td>
+          <td class="num">50%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Gonzalo Tapia</td>
+          <td class="num">20%</td>
+          <td>CD Universidad Católica</td>
+          <td>CA River Plate</td>
+          <td><span class="tag tag-moved">se movió → São Paulo</span></td>
+        </tr>
+<tr>
+          <td>Carlos Palacios</td>
+          <td class="num">50%</td>
+          <td>CR Vasco da Gama</td>
+          <td>CA Boca Juniors</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Dylan Escobar</td>
+          <td class="num">50%</td>
+          <td>CD Universidad Católica</td>
+          <td>CD Universidad Católica</td>
+          <td><span class="tag tag-moved">se movió → Limache</span></td>
+        </tr>
+<tr>
+          <td>Enzo Hoyos</td>
+          <td class="num">sell-on</td>
+          <td>CA Chacarita Juniors</td>
+          <td>Club Deportes Iquique</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Maximiliano Salas</td>
+          <td class="num">disputed: 100% per Argentine press, 80% per another outlet</td>
+          <td>CD Palestino (disputed)</td>
+          <td>Racing Club</td>
+          <td><span class="tag tag-moved">se movió → River Plate</span></td>
+        </tr>
+<tr>
+          <td>Felipe Loyola</td>
+          <td class="num">50%</td>
+          <td>Huachipato FC</td>
+          <td>CA Independiente</td>
+          <td><span class="tag tag-moved">se movió → Pisa</span></td>
+        </tr>
+<tr>
+          <td>Jonathan Villagra</td>
+          <td class="num">30%</td>
+          <td>Unión Española</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Alexander Aravena</td>
+          <td class="num">30%</td>
+          <td>CD Universidad Católica</td>
+          <td>Grêmio Foot-Ball Porto Alegrense</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Damián Pizarro</td>
+          <td class="num">30%</td>
+          <td>CSD Colo-Colo</td>
+          <td>Udinese Calcio</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Luciano Cabral</td>
+          <td class="num">30%</td>
+          <td>Coquimbo Unido</td>
+          <td>Club León FC</td>
+          <td><span class="tag tag-moved">se movió → Independiente</span></td>
+        </tr>
+<tr>
+          <td>Jordhy Thompson</td>
+          <td class="num">70%</td>
+          <td>CSD Colo-Colo</td>
+          <td>FC Orenburg</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Rodrigo Echeverría</td>
+          <td class="num">80%</td>
+          <td>CD Everton</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-moved">se movió → León</span></td>
+        </tr>
+<tr>
+          <td>Lucas Cepeda</td>
+          <td class="num">option-to-buy</td>
+          <td>Santiago Wanderers</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → Elche CF</span></td>
+        </tr>
+<tr>
+          <td>Jordhy Thompson</td>
+          <td class="num">60%</td>
+          <td>FC Orenburg</td>
+          <td>FC Orenburg</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Leandro Garate</td>
+          <td class="num">50%</td>
+          <td>Unión Española</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-moved">se movió → Colon</span></td>
+        </tr>
+<tr>
+          <td>Maximiliano Salas</td>
+          <td class="num">100%</td>
+          <td>Racing Club (disputed)</td>
+          <td>Racing Club</td>
+          <td><span class="tag tag-moved">se movió → River Plate</span></td>
+        </tr>
+<tr>
+          <td>Gabriel Castellón</td>
+          <td class="num">50%</td>
+          <td>Huachipato FC</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Carlos Palacios</td>
+          <td class="num">80%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → Boca Juniors</span></td>
+        </tr>
+<tr>
+          <td>Jeisson Vargas</td>
+          <td class="num">cláusula</td>
+          <td>Huachipato</td>
+          <td>Huachipato FC</td>
+          <td><span class="tag tag-moved">se movió → La Serena</span></td>
+        </tr>
+<tr>
+          <td>Walter Mazzantti</td>
+          <td class="num">50%</td>
+          <td>Huracán / Huachipato FC (both)</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-moved">se movió → Independiente</span></td>
+        </tr>
+<tr>
+          <td>Darío Osorio</td>
+          <td class="num">10%</td>
+          <td>Universidad de Chile</td>
+          <td>FC Midtjylland</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Matías Palavecino</td>
+          <td class="num">option-to-buy</td>
+          <td>Club Atlético Belgrano</td>
+          <td>Club Atlético Belgrano</td>
+          <td><span class="tag tag-moved">se movió → U. Católica</span></td>
+        </tr>
+<tr>
+          <td>Williams Alarcón</td>
+          <td class="num">10%</td>
+          <td>Unión La Calera</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-moved">se movió → Boca Juniors</span></td>
+        </tr>
+<tr>
+          <td>Bruno Barticciotto</td>
+          <td class="num">20% each (40% combined)</td>
+          <td>CD Palestino and CD Universidad Católica</td>
+          <td>CA Talleres</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Javier Altamirano</td>
+          <td class="num">50%</td>
+          <td>Huachipato</td>
+          <td>Club Estudiantes de La Plata</td>
+          <td><span class="tag tag-moved">se movió → U. de Chile</span></td>
+        </tr>
+<tr>
+          <td>Lucas Passerini</td>
+          <td class="num">50%</td>
+          <td>Unión La Calera</td>
+          <td>Club Atlético Belgrano</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Lautaro Pastrán</td>
+          <td class="num">50%</td>
+          <td>CD Everton</td>
+          <td>Club Atlético Belgrano</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Matías Marín</td>
+          <td class="num">20%</td>
+          <td>O'Higgins</td>
+          <td>Club Atlético Belgrano</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Jeisson Vargas</td>
+          <td class="num">option-to-buy</td>
+          <td>Al-Rayyan SC</td>
+          <td>Al-Rayyan SC</td>
+          <td><span class="tag tag-moved">se movió → La Serena</span></td>
+        </tr>
+<tr>
+          <td>Alex Ibacache</td>
+          <td class="num">option-to-buy</td>
+          <td>CA San Lorenzo de Almagro</td>
+          <td>CA San Lorenzo de Almagro</td>
+          <td><span class="tag tag-moved">se movió → Antofagasta</span></td>
+        </tr>
+<tr>
+          <td>Alexander Aravena</td>
+          <td class="num">15%</td>
+          <td>CD Ñublense</td>
+          <td>CD Universidad Católica</td>
+          <td><span class="tag tag-moved">se movió → Grêmio</span></td>
+        </tr>
+<tr>
+          <td>Alexander Aravena</td>
+          <td class="num">15-20%</td>
+          <td>CD Ñublense</td>
+          <td>CD Ñublense</td>
+          <td><span class="tag tag-moved">se movió → Grêmio</span></td>
+        </tr>
+<tr>
+          <td>Bruno Barticciotto</td>
+          <td class="num">50%</td>
+          <td>CD Palestino</td>
+          <td>CD Palestino</td>
+          <td><span class="tag tag-moved">se movió → CA Talleres</span></td>
+        </tr>
+<tr>
+          <td>Guillermo Soto</td>
+          <td class="num">50%</td>
+          <td>CD Palestino</td>
+          <td>CA Huracán</td>
+          <td><span class="tag tag-moved">se movió → U. Católica</span></td>
+        </tr>
+<tr>
+          <td>Joaquín Montecinos</td>
+          <td class="num">mandatory-purchase</td>
+          <td>Audax Italiano</td>
+          <td>Club Tijuana</td>
+          <td><span class="tag tag-moved">se movió → D. Concepción</span></td>
+        </tr>
+<tr>
+          <td>Nicolás Guerra</td>
+          <td class="num">40%</td>
+          <td>Club Universidad de Chile</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-moved">se movió → Instituto ACC</span></td>
+        </tr>
+<tr>
+          <td>Williams Alarcón</td>
+          <td class="num">30%</td>
+          <td>CSD Colo-Colo</td>
+          <td>Unión La Calera</td>
+          <td><span class="tag tag-moved">se movió → Boca Juniors</span></td>
+        </tr>
+<tr>
+          <td>Pablo Solari</td>
+          <td class="num">32%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CA River Plate</td>
+          <td><span class="tag tag-moved">se movió → Spartak Moscow</span></td>
+        </tr>
+<tr>
+          <td>Lautaro Palacios</td>
+          <td class="num">option-to-buy</td>
+          <td>Al-Adalah FC</td>
+          <td>Al-Adalah FC</td>
+          <td><span class="tag tag-moved">se movió → Copiapó</span></td>
+        </tr>
+<tr>
+          <td>Janner Corozo</td>
+          <td class="num">50%</td>
+          <td>Macará</td>
+          <td>CD Everton</td>
+          <td><span class="tag tag-moved">se movió → LDU Quito</span></td>
+        </tr>
+<tr>
+          <td>Iván Morales</td>
+          <td class="num">20%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CD Cruz Azul</td>
+          <td><span class="tag tag-moved">se movió → Argentinos Jrs.</span></td>
+        </tr>
+<tr>
+          <td>Ignacio Tapia</td>
+          <td class="num">50%</td>
+          <td>Huachipato</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-moved">se movió → Atlético Grau</span></td>
+        </tr>
+<tr>
+          <td>Renzo Malanca</td>
+          <td class="num">15%</td>
+          <td>CS Independiente Rivadavia</td>
+          <td>Huachipato FC</td>
+          <td><span class="tag tag-moved">se movió → Banfield</span></td>
+        </tr>
+<tr>
+          <td>Michael Vadulli</td>
+          <td class="num">50%</td>
+          <td>Club Deportes Iquique</td>
+          <td>Audax Italiano</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Felipe Fritz</td>
+          <td class="num">cláusula</td>
+          <td>—</td>
+          <td>Curicó Unido</td>
+          <td><span class="tag tag-moved">se movió → Cobreloa</span></td>
+        </tr>
+<tr>
+          <td>Juan Martín Lucero</td>
+          <td class="num">20%</td>
+          <td>Club Atlético Vélez Sarsfield</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → U. de Chile</span></td>
+        </tr>
+<tr>
+          <td>Carlos Palacios</td>
+          <td class="num">5%</td>
+          <td>Unión Española</td>
+          <td>Sport Club Internacional</td>
+          <td><span class="tag tag-moved">se movió → Boca Juniors</span></td>
+        </tr>
+<tr>
+          <td>Cristián Zavala</td>
+          <td class="num">~25%</td>
+          <td>Deportes Melipilla</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Pablo Solari</td>
+          <td class="num">20%</td>
+          <td>CA Talleres</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → Spartak Moscow</span></td>
+        </tr>
+<tr>
+          <td>Lucas Fasson</td>
+          <td class="num">30% (retained stake); exact resale percentage not disclosed</td>
+          <td>Deportes La Serena</td>
+          <td>Club Athletico Paranaense</td>
+          <td><span class="tag tag-moved">se movió → Loko Moscow</span></td>
+        </tr>
+<tr>
+          <td>Rodrigo Holgado</td>
+          <td class="num">20%</td>
+          <td>Audax Italiano</td>
+          <td>Club de Gimnasia y Esgrima La Plata</td>
+          <td><span class="tag tag-moved">se movió → Coquimbo Unido</span></td>
+        </tr>
+<tr>
+          <td>Matías Dituro</td>
+          <td class="num">option-to-buy</td>
+          <td>Celta de Vigo</td>
+          <td>Celta de Vigo</td>
+          <td><span class="tag tag-moved">se movió → Elche CF</span></td>
+        </tr>
+<tr>
+          <td>Tomás Alarcón</td>
+          <td class="num">20%</td>
+          <td>CD O'Higgins</td>
+          <td>Cádiz CF</td>
+          <td><span class="tag tag-moved">se movió → Colo-Colo</span></td>
+        </tr>
+<tr>
+          <td>Nicolás Guerra</td>
+          <td class="num">40% of federative rights sold to Ñublense at time of loan; Universidad de Chile retained the remaining 60%</td>
+          <td>Universidad de Chile</td>
+          <td>CD Ñublense</td>
+          <td><span class="tag tag-moved">se movió → Instituto ACC</span></td>
+        </tr>
+<tr>
+          <td>Luis Casanova</td>
+          <td class="num">40% (Temuco), 10% (player)</td>
+          <td>Deportes Temuco</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-moved">se movió → Without Club</span></td>
+        </tr>
+<tr>
+          <td>Juan Leiva</td>
+          <td class="num">50%</td>
+          <td>Unión La Calera</td>
+          <td>CD Universidad Católica</td>
+          <td><span class="tag tag-moved">se movió → O'Higgins</span></td>
+        </tr>
+<tr>
+          <td>Branco Ampuero</td>
+          <td class="num">50%</td>
+          <td>Deportes Antofagasta</td>
+          <td>CD Universidad Católica</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Yonathan Andía</td>
+          <td class="num">50%</td>
+          <td>Unión La Calera</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-moved">se movió → La Calera</span></td>
+        </tr>
+<tr>
+          <td>Juan Carlos Gaete</td>
+          <td class="num">55%</td>
+          <td>CSD Colo-Colo</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → Cartaginés</span></td>
+        </tr>
+<tr>
+          <td>José Manzaneda</td>
+          <td class="num">economic-rights</td>
+          <td>Deportes La Serena</td>
+          <td>Club Alianza Lima</td>
+          <td><span class="tag tag-moved">se movió → Cusco FC</span></td>
+        </tr>
+<tr>
+          <td>Andrés Souper</td>
+          <td class="num">up to $150,000 option</td>
+          <td>Deportes Antofagasta</td>
+          <td>Deportes Antofagasta</td>
+          <td><span class="tag tag-moved">se movió → Loudoun United</span></td>
+        </tr>
+<tr>
+          <td>Fernando Zampedri</td>
+          <td class="num">option-to-buy</td>
+          <td>CA Rosario Central</td>
+          <td>CD Universidad Católica</td>
+          <td><span class="tag tag-stable">sigue allí</span></td>
+        </tr>
+<tr>
+          <td>Pablo Aránguiz</td>
+          <td class="num">50%</td>
+          <td>FC Dallas</td>
+          <td>Club Universidad de Chile</td>
+          <td><span class="tag tag-moved">se movió → Union Española</span></td>
+        </tr>
+<tr>
+          <td>Benjamín Kuscevic</td>
+          <td class="num">50%</td>
+          <td>CD Universidad Católica</td>
+          <td>Sociedade Esportiva Palmeiras</td>
+          <td><span class="tag tag-moved">se movió → Fortaleza</span></td>
+        </tr>
+<tr>
+          <td>César Pinares</td>
+          <td class="num">20%</td>
+          <td>CD Universidad Católica</td>
+          <td>Grêmio Foot-Ball Porto Alegrense</td>
+          <td><span class="tag tag-moved">se movió → Audax Italiano</span></td>
+        </tr>
+<tr>
+          <td>Maximiliano Falcón</td>
+          <td class="num">25%</td>
+          <td>Rentistas</td>
+          <td>CSD Colo-Colo</td>
+          <td><span class="tag tag-moved">se movió → Miami</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:13px;color:var(--ink-2)">"Se movió" no garantiza que la cláusula se haya pagado — algunas son divisiones de derechos económicos compartidos sin disparador automático, y Transfermarkt no confirma la liquidación. Pero sí significa que el evento disparador (una venta posterior) ya ocurrió, por lo que vale la pena consultar directamente al club contraparte si el monto es relevante.</p>
+
+  <h2><span class="num">04</span>¿Los "traspasos libres" esconden alguna vez una cláusula?</h2>
+  <p class="section-dek">Probamos el patrón Palavecino contra cada otro "traspaso libre" de alto valor en la base (valor de mercado ≥ €300k) para ver con qué frecuencia un club negoció realmente algo pese a no cobrar un monto: 322 traspasos revisados, 7 aciertos confirmados. La baja tasa de aciertos es en sí el hallazgo — confirma que la salida sin compensación de Palavecino es la norma, no la excepción, para un contrato vencido.</p>
+  <p>El patrón dominante confirma que Palavecino fue la regla, no la excepción: entre todos los "traspasos libres" de alto valor que revisamos, la gran mayoría fueron simples vencimientos de contrato sin compensación alguna para el club vendedor. Pero surgieron 8 excepciones reales — casos en que la etiqueta de "traspaso libre" de Transfermarkt ocultaba dinero genuino o una cláusula real:</p>
+
+<div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Jugador</th><th>Movimiento</th><th>Qué se encontró realmente</th></tr></thead>
+    <tbody>
+      <tr><td>Marcelo Morales</td><td>U. de Chile → NY Red Bulls</td><td>Pago de $500.000 <b>más</b> un 30% de reventa para U. de Chile, pese a la etiqueta de "libre"</td></tr>
+      <tr><td>Nicolás Guerra</td><td>U. de Chile → Ñublense (cesión)</td><td>Ñublense compró el 40% de sus derechos económicos como parte de su salida; U. de Chile conservó el 60% (la fuente ya no está en línea — tomar con cautela)</td></tr>
+      <tr><td>Yonathan Andía</td><td>Unión La Calera → U. de Chile</td><td>No fue un fichaje simple — fue un canje de jugadores (Andía por Esteban Valencia) en que ambos clubes acordaron compartir el 50% de los derechos económicos de ambos jugadores para cualquier venta futura</td></tr>
+      <tr><td>Alexander Oroz</td><td>Colo-Colo → Deportes La Serena</td><td>El propio presidente de Colo-Colo dijo que el club negociaba conservar un porcentaje de reventa a cambio de la liberación sin costo — porcentaje no revelado, destino no confirmado por esa misma cita, y no está claro si se concretó</td></tr>
+      <tr><td>Thomas Gillier</td><td>U. Católica → Bologna</td><td>~$500.000 en compensación FIFA por formación — un mecanismo distinto y automático, no una cláusula negociada, pero dinero real de todos modos</td></tr>
+      <tr><td>Jeisson Vargas</td><td>U. de Chile → Huachipato</td><td>No fue una salida libre en absoluto — fue incluido como contraprestación en otra operación en que U. de Chile compró al arquero Gabriel Castellón a Huachipato</td></tr>
+      <tr><td>José Manzaneda</td><td>Deportes La Serena → Alianza Lima</td><td>La Serena monetizó el movimiento (~$100k netos) en lugar de liberarlo gratis, y la FIFA multó al club por separado por usar mal el certificado de transferencia al estructurarlo</td></tr>
+      <tr><td>Felipe Fritz</td><td>Colo-Colo → Curicó Unido</td><td>Colo-Colo tenía una opción de recompra antes del vencimiento, pero decidió no ejercerla — terminó como una salida libre normal de todos modos</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="prose" style="font-size:13px;color:var(--ink-2)">El resto — la gran mayoría de la muestra — resultó exactamente como Palavecino: un contrato llegó a cero y el club vendedor no recibió nada, sin importar cuánto hubiera crecido el valor del jugador. Unos pocos fueron "liberados" en vez de "vencidos" (el club o el jugador terminó el contrato antes de tiempo), pero incluso esos no tuvieron compensación en casi todos los casos que pudimos verificar. Dos entradas que aparecían en un borrador anterior de esta tabla — una supuesta negociación de canje de Sebastián Pérez y una supuesta indemnización por liberación de Francisco Arancibia — fueron retiradas después de que una revalidación completa mostrara que sus artículos fuente nunca dijeron lo que se había registrado originalmente.</p>
+
+  <h2><span class="num">05</span>El manual de las cesiones: qué pasa cuando terminan</h2>
+  <p class="section-dek">439 cesiones salientes de clubes chilenos de primera división desde 2020, rastreadas hasta su resolución real usando el historial de traspasos posteriores de cada jugador.</p>
+  <div class="stat-strip">
+    <div class="stat-box"><span class="n">439</span><span class="l">cesiones salientes en total</span></div>
+    <div class="stat-box"><span class="n">341</span><span class="l">volvieron y luego se movieron otra vez</span></div>
+    <div class="stat-box"><span class="n">94</span><span class="l">volvieron y se quedaron (hasta ahora)</span></div>
+    <div class="stat-box"><span class="n">1</span><span class="l">comprados definitivamente por el club receptor</span></div>
+  </div>
+  <p class="prose">Ese es el patrón a nivel de liga. Pero cuando investigamos individualmente las 16 cesiones con tarifa de cesión revelada (un indicador de que "el club de origen consideró al jugador lo bastante valioso como para negociar condiciones de entrada"), el panorama se invierte por completo: 15 de 16 tenían una cláusula real y documentada de opción de compra, reventa o recompra al firmar.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Jugador</th><th>Movimiento</th><th>Tipo de cláusula</th><th>Términos</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Franco Calderón</td>
+          <td>Club Universidad de Chile → CA Independiente</td>
+          <td>Opción de compra</td>
+          <td class="num">80%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Santiago Silva</td>
+          <td>Huachipato FC → Club Nacional</td>
+          <td>Opción de compra</td>
+          <td class="num">50%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Mauricio Vera</td>
+          <td>Deportes Concepción → Club Nacional</td>
+          <td>Opción de compra</td>
+          <td class="num">just over 60%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Álvaro Madrid</td>
+          <td>CD Everton → CSD Colo-Colo</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Brayan Cortés</td>
+          <td>CSD Colo-Colo → CA Peñarol</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Emmanuel Ojeda</td>
+          <td>Club Universidad de Chile → CA Huracán</td>
+          <td>Opción de compra</td>
+          <td class="num">100%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Dylan Escobar</td>
+          <td>Coquimbo Unido → CD Universidad Católica</td>
+          <td>Opción de compra</td>
+          <td class="num">50%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Cristóbal Muñoz</td>
+          <td>Club Universidad de Chile → Deportes Santa Cruz</td>
+          <td>—</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-stable">sin cláusula</span></td>
+        </tr>
+<tr>
+          <td>Jordhy Thompson</td>
+          <td>CSD Colo-Colo → FC Orenburg</td>
+          <td>Opción de compra</td>
+          <td class="num">60%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Maximiliano Salas</td>
+          <td>CD Palestino → Racing Club</td>
+          <td>Opción de compra</td>
+          <td class="num">100%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Matías Palavecino</td>
+          <td>Coquimbo Unido → Club Atlético Belgrano</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Jeisson Vargas</td>
+          <td>Club Universidad de Chile → Al-Rayyan SC</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Alex Ibacache</td>
+          <td>CD Everton → CA San Lorenzo de Almagro</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Lautaro Palacios</td>
+          <td>Audax Italiano → Al-Adalah FC</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Matías Dituro</td>
+          <td>CD Universidad Católica → Celta de Vigo</td>
+          <td>Opción de compra</td>
+          <td class="num">—</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+<tr>
+          <td>Nicolás Guerra</td>
+          <td>Club Universidad de Chile → CD Ñublense</td>
+          <td>Reventa</td>
+          <td class="num">40% of federative rights sold to Ñublense at time of loan; Universidad de Chile retained the remaining 60%</td>
+          <td><span class="tag tag-moved">confirmada</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="font-size:13px;color:var(--ink-2)">Casos destacados: la cesión de Jordhy Thompson al FC Orenburg tenía una opción de compra obligatoria del 60% activada a los 10 partidos — jugó 12, Colo-Colo cobró $1,2M y conservó el resto para una venta futura. La cesión de Franco Calderón a Independiente en 2026 apila una opción del 80%, una tarifa por extensión de la cesión <b>y</b> un derecho de recompra para Universidad de Chile, todo compensándose entre sí. La cesión de Brayan Cortés de Colo-Colo a Peñarol muestra cómo el piso subió en tiempo real durante la negociación: la primera oferta de Peñarol quedó por debajo de la mitad de la cifra final, antes de que las partes acordaran una opción por más de $1,35M frente al mínimo de $1M de Colo-Colo.</p>
+  <h4>¿Qué tan comunes son las cláusulas de compra incluidas en las cesiones?</h4>
+<p>Muy comunes para cualquier jugador por sobre un suplente marginal — pero lejos de ser universales. Los clubes chilenos que ceden a un jugador que consideran valioso casi siempre intentan agregar una <em>opción de compra</em> (opcional, a discreción del comprador) o una <em>compra obligatoria</em> (obligatoria una vez que se cumple un disparador). Ejemplos recientes confirmados: la cesión de Gonzalo Reyna a la Universidad de Chile incluyó una opción de $1,5M por el 50% de sus derechos; la cesión de Franco Calderón desde U. de Chile a Independiente incluyó una tarifa de cesión de $120K más una opción de compra de $1,2M; el traspaso de Jordhy Thompson al FC Orenburg se convirtió en una compra <em>obligatoria</em> (~$1,2M) activada al llegar a 10 partidos — jugó 12. Las cesiones puras sin ninguna opción también ocurren de forma deliberada: la cesión de Jorge Ortiz desde Universidad Católica en 2025 se informó explícitamente como "sin opción de compra" porque el plan era que volviera y peleara un puesto en el primer equipo en 2026, y la cesión de Salomón Rodríguez desde Colo-Colo no tiene ninguna opción de compra, lo que significa que Colo-Colo está contractualmente obligado a recibirlo de vuelta.</p>
+<p><b>Disparadores vistos en los datos:</b> partidos/minutos jugados (10 partidos para Thompson), cuotas de goles (en parte para Barticciotto) y fechas fijas de calendario (un plazo del 20 de diciembre para Ojeda). No surgió ningún caso chileno confirmado en que el disparador fuera el ascenso del equipo o un título — ese es un mecanismo estándar en otras partes del fútbol pero no confirmado aquí.</p>
+
+<h4>Derechos económicos compartidos: ¿solo dinero o también poder de veto?</h4>
+<p>Según el caso mejor documentado — Bruno Barticciotto (Universidad Católica 40% / Talleres de Córdoba 60%) — la respuesta es <b>solo dinero, no veto</b>. Cuando Santos Laguna ejerció su opción obligatoria, compró directamente la participación del 60% de Talleres; UC no tuvo voz en esa transacción y simplemente siguió manteniendo su 40% sin pago en ese momento. Esto coincide con cómo funcionan los derechos económicos en general en el derecho del fútbol: el titular recibe una parte de lo recaudado, pero el control sobre los traspasos queda en quien posee la inscripción federativa del jugador. No surgió ningún ejemplo chileno de un club formador ejerciendo un veto real sobre una venta posterior — esto parece estructuralmente raro o inexistente, inferido de la mecánica más que de una regla explícita.</p>
+
+<h4>Los Tres Grandes: ¿formar para vender o formar para recuperar?</h4>
+<p>Ambos patrones coexisten, decididos caso a caso y no como una estrategia única de la casa. <b>Formar para vender:</b> se ha informado que la gestión de cantera de Colo-Colo en 2024-2025 sopesa explícitamente vender a jóvenes prometedores en su punto máximo de valor frente a esperar años por un salto al primer equipo, y ha enviado a cesión a la mayor parte de su plantel sub-21 campeón para darle visibilidad ante compradores. <b>Formar para recuperar:</b> el manejo de Universidad Católica con Jorge Ortiz (sin opción de compra, plan explícito de regresar y competir por un puesto en 2026) y su rotación de productos de cantera por cesiones de desarrollo se lee como construcción de plantel, no como reventa de activos.</p>
+
+<h4>Terminología y divulgación en Chile</h4>
+<p>Vocabulario estándar: <em>préstamo/cesión</em> (cesión), <em>opción de compra</em> (derecho de compra opcional), <em>opción de compra obligatoria</em> o <em>compra obligatoria</em> (obligatoria una vez activada), <em>derechos económicos</em> / <em>porcentaje del pase</em> (división de derechos económicos). La "cesión con cargo" — común en España — no aparece en la cobertura chilena; los medios locales prefieren "préstamo con opción de compra". La divulgación es informal: Redgol, Punto Seguido, Emol, Dale Albo y Al Aire Libre publican cifras en dólares, divisiones porcentuales y condiciones de activación una vez que un club o un agente confirma un acuerdo — no existe un registro público formal, por lo que la precisión varía y a veces los medios se contradicen.</p>
+
+<h4>La lección práctica para Audax</h4>
+<p>El patrón respalda con fuerza tratar una opción de compra — idealmente con una cláusula de reventa encima — como práctica casi estándar cada vez que se cede a un jugador prometedor a un club chileno más grande o al extranjero. No porque todo club receptor vaya a ejercerla, sino porque es el mecanismo que realmente convierte una cesión en ingresos en vez de un favor gratuito de desarrollo. El propio conjunto de datos de Audax lo respalda: <b>el 78% de las cesiones terminan con el jugador moviéndose otra vez sin que el club de origen capture ese valor contractualmente</b>, y solo un caso de nuestra muestra pasó limpiamente de cesión a compra sin una opción ya incluida. El caso Barticciotto es la advertencia para un club formador como Audax: incluso reteniendo un 40%, no hay control sobre el momento ni veto — por lo que los términos económicos (porcentaje, precio mínimo, claridad del disparador) deben negociarse con rigor desde el inicio, porque es la única palanca que queda después.</p>
+
+<details class="sources">
+<summary>Fuentes clave</summary>
+<ul>
+<li><a href="https://redgol.cl/udechile/gonzalo-reyna-el-refuerzo-de-u-de-chile-con-una-clausula-de-22-millones" target="_blank" rel="noopener">Redgol — cláusula de compra de Gonzalo Reyna</a></li>
+<li><a href="https://redgol.cl/udechile/es-buen-negocio-para-u-de-chile-las-cifras-del-prestamo-de-franco-calderon-a-independiente" target="_blank" rel="noopener">Redgol — términos de la cesión de Franco Calderón</a></li>
+<li><a href="https://dalealbo.cl/colocolo/desde-el-orenburg-aclaran-la-situacion-de-jordhy-thompson-anuncian-la-compra-definitiva" target="_blank" rel="noopener">Dale Albo — compra obligatoria de Jordhy Thompson</a></li>
+<li><a href="https://puntoseguido.cl/2025/02/cuanto-dinero-llega-a-la-uc-por-la-opcion-de-compra-obligatoria-de-bruno-barticciotto-a-mexico/" target="_blank" rel="noopener">Punto Seguido — división 40/60 de Barticciotto con Talleres</a></li>
+<li><a href="https://redgol.cl/colocolo/la-formula-que-obliga-a-colo-colo-a-recibir-otra-vez-a-salomon-rodriguez" target="_blank" rel="noopener">Redgol — cesión sin opción de Salomón Rodríguez</a></li>
+<li><a href="https://dalealbo.cl/colocolo/casi-toda-la-proyeccion-la-larga-lista-de-canteranos-que-colo-colo-pretende-enviar-a-prestamo" target="_blank" rel="noopener">Dale Albo — estrategia de cesiones de cantera de Colo-Colo</a></li>
+</ul>
+</details>
+
+  <h2><span class="num">06</span>¿Qué ligas valoran realmente el talento chileno?</h2>
+  <p class="section-dek">Salidas puras de un club chileno de primera división hacia un club fuera de nuestro universo de 25 clubes — sin movimientos domésticos, sin traspasos posteriores de la cadena, solo la salida original.</p>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>País de destino</th><th>Salidas totales</th><th>Con monto revelado</th><th>Monto promedio</th></tr></thead>
+      <tbody>
+        <tr><td>Argentina</td><td class='num'>240</td><td class='num'>28</td><td class='num'>$1,20M</td></tr>
+<tr><td>Uruguay</td><td class='num'>48</td><td class='num'>4</td><td class='num'>$93k</td></tr>
+<tr><td>México</td><td class='num'>44</td><td class='num'>6</td><td class='num'>$1,19M</td></tr>
+<tr><td>Brasil</td><td class='num'>33</td><td class='num'>8</td><td class='num'>$1,90M</td></tr>
+<tr><td>Perú</td><td class='num'>23</td><td class='num'>1</td><td class='num'>$378k</td></tr>
+<tr><td>Paraguay</td><td class='num'>16</td><td class='num'>1</td><td class='num'>$756k</td></tr>
+<tr><td>Ecuador</td><td class='num'>13</td><td class='num'>1</td><td class='num'>$259k</td></tr>
+<tr><td>Colombia</td><td class='num'>13</td><td class='num'>1</td><td class='num'>$275k</td></tr>
+<tr><td>España</td><td class='num'>12</td><td class='num'>3</td><td class='num'>$1,54M</td></tr>
+<tr><td>Venezuela</td><td class='num'>11</td><td class='num'>0</td><td class='num'>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Por qué Argentina domina en volumen</h4>
+<p>Argentina no es solo el mayor comprador de Chile — es su socio comercial espejo. El Informe Global de Transferencias de la FIFA ha señalado el flujo Argentina-Chile como uno de los movimientos bilaterales de jugadores más activos del deporte, con fuerte tráfico en ambas direcciones. Esa densidad refleja una cultura futbolística compartida, estilos de juego casi idénticos, una larga historia de entrenadores argentinos trabajando en Chile y scouts/agencias que ya operan en ambas ligas como rutina — un jugador chileno apenas se registra como fichaje "extranjero" allí, ni administrativa ni culturalmente.</p>
+<p>Argentina funciona además como un <b>mercado vitrina</b> más que como un destino final: localmente se describe como una "vitrina atractiva" para los scouts europeos y brasileños. Boca, River e Independiente han fichado recientemente a varios chilenos (Palacios, Alarcón, Tapia, Galdames) — a enero de 2025, los medios chilenos contaban 17 chilenos en la primera división argentina, calificándolo de "boom". <span class="inference">(Inferencia propia, no una cifra citada:</span> los salarios argentinos están por sobre los chilenos pero muy por debajo de los grandes clubes de Brasil, lo que hace de los jugadores chilenos refuerzos de nivel medio con buen precio.)</p>
+<p class="callout">Vale la pena señalar: en enero de 2025, la AFA adelantó la fecha de cierre de su ventana y ahora exige a los clubes argentinos vender a un jugador al extranjero antes de fichar a uno extranjero nuevo — un freno estructural a la mayor arteria del mercado hacia adelante.</p>
+
+<h4>Por qué Uruguay es de alto volumen y bajo monto</h4>
+<p>Uruguay no aplica el modelo de "comprar joven, desarrollar, revender a Europa" por el que es famoso — eso aplica al talento nacido en Uruguay, no a los chilenos importados. Para los jugadores chilenos, Nacional y Peñarol tienden a fichar <b>jugadores probados, a menudo mayores o sin contrato</b> (Eduardo Vargas llegando a Nacional con una oferta bajo el mercado según el propio club; Brayan Cortés a Peñarol en cesión con solo ~$125k de tarifa y una opción que Colo-Colo tuvo que subir desde una oferta inicial mucho menor) en lugar de pagar valor de traspaso máximo. Muchos de estos movimientos son cesiones o traspasos libres/de bajo costo, lo que arrastra mecánicamente hacia abajo el promedio de monto revelado aunque la liga sea respetada y no un "destino de broma" — simplemente no paga precios de mercado de traspasos por el talento chileno.</p>
+
+<h4>Por qué Brasil paga más por operación</h4>
+<p>Brasil es selectivo porque puede permitírselo. Los datos del CIES muestran que los clubes brasileños generaron cerca de $3.100 millones en ingresos por traspasos durante una década reciente, frente a unos $166 millones de toda la liga chilena — casi 19 veces más. Los clubes brasileños no necesitan importar en masa; su propia cantera más el resto de CONMEBOL les da profundidad. Cuando sí compran chilenos, son internacionales probados o perfiles de alto techo con valor real de reventa — Erick Pulgar al Flamengo (€2,8M), Arturo Vidal al Flamengo, Iván Román al Atlético Mineiro ($2M por el 50% de los derechos económicos). Compra de calidad sobre cantidad, desde un nivel de club que puede pagar dinero real.</p>
+
+<h4>La relación de la Liga MX con Chile</h4>
+<p>México tiene una afinidad genuina y de larga data con los jugadores chilenos — enraizada en la nostalgia por estrellas como Reinoso, Zamorano y Suazo, reavivada por el 7-0 de Chile sobre México en la Copa América 2016 y reforzada cuando Édson Puch ganó el premio al MVP de la Liga MX. Una agencia, AIM Fútbol, sería un canal clave que coloca chilenos allí. La lógica comercial es directa: los jugadores chilenos se ven como de calidad similar a los argentinos o brasileños a "la mitad o un tercio" del costo. Dicho esto, esto se lee como un <b>mercado lateral financieramente atractivo más que un verdadero paso deportivo hacia arriba o trampolín a Europa</b> — y según En Cancha, el contingente chileno de la Liga MX ha "disminuido considerablemente" últimamente, superado en atractivo por la MLS.</p>
+
+<h4>Ranking general — ¿quién es más favorable a Chile?</h4>
+<p class="callout"><b>Argentina ocupa el #1</b> <span class="inference">(razonamiento propio, no un ranking citado)</span>. Aunque su monto promedio revelado (~$1,2M) queda por detrás del de Brasil y su tasa de montos revelados es baja, el volumen puro hace que Argentina genere el mayor valor <em>agregado</em> transado en ventas chilenas — a la vez que ofrece la red de relaciones más profunda, la logística más sencilla y la función de "vitrina" que puede llevar a una segunda venta más lucrativa.</p>
+<p><b>Brasil es el #2 aspiracional</b> — baja probabilidad, alta recompensa: no compra a menudo, pero cuando lo hace paga dinero real y revelado por jugadores genuinamente valorados. <b>México es un #3 estable</b> — consistente y bien pagador para sus estándares, pero lateral más que de desarrollo. Uruguay, pese a su alto volumen, queda más abajo en "favorabilidad" porque rara vez paga tarifas reales de traspaso.</p>
+
+<h4>Cambios recientes (2024–2026) que vale la pena señalar</h4>
+<ul>
+<li><b>La nueva regla de control de Argentina (ene. 2025)</b> condiciona la capacidad de los clubes argentinos de fichar chilenos a sus propias ventas al exterior — un freno estructural a la mayor arteria del mercado.</li>
+<li><b>La MLS está superando a la Liga MX</b> como destino preferido de los chilenos (un conteo de enero de 2026 puso a Argentina en 20 jugadores chilenos, con MLS y Liga MX empatadas en 6 cada una) — en parte por el "efecto Messi" que eleva el perfil de la MLS.</li>
+<li>Lo más importante a nivel estructural: <b>los datos del CIES Football Observatory muestran que el volumen de exportación de jugadores de Chile cayó un 13% entre 2020–2025</b> (71 → 62 jugadores) — uno de solo dos países sudamericanos en declinar (junto con Perú), mientras sus pares regionales crecieron con fuerza (Ecuador +89%, Bolivia +138%, Colombia +34%, Argentina +28%, Brasil +13%). La liga chilena también fue señalada como una de las menos monetizadas de CONMEBOL, recibiendo menos ingresos por traspasos que incluso Paraguay. La participación de Chile en el canal regional de exportación parece estar reduciéndose aunque el conteo bruto de operaciones siga activo — una señal sobre el posicionamiento competitivo, no solo sobre el apetito del mercado.</li>
+</ul>
+
+<details class="sources">
+<summary>Fuentes clave</summary>
+<ul>
+<li><a href="https://www.cooperativa.cl/noticias/deportes/futbol/chilenos-en-el-exterior/analisis-brecha-con-argentina-y-brasil-los-fichajes-chilenos-mas/2026-01-23/202314.html" target="_blank" rel="noopener">Cooperativa.cl — brecha con Argentina y Brasil</a></li>
+<li><a href="https://www.encancha.cl/internacional/2025/01/18/afectara-al-futbol-chileno-el-sorpresivo-cambio-en-el-mercado-de-fichajes-en-argentina/" target="_blank" rel="noopener">En Cancha — cambio en el mercado argentino</a></li>
+<li><a href="https://www.encancha.cl/chilenos-por-el-mundo/2026/01/10/la-mls-alcanzo-a-la-liga-mx-los-destinos-preferidos-por-el-futbolista-chileno-en-el-extranjero/" target="_blank" rel="noopener">En Cancha — MLS alcanzó a la Liga MX</a></li>
+<li><a href="https://spherasports.com/el-boom-chileno-en-el-futbol-mexicano/" target="_blank" rel="noopener">Sphera Sports — el boom chileno en México</a></li>
+<li><a href="https://www.emol.com/noticias/Deportes/2025/05/24/1167218/jugadores-chilenos-en-el-extranjero.html" target="_blank" rel="noopener">Emol — Chile cae 13% en exportación de jugadores</a></li>
+<li><a href="https://redgol.cl/campeonato-nacional/futbol-chileno-entre-las-menos-valorizadas-de-sudamerica" target="_blank" rel="noopener">Redgol — fútbol chileno, de las menos valorizadas de Sudamérica</a></li>
+</ul>
+</details>
+
+  <h2><span class="num">07</span>¿Existe una fuente real para los porcentajes de traspaso en Chile?</h2>
+  <p class="section-dek">Hemos ido encontrando cláusulas de reventa un artículo a la vez. Nos preguntamos si existe una fuente oficial y más sistemática.</p>
+  <div class="callout">
+<p><b>Veredicto: sí, existe una fuente estructurada real — pero solo para dos clubes.</b> Colo-Colo (a través de su matriz Blanco y Negro S.A.) y Universidad de Chile (a través de Azul Azul S.A.) son sociedades anónimas abiertas, y sus estados financieros auditados presentados ante la CMF (el regulador de valores de Chile) contienen una tabla por jugador — Nota 11, "Pases de Jugadores" — que lista el <b>valor libro neto de cada jugador del plantel más una división explícita de "Derechos Federativos %" y "Derechos Económicos %"</b>. Esos son exactamente los datos de reventa/propiedad compartida que todo este proyecto ha estado reconstruyendo artículo de prensa por artículo de prensa. Confirmado de primera mano abriendo los PDF reales, no solo fragmentos de búsqueda — y reconfirmado de forma independiente en una pasada de revalidación posterior, volviendo a obtener los mismos informes y extrayendo el texto crudo del PDF, como parte de la misma auditoría que detectó varias afirmaciones de prensa inventadas en otras partes de este informe. Esta afirmación resistió ambas veces.</p>
+</div>
+<p>Ejemplos reales extraídos directamente de estos informes: el estado financiero del primer trimestre de 2024 de Blanco y Negro muestra a Pablo Solari con 0% federativo / 32% económico y a Maximiliano Falcón con 100%/75%; la memoria anual 2024 de Azul Azul declara explícitamente que Universidad de Chile "mantiene un 10% de propiedad de los derechos económicos" de Darío Osorio tras su venta al FC Midtjylland — coincidiendo con lo que encontramos por separado mediante investigación de prensa. Donde las cifras difieren levemente de una cifra de prensa citada en otra parte de este informe, es esperable: estas participaciones se compran y venden por etapas, por lo que el porcentaje cambia genuinamente entre fechas de presentación.</p>
+<h4>Lo que no existe</h4>
+<p>La ANFP publica solo sus propias cuentas organizacionales y las finanzas de la Federación — no hay un registro de traspasos a nivel de club, y su sistema de "Fair Play Financiero" solo limita el gasto, no revela la economía de los traspasos. No existe un equivalente chileno o latinoamericano del CIES Football Observatory que rastree las divisiones de derechos económicos.</p>
+<h4>La trampa</h4>
+<p>Esto solo funciona para los dos clubes que cotizan en bolsa. Todos los demás clubes de Primera División — incluido Audax Italiano y la mayoría de sus contrapartes reales en traspasos — son S.A.D.P. más pequeñas sin este nivel de divulgación, o directamente no están regulados por la CMF en este nivel. Para ellos, la investigación de prensa sigue siendo la única vía. E incluso para Colo-Colo/U. de Chile, la búsqueda por palabras clave de la propia CMF entre los informes no es confiable — el camino práctico es ir directamente a la página de la entidad y obtener a mano el estado financiero de cada período, no buscar por nombre de jugador.</p>
+<h4>Cómo usar esto en adelante</h4>
+<p>Para cualquier traspaso que involucre a Colo-Colo o Universidad de Chile: ir a cmfchile.cl → "Consulta por Entidad" → RUT 99589230-8 (Blanco y Negro) o 76838140-0 (Azul Azul) → pestaña "Publicación EEFF" → descargar el PDF trimestral o anual correspondiente → leer la tabla de jugadores de la Nota 11. Vale la pena incorporar esto al proceso continuo de recolección de datos de esta base como capa de verificación para al menos los traspasos de esos dos clubes, en lugar de depender solo de la prensa.</p>
+<details class="sources">
+<summary>Fuentes clave</summary>
+<ul>
+<li><a href="https://www.cmfchile.cl/institucional/mercados/entidad.php?mercado=V&rut=99589230&tipoentidad=RVEMI&vig=VI&control=svs&pestania=33" target="_blank" rel="noopener">CMF — página de la entidad Blanco y Negro S.A.</a></li>
+<li><a href="https://www.cmfchile.cl/institucional/mercados/entidad.php?mercado=V&rut=76838140&tipoentidad=RVEMI&vig=VI&control=svs&pestania=49" target="_blank" rel="noopener">CMF — página de la entidad Azul Azul S.A.</a></li>
+<li><a href="https://www.anfp.cl/gestion-financiera/" target="_blank" rel="noopener">ANFP — gestión financiera (solo cuentas organizacionales)</a></li>
+</ul>
+</details>
+
+  <h2><span class="num">08</span>Qué significa esto para Audax Italiano</h2>
+  <div class="prose">
+    <p>Audax está muy por debajo de los "tres grandes" en volumen de traspasos y montos, pero todas las dinámicas anteriores siguen aplicando a la escala de Audax — normalmente con menos margen de error, ya que Audax no puede absorber un cero al estilo Palavecino tan fácilmente como los rivales de Universidad Católica.</p>
+    <ul>
+      <li><b>Siga las fechas de vencimiento de contrato como un embudo de ventas.</b> Todo jugador de Audax cuyo valor de mercado esté subiendo debe renovarse, venderse o cederse con opción mucho antes del último año de su contrato — el caso Palavecino muestra exactamente cuánto valor se evapora de lo contrario.</li>
+      <li><b>Nunca ceda a un jugador prometedor sin una opción de compra o una cláusula de reventa.</b> Los datos muestran que el 78% de las cesiones no devuelven más valor al club de origen precisamente porque no existía tal cláusula al firmar — no porque el jugador no se desarrollara.</li>
+      <li><b>Trate a Argentina como la primera parada por defecto para una venta, no como último recurso.</b> Es el mercado de mayor volumen y el más simple logísticamente, y funciona como escalón hacia una segunda venta mayor — lo que importa aún más para un vendedor más pequeño como Audax, que difícilmente conseguirá directamente un monto del tamaño de Brasil.</li>
+      <li><b>Persiga la reventa, no solo el monto principal.</b> Una venta modesta con una cláusula de reventa del 20-30% bien redactada puede terminar valiendo más que una venta mayor sin ella — varios clubes más pequeños que Audax (Deportes Antofagasta, Ñublense, Independiente Rivadavia) han cobrado dinero real años después de esta manera.</li>
+      <li><b>Lleve su propio registro — no espere ayuda externa.</b> Los informes de la CMF solo cubren a Colo-Colo y Universidad de Chile (ver sección 07); para todos los demás, incluidas las operaciones del propio Audax, lo que se negocie solo queda visible si Audax mantiene su propio registro.</li>
+    </ul>
+  </div>
+
+  <footer class="notes">
+    <p><b>Metodología:</b> las cifras cuantitativas se calculan a partir de nuestra propia base derivada de Transfermarkt con 3.370 traspasos que involucran a los 25 clubes que jugaron en la Primera División chilena entre 2020 y 2026. Los datos de cláusulas de reventa/recompra, la revisión de cláusulas en traspasos libres, el análisis de recepción por liga, el contexto de prácticas de cesión y el veredicto de la CMF/fuentes se recopilaron mediante investigación de prensa dirigida (Chile, Argentina, Brasil) — cada afirmación específica tiene fuente; los patrones generales se señalan como inferencia cuando no la tienen.</p>
+    <p>Las cifras de monto y valor de mercado se convierten desde los EUR de Transfermarkt a una tasa fija de €1 = $1,08 para su presentación. Este informe es complemento del <a href="#">dashboard completo del Mercado de Traspasos</a>.</p>
+  </footer>
+
+</div>
+</body>
+</html>

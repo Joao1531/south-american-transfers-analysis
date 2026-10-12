@@ -341,8 +341,7 @@ def main():
     clause_stats = clause_research_stats(canonical, history)
     loan_clause_rows_html = loan_clause_tracker_html(canonical)
 
-    with open(AUDAX_CREST, "rb") as f:
-        audax_uri = "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
+    audax_uri = ""  # header logo removed
 
     # crests_sq for big3 mini logos
     crests_sq_dir = os.path.join(ROOT, "data", "raw", "crests_sq")

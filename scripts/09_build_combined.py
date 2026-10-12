@@ -102,7 +102,6 @@ SHELL = r"""<!doctype html>
 </head>
 <body>
   <nav class="tabbar">
-    <div class="tabbar-brand"><img src="__AUDAX_LOGO__" alt=""></div>
     <div class="tabbar-title">Audax Transfer Intelligence</div>
     <button class="tab-btn active" data-tab="report">__REPORT_LABEL__</button>
     __COUNTRY_BUTTONS__

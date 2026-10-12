@@ -304,12 +304,7 @@ def main():
             with open(path, "rb") as f:
                 crests[cid] = "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
 
-    brand_crest_uri = ""
-    if "chile" in league_keys:
-        if os.path.exists(AUDAX_HEAD_CREST):
-            with open(AUDAX_HEAD_CREST, "rb") as f:
-                brand_crest_uri = "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
-        brand_crest_uri = brand_crest_uri or crests.get(AUDAX_CLUB_ID, "")
+    brand_crest_uri = ""  # no club logo in the header (the template hides the brand mark when empty)
 
     if len(league_keys) == 1 and league_keys[0] != "chile":
         flag_path = os.path.join(FLAGS_DIR, f"{configs[0]['code'].lower()}.png")
